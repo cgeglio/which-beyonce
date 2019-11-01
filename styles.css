@@ -46,8 +46,10 @@ section {
 }
 
 .menu-icon {
-  width: 80px;
+  height: 80px;
+  width: 90px;
   margin: 0;
+  cursor: pointer;
 }
 
 .welcome-msg {
@@ -64,12 +66,14 @@ header {
 }
 
 header h1 {
-  margin-left: 32%;
+  margin-left: 30%;
+  font-size: 25px;
 }
 
 h2 {
   align-self: flex-start;
   margin-left: 60px;
+  margin-top: 5px;
   font-weight: normal;
   font-size: 17px;
 }
@@ -82,13 +86,15 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin-bottom: 60px;
 }
 
 
 input {
   margin-top: 100px;
-  width: 240px;
-  height: 30px;
+  width: 250px;
+  height: 40px;
   border: 0;
   background-color: #ffffff;
+  text-indent: 10px;
 }
