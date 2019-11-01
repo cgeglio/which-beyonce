@@ -132,3 +132,7 @@ input {
 .player-names button {
   grid-area: button;
 }
+
+#active {
+  cursor: pointer;
+}
