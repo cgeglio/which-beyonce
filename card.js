@@ -3,11 +3,14 @@ class Card {
   this.matchInfo = matchInfo;
   this.matched = false;
 }
-
-match() {
-
+//
+match(selectedCards) {
+//   if (selectedCards[0].matchInfo === flippedCards[1].matchInfo) {
+//     this.matched = true;
+//     deck.matchedCards += concat(flippedCards);
+//     deck.matches++;
+//   }
+// }
 }
-
-
 
 }

@@ -236,22 +236,22 @@ h6 {
 	transform: rotateY(180deg);
 }
 
-.card-1 {
+.flipper-1 {
   transform: rotateZ(13deg);
 }
 
-.card-2 {
+.flipper-2 {
   transform: rotateZ(-7deg);
 }
 
-.card-3 {
+.flipper-3 {
   transform: rotateZ(18deg);
 }
 
-.card-4 {
+.flipper-4 {
   transform: rotateZ(19deg);
 }
 
-.card-5 {
+.flipper-5 {
   transform: rotateZ(13deg);
 }

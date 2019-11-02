@@ -5,12 +5,12 @@ var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
 var sidebars = document.querySelector(".sidebar");
 var cardContainer = document.querySelector(".card-container");
+var deck = new Deck;
 var main = document.querySelector("main");
 var gamePage = document.querySelector(".game-page");
 var nameOne = document.querySelectorAll(".name-one");
 var nameTwo = document.querySelectorAll(".name-two");
 var cardNumber = 1;
-var flippedCards = [];
 
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
@@ -19,21 +19,26 @@ cardContainer.addEventListener("click", flipCard);
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
-  if (flippedCards.length < 2) {
+  if (deck.selectedCards.length < 2) {
     clickedCard.classList.toggle("flip");
-    flippedCards.push(clickedCard);
-    console.log(flippedCards);
-  } else {
-    return;
+    clickedCard = new Card (`${clickedCard.id}`);
+    deck.selectedCards.push(clickedCard);
   }
-  for (var i = 0; i < flippedCards.length; i++) {
-    if (flippedCards[i].classList.contains("flip")) {
-      return } else {
-      flippedCards.splice([i], 1);
-      console.log(flippedCards);
+  if (deck.selectedCards.length === 2) {
+    deck.checkSelectedCards();
   }
 }
-}
+//     for (var i = 0; i < deck.selectedCards.length; i++) {
+//       if (deck.selectedCards[i].classList.contains("flip")) {
+//         return;
+//     } else {
+//         deck.selectedCards.splice([i], 1);
+//         console.log(deck.selectedCards);
+//     };
+//   }
+// } else {
+//   return;
+
 
 function showGame() {
   main.style.display = "none";
@@ -74,11 +79,11 @@ function showDirections() {
 
 
 function addCards() {
-  var uniqueId = Date.now();
-  var card = new Card(uniqueId);
+  var card = new Card(`${cardNumber}`);
+  deck.cards.push(card);
   cardContainer.innerHTML += `
-  <div class="card card-${card.matchInfo}">
-    <div class="flipper card-${cardNumber}" id="${card.matchInfo}" >
+  <div class="card" id="${cardNumber}">
+    <div class="flipper flipper-${cardNumber}">
       <div class="front">
         <h6>J<br/>V<br/>N</h6>
       </div>
