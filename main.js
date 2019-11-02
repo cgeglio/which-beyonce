@@ -19,25 +19,32 @@ cardContainer.addEventListener("click", flipCard);
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
-  if (deck.selectedCards.length < 2) {
+  clickedNumber = event.target.closest(".flipper");
+  if (deck.selectedCards.length < 3) {
     clickedCard.classList.toggle("flip");
-    clickedCard = new Card (`${clickedCard.id}`);
+    clickedCard = new Card (`${clickedNumber.id}`,`${clickedCard.id}`);
     deck.selectedCards.push(clickedCard);
   }
   if (deck.selectedCards.length === 2) {
+    console.log(deck.selectedCards);
+    // clickedCard = new Card (`${clickedNumber.id}`,`${clickedCard.id}`);
     deck.checkSelectedCards();
-  }
+   }
+    }
+
+
+
+
+
+function removeCard(card) {
+
+  console.log(deck.selectedCards);
+  console.log(document.getElementById(`${card.cardId}`));
+    if (card.matched) {
+      document.getElementById(`${card.cardId}`).style.display = "none";
+    }
+
 }
-//     for (var i = 0; i < deck.selectedCards.length; i++) {
-//       if (deck.selectedCards[i].classList.contains("flip")) {
-//         return;
-//     } else {
-//         deck.selectedCards.splice([i], 1);
-//         console.log(deck.selectedCards);
-//     };
-//   }
-// } else {
-//   return;
 
 
 function showGame() {
@@ -79,11 +86,12 @@ function showDirections() {
 
 
 function addCards() {
-  var card = new Card(`${cardNumber}`);
+  var cardId = Date.now();
+  var card = new Card(cardNumber, cardId);
   deck.cards.push(card);
   cardContainer.innerHTML += `
-  <div class="card" id="${cardNumber}">
-    <div class="flipper flipper-${cardNumber}">
+  <div class="card" id="${card.cardId}">
+    <div class="flipper" id="${cardNumber}">
       <div class="front">
         <h6>J<br/>V<br/>N</h6>
       </div>

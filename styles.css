@@ -208,7 +208,19 @@ h6 {
 .card {
   perspective: 1000px;
   margin: 40px;
+  display: block;
 }
+
+/* .remove {
+  display: none;
+} */
+/* .card-1,
+.card-2,
+.card-3,
+.card-4,
+.card-5 {
+  display: block;
+} */
 
 .flipper {
 	transition: 0.6s;

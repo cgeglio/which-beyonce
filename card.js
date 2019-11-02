@@ -1,16 +1,15 @@
 class Card {
-  constructor(matchInfo) {
+  constructor(matchInfo, cardId) {
   this.matchInfo = matchInfo;
+  this.cardId = cardId;
   this.matched = false;
+
 }
-//
-match(selectedCards) {
-//   if (selectedCards[0].matchInfo === flippedCards[1].matchInfo) {
-//     this.matched = true;
-//     deck.matchedCards += concat(flippedCards);
-//     deck.matches++;
-//   }
-// }
-}
+
+match(card) {
+  card.matched = true;
+  removeCard(card);
+  }
+
 
 }
