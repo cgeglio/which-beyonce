@@ -13,14 +13,14 @@
       <h1>WHICH JONATHAN</h1>
     </header>
     <main>
-    <div class="player-names">
-      <input maxlength="32" class="input-one" type="text"></input>
-      <h2 class="player-one">PLAYER 1</h2>
-      <input maxlength="32" class="input-two" type="text"></input>
-      <h2 class="player-two">PLAYER 2</h2>
-      <button type="button" class="play-btn">PLAY GAME</button>
-      <h2 class="error">Please enter at least one player name!</h2>
-    </div>
+      <form class="player-names">
+        <input maxlength="32" class="input-one" type="text"></input>
+        <h2 class="player-one">PLAYER 1</h2>
+        <input maxlength="32" class="input-two" type="text"></input>
+        <h2 class="player-two">PLAYER 2</h2>
+        <button type="button" class="play-btn">PLAY GAME</button>
+        <h2 class="error">Please enter at least one player name!</h2>
+      </form>
       <div class="welcome-msg">
         <h1>WELCOME <span class="name-one">PLAYER 1</span><span class="name-two"></span>!</h1>
         <p>The goal of the game is to find all 5 pairs of cards as quickly as possible. The player that finds the greatest numbers of pairs, wins.
@@ -30,10 +30,7 @@
         <br/>
         <br/>
         After you play, you'll see the name of the final winner and how long it took to win the game.</p>
-        <button type="button" class="disabled play-btn">PLAY GAME</button>
-      </div>
-      <div class="card">
-        <div>JVN</div>
+        <button type="button" class="welcome-btn">PLAY GAME</button>
       </div>
       <div class="winner-msg">
         <h1>CONGRATULATIONS, PLAYER 1 **** WINS!</h1>
@@ -43,33 +40,38 @@
         <button type="button">REMATCH</button>
       </div>
     </main>
-    <section>
-      <h3>PLAYER 1 ****</h3>
-      <h4>#4 TOP PLAYER</h4>
-        <div>
-          <h4>MATCHES THIS ROUND</h4>
-          <h5>5</h5>
-        </div>
-      <h3>GAME WINS</h3>
-      <h4>ROUND 1</h4>
-      <h4>125.75 SECONDS</h4>
-      <h4>ROUND 4</h4>
-      <h4>63.98 SECONDS</h4>
-    </section>
-    <section>
-      <h3>PLAYER 1 ****</h3>
-        <div>
-          <h4>MATCHES THIS ROUND</h4>
-          <h5>3</h5>
-        </div>
-      <h3>GAME WINS</h3>
-      <h4>ROUND 2</h4>
-      <h4>231.7 SECONDS</h4>
-      <h4>ROUND 4</h4>
-      <h4>98.2 SECONDS</h4>
-      <h4>ROUND 5</h4>
-      <h4>106.34 SECONDS</h4>
-    </section>
+    <div class="game-page">
+      <section class="sidebar">
+        <h3>PLAYER 1 ****</h3>
+        <h4>#4 TOP PLAYER</h4>
+          <div>
+            <h4>MATCHES THIS ROUND</h4>
+            <h5>5</h5>
+          </div>
+        <h3>GAME WINS</h3>
+        <h4>ROUND 1</h4>
+        <h4>125.75 SECONDS</h4>
+        <h4>ROUND 4</h4>
+        <h4>63.98 SECONDS</h4>
+      </section>
+      <section class="card">
+        <div>JVN</div>
+      </section>
+      <section class="sidebar">
+        <h3>PLAYER 1 ****</h3>
+          <div>
+            <h4>MATCHES THIS ROUND</h4>
+            <h5>3</h5>
+          </div>
+        <h3>GAME WINS</h3>
+        <h4>ROUND 2</h4>
+        <h4>231.7 SECONDS</h4>
+        <h4>ROUND 4</h4>
+        <h4>98.2 SECONDS</h4>
+        <h4>ROUND 5</h4>
+        <h4>106.34 SECONDS</h4>
+      </section>
+    </div>
   </body>
   <script src="main.js"></script>
 </html>
