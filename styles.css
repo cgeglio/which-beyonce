@@ -184,43 +184,6 @@ input {
 #active {
   cursor: pointer;
 }
-/*
-.card-container {
-  width: 60%;
-  margin: 20px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.back {
-  width: 110px;
-  height: 150px;
-}
-
-
-
-h6 {
-  font-size: 30px;
-  font-weight: bold;
-  padding-top: 12px;
-  margin: 0;
-}
-
-.card {
-  margin: 30px;
-  height: 150px;
-  width: 110px;
-  border: 2px solid #000000;
-  background-color: #FFFFFF;
-  text-align: center;
-}
-
-.card-a {
-  transform: rotateZ(13deg);
-} */
 
 .card-container {
   width: 60%;
@@ -240,10 +203,7 @@ h6 {
   margin: 0;
 }
 
-.card-a {
-  transform: rotateZ(13deg);
-	perspective: 1000px;
-}
+
 
 .card:hover .flipper, .card.hover .flipper {
 	transform: rotateY(180deg);
@@ -252,6 +212,12 @@ h6 {
 .card, .front, .back {
 	height: 150px;
   width: 110px;
+  /* margin: 50px; */
+}
+
+.card {
+  perspective: 1000px;
+  margin: 50px;
 }
 
 .flipper {
@@ -279,14 +245,16 @@ h6 {
 	transform: rotateY(180deg);
 }
 
+.card-a {
+  transform: rotateZ(13deg);
+}
 
-/* .card-b {
+.card-b {
   transform: rotateZ(-7deg);
 }
 
 .card-c {
   transform: rotateZ(-18deg);
-  margin-right: 100px;
 }
 
 .card-d {
@@ -315,4 +283,4 @@ h6 {
 
 .card-j {
   transform: rotateZ(-23deg);
-} */
+}
