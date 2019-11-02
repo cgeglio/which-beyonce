@@ -9,6 +9,7 @@ var main = document.querySelector("main");
 var gamePage = document.querySelector(".game-page");
 var nameOne = document.querySelectorAll(".name-one");
 var nameTwo = document.querySelectorAll(".name-two");
+var cardNumber = 1;
 
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
@@ -16,13 +17,22 @@ playBtnWelcome.addEventListener("click", showGame);
 cardContainer.addEventListener("click", flipCard);
 
 function flipCard(event) {
-  specificCard = event.target.parentNode.id;
-  document.querySelector(`.${specificCard}`).classList.toggle("flip");
+  clickedCard = event.target.closest(".flipper").id;
+  document.querySelector(`.card-${clickedCard}`).classList.toggle("flip");
 }
 
 function showGame() {
   main.style.display = "none";
   gamePage.style.display = "flex";
+  for (var i=0; i < 5; i++) {
+      addCards();
+      cardNumber++;
+    }
+  cardNumber = 1;
+  for (var i=0; i < 5; i++) {
+      addCards();
+      cardNumber++;
+    }
 }
 
 function checkInputs() {
@@ -47,3 +57,18 @@ function showDirections() {
       document.querySelector(".error").style.display = "block";
     }
 };
+
+
+function addCards() {
+  var uniqueId = Date.now();
+  var card = new Card(uniqueId);
+  cardContainer.innerHTML += `
+  <div class="card card-${card.matchInfo}">
+    <div class="flipper card-${cardNumber}" id="${card.matchInfo}" >
+      <div class="front">
+        <h6>J<br/>V<br/>N</h6>
+      </div>
+      <img class="back" src="images/JVN-${cardNumber}.jpg">
+    </div>
+  </div> `;
+}

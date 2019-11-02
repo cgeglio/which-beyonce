@@ -1,6 +1,6 @@
 class Card {
   constructor(matchInfo) {
-  this.mathInfo = matchInfo;
+  this.matchInfo = matchInfo;
   this.matched = false;
 }
 

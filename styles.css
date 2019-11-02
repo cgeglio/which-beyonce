@@ -207,7 +207,7 @@ h6 {
 
 .card {
   perspective: 1000px;
-  margin: 50px;
+  margin: 40px;
 }
 
 .flipper {
@@ -236,26 +236,26 @@ h6 {
 	transform: rotateY(180deg);
 }
 
-.card-a {
+.card-1 {
   transform: rotateZ(13deg);
 }
 
-.card-b {
+.card-2 {
   transform: rotateZ(-7deg);
 }
 
-.card-c {
-  transform: rotateZ(-18deg);
+.card-3 {
+  transform: rotateZ(18deg);
 }
 
-.card-d {
+.card-4 {
   transform: rotateZ(19deg);
 }
 
-.card-e {
+.card-5 {
   transform: rotateZ(13deg);
 }
-
+/*
 .card-f {
   transform: rotateZ(-22deg);
 }
@@ -274,4 +274,4 @@ h6 {
 
 .card-j {
   transform: rotateZ(-23deg);
-}
+} */
