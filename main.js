@@ -10,6 +10,7 @@ var gamePage = document.querySelector(".game-page");
 var nameOne = document.querySelectorAll(".name-one");
 var nameTwo = document.querySelectorAll(".name-two");
 var cardNumber = 1;
+var flippedCards = [];
 
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
@@ -17,8 +18,21 @@ playBtnWelcome.addEventListener("click", showGame);
 cardContainer.addEventListener("click", flipCard);
 
 function flipCard(event) {
-  clickedCard = event.target.closest(".flipper").id;
-  document.querySelector(`.card-${clickedCard}`).classList.toggle("flip");
+  clickedCard = event.target.closest(".card");
+  if (flippedCards.length < 2) {
+    clickedCard.classList.toggle("flip");
+    flippedCards.push(clickedCard);
+    console.log(flippedCards);
+  } else {
+    return;
+  }
+  for (var i = 0; i < flippedCards.length; i++) {
+    if (flippedCards[i].classList.contains("flip")) {
+      return } else {
+      flippedCards.splice([i], 1);
+      console.log(flippedCards);
+  }
+}
 }
 
 function showGame() {

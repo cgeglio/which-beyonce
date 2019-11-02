@@ -15,7 +15,7 @@ class Deck {
   }
 
   moveToMatched() {
-    
+    this.matches++;
   }
 
 }
