@@ -30,7 +30,6 @@ function checkInputs() {
 function showDirections() {
   if (playBtnMain.id === "active") {
     document.querySelector(".player-names").style.display = "none";
-    console.log(nameOne);
     welcomeMsg.style.display = "block";
     for (var i = 0; i < nameOne.length; i++) {
     nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
