@@ -76,8 +76,10 @@ h5 {
 .menu-icon {
   height: 80px;
   width: 90px;
-  margin: 0;
+  float: left;
+  margin: 0px;
   cursor: pointer;
+  /* align-self: flex-start; */
 }
 
 .welcome-msg {
@@ -87,15 +89,22 @@ h5 {
 header {
   height: 80px;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
 }
 
-header h1 {
-  margin-left: 30%;
+#heading {
+  margin-top: 20px;
+  margin-right: 100px;
+  /* display: flex;
+  margin-bottom: 100px; */
 }
+
+
 
 h2 {
   margin-top: 5px;
@@ -105,6 +114,7 @@ h2 {
 
 h1 {
   font-size: 25px;
+
 }
 
 .welcome-msg h1 {
@@ -173,4 +183,67 @@ input {
 
 #active {
   cursor: pointer;
+}
+
+.card-container {
+  width: 60%;
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  padding-top: 17px;
+  margin: 30px;
+  height: 150px;
+  width: 110px;
+  border: 2px solid #000000;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.card-a {
+  transform: rotateZ(13deg);
+  margin-left: 100px;
+}
+
+.card-b {
+  transform: rotateZ(-7deg);
+}
+
+.card-c {
+  transform: rotateZ(-18deg);
+  margin-right: 100px;
+}
+
+.card-d {
+  transform: rotateZ(19deg);
+}
+
+.card-e {
+  transform: rotateZ(13deg);
+}
+
+.card-f {
+  transform: rotateZ(-22deg);
+}
+
+.card-g {
+  transform: rotateZ(15deg);
+}
+
+.card-h {
+  transform: rotateZ(-27deg);
+}
+
+.card-i {
+  transform: rotateZ(5deg);
+}
+
+.card-j {
+  transform: rotateZ(-23deg);
 }
