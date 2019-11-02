@@ -45,7 +45,6 @@ button {
   width: 20%;
   color: #FFFFFF;
   background-color: #000000;
-  /* padding: 20px; */
   text-align: center;
 }
 
@@ -91,20 +90,12 @@ header {
   width: 100%;
   text-align: center;
   overflow: hidden;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
 }
 
 #heading {
   margin-top: 20px;
   margin-right: 100px;
-  /* display: flex;
-  margin-bottom: 100px; */
 }
-
-
 
 h2 {
   margin-top: 5px;
@@ -203,16 +194,15 @@ h6 {
   margin: 0;
 }
 
-
-
-.card:hover .flipper, .card.hover .flipper {
+.flip .flipper, .card.flip .flipper {
 	transform: rotateY(180deg);
 }
 
-.card, .front, .back {
+.card,
+.front,
+.back {
 	height: 150px;
   width: 110px;
-  /* margin: 50px; */
 }
 
 .card {
@@ -226,7 +216,8 @@ h6 {
 	position: relative;
 }
 
-.front, .back {
+.front,
+.back {
 	backface-visibility: hidden;
   border: 2px solid #000000;
 	position: absolute;
