@@ -27,7 +27,7 @@ main {
 button {
   border: 0;
   background-color: #000000;
-  color: #ffffff;
+  color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
   font-weight: 700;
   font-size: 15px;
@@ -37,7 +37,32 @@ button {
   display: none;
   flex-direction: row;
   justify-content: space-between;
-  margin: 20px;
+  padding: 20px;
+  background-color: #F5F7F6;
+}
+
+.sidebar {
+  width: 20%;
+  color: #FFFFFF;
+  background-color: #000000;
+  /* padding: 20px; */
+  text-align: center;
+}
+
+.matches-count {
+  margin-left: 5%;
+  width: 85%;
+  border-top: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.sidebar h4 {
+  font-weight: normal;
+}
+
+h5 {
+  font-size: 60px;
+  margin: 10px;
 }
 
 .winner-msg {
@@ -112,7 +137,7 @@ input {
   width: 250px;
   height: 40px;
   border: 0;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   text-indent: 10px;
 }
 
