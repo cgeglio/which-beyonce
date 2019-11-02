@@ -18,7 +18,8 @@ main {
   align-items: center;
 }
 
-.play-btn {
+.play-btn,
+.welcome-btn {
   width: 600px;
   height: 40px;
 }
@@ -26,29 +27,58 @@ main {
 button {
   border: 0;
   background-color: #000000;
-  color: #ffffff;
+  color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
   font-weight: 700;
   font-size: 15px;
 }
 
-section {
+.game-page {
   display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #F5F7F6;
+}
+
+.sidebar {
+  width: 20%;
+  color: #FFFFFF;
+  background-color: #000000;
+  text-align: center;
+}
+
+.matches-count {
+  margin-left: 5%;
+  width: 85%;
+  border-top: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.sidebar h4 {
+  font-weight: normal;
+}
+
+h5 {
+  font-size: 60px;
+  margin: 10px;
 }
 
 .winner-msg {
   display: none;
 }
 
-.card {
-  display: none;
+.welcome-btn {
+  cursor: pointer;
 }
 
 .menu-icon {
   height: 80px;
   width: 90px;
-  margin: 0;
+  float: left;
+  margin: 0px;
   cursor: pointer;
+  /* align-self: flex-start; */
 }
 
 .welcome-msg {
@@ -58,14 +88,13 @@ section {
 header {
   height: 80px;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  text-align: center;
+  overflow: hidden;
 }
 
-header h1 {
-  margin-left: 30%;
+#heading {
+  margin-top: 20px;
+  margin-right: 100px;
 }
 
 h2 {
@@ -76,6 +105,7 @@ h2 {
 
 h1 {
   font-size: 25px;
+
 }
 
 .welcome-msg h1 {
@@ -108,7 +138,7 @@ input {
   width: 250px;
   height: 40px;
   border: 0;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   text-indent: 10px;
 }
 
@@ -144,4 +174,104 @@ input {
 
 #active {
   cursor: pointer;
+}
+
+.card-container {
+  width: 60%;
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+
+h6 {
+  font-size: 30px;
+  font-weight: bold;
+  padding-top: 12px;
+  margin: 0;
+}
+
+.flip .flipper, .card.flip .flipper {
+	transform: rotateY(180deg);
+}
+
+.card,
+.front,
+.back {
+	height: 150px;
+  width: 110px;
+}
+
+.card {
+  perspective: 1000px;
+  margin: 50px;
+}
+
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+.front,
+.back {
+	backface-visibility: hidden;
+  border: 2px solid #000000;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.front {
+	z-index: 2;
+	transform: rotateY(0deg);
+  background-color: #FFFFFF;
+  text-align: center;
+}
+
+.back {
+	transform: rotateY(180deg);
+}
+
+.card-a {
+  transform: rotateZ(13deg);
+}
+
+.card-b {
+  transform: rotateZ(-7deg);
+}
+
+.card-c {
+  transform: rotateZ(-18deg);
+}
+
+.card-d {
+  transform: rotateZ(19deg);
+}
+
+.card-e {
+  transform: rotateZ(13deg);
+}
+
+.card-f {
+  transform: rotateZ(-22deg);
+}
+
+.card-g {
+  transform: rotateZ(15deg);
+}
+
+.card-h {
+  transform: rotateZ(-27deg);
+}
+
+.card-i {
+  transform: rotateZ(5deg);
+}
+
+.card-j {
+  transform: rotateZ(-23deg);
 }

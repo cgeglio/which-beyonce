@@ -10,17 +10,17 @@
   <body>
     <header>
       <img src="images/menu.png" alt="menu icon" class="menu-icon">
-      <h1>WHICH JONATHAN</h1>
+      <h1 id="heading">WHICH JONATHAN</h1>
     </header>
     <main>
-    <div class="player-names">
-      <input maxlength="32" class="input-one" type="text"></input>
-      <h2 class="player-one">PLAYER 1</h2>
-      <input maxlength="32" class="input-two" type="text"></input>
-      <h2 class="player-two">PLAYER 2</h2>
-      <button type="button" class="play-btn">PLAY GAME</button>
-      <h2 class="error">Please enter at least one player name!</h2>
-    </div>
+      <form class="player-names">
+        <input maxlength="32" class="input-one" type="text"></input>
+        <h2 class="player-one">PLAYER 1</h2>
+        <input maxlength="32" class="input-two" type="text"></input>
+        <h2 class="player-two">PLAYER 2</h2>
+        <button type="button" class="play-btn">PLAY GAME</button>
+        <h2 class="error">Please enter at least one player name!</h2>
+      </form>
       <div class="welcome-msg">
         <h1>WELCOME <span class="name-one">PLAYER 1</span><span class="name-two"></span>!</h1>
         <p>The goal of the game is to find all 5 pairs of cards as quickly as possible. The player that finds the greatest numbers of pairs, wins.
@@ -30,10 +30,7 @@
         <br/>
         <br/>
         After you play, you'll see the name of the final winner and how long it took to win the game.</p>
-        <button type="button" class="disabled play-btn">PLAY GAME</button>
-      </div>
-      <div class="card">
-        <div>JVN</div>
+        <button type="button" class="welcome-btn">PLAY GAME</button>
       </div>
       <div class="winner-msg">
         <h1>CONGRATULATIONS, PLAYER 1 **** WINS!</h1>
@@ -43,33 +40,112 @@
         <button type="button">REMATCH</button>
       </div>
     </main>
-    <section>
-      <h3>PLAYER 1 ****</h3>
-      <h4>#4 TOP PLAYER</h4>
-        <div>
-          <h4>MATCHES THIS ROUND</h4>
-          <h5>5</h5>
+    <div class="game-page">
+      <section class="sidebar">
+        <h3 class="name-one"></h3>
+        <h4>#4 TOP PLAYER</h4>
+          <div class="matches-count">
+            <h4>MATCHES<br/>THIS ROUND</h4>
+            <h5>5</h5>
+          </div>
+        <h3>GAME WINS</h3>
+        <h4>ROUND 1<br/>125.75 SECONDS</h4>
+        <h4>ROUND 4<br/>63.98 SECONDS</h4>
+      </section>
+      <section class="card-container">
+        <div class="card card-a card-a2">
+        	<div class="flipper" id="card-a2" >
+        		<div class="front" id="card-a">
+              <h6>J<br/>V<br/>N</h6>
+        		</div>
+            <img class="back"  src="images/JVN-1.jpg">
+        	</div>
         </div>
-      <h3>GAME WINS</h3>
-      <h4>ROUND 1</h4>
-      <h4>125.75 SECONDS</h4>
-      <h4>ROUND 4</h4>
-      <h4>63.98 SECONDS</h4>
-    </section>
-    <section>
-      <h3>PLAYER 1 ****</h3>
-        <div>
-          <h4>MATCHES THIS ROUND</h4>
-          <h5>3</h5>
+        <div class="card card-b card-b2">
+        	<div class="flipper" id="card-b2"  >
+        		<div class="front" id="card-b">
+              <h6>J<br/>V<br/>N</h6>
+        		</div>
+            <img class="back" src="images/JVN-1.jpg">
+        	</div>
         </div>
-      <h3>GAME WINS</h3>
-      <h4>ROUND 2</h4>
-      <h4>231.7 SECONDS</h4>
-      <h4>ROUND 4</h4>
-      <h4>98.2 SECONDS</h4>
-      <h4>ROUND 5</h4>
-      <h4>106.34 SECONDS</h4>
-    </section>
+        <div class="card card-c card-c2">
+          <div class="flipper" id="card-c2">
+          	 <div class="front" id="card-c">
+                <h6>J<br/>V<br/>N</h6>
+          		</div>
+              <img class="back" src="images/JVN-2.jpg">
+            </div>
+        </div>
+        <div class="card card-d card-d2">
+        	<div class="flipper" id="card-d2">
+        		<div class="front" id="card-d">
+              <h6>J<br/>V<br/>N</h6>
+        		</div>
+            <img class="back"  src="images/JVN-2.jpg">
+        	</div>
+        </div>
+        <div class="card card-e card-e2">
+          <div class="flipper" id="card-e2">
+            <div class="front" id="card-e">
+              <h6>J<br/>V<br/>N</h6>
+            </div>
+            <img class="back"  src="images/JVN-3.jpg">
+          </div>
+        </div>
+        <div class="card card-f card-f2">
+          <div class="flipper" id="card-f2">
+            <div class="front" id="card-f">
+              <h6>J<br/>V<br/>N</h6>
+            </div>
+            <img class="back"  src="images/JVN-3.jpg">
+          </div>
+        </div>
+        <div class="card card-g card-g2">
+        	<div class="flipper" id="card-g2" >
+        		<div class="front" id="card-g">
+              <h6>J<br/>V<br/>N</h6>
+        		</div>
+            <img class="back" src="images/JVN-4.jpg">
+        	</div>
+        </div>
+        <div class="card card-h card-h2">
+          <div class="flipper" id="card-h2">
+          	<div class="front" id="card-h">
+                <h6>J<br/>V<br/>N</h6>
+          		</div>
+              <img class="back"  src="images/JVN-4.jpg">
+          	</div>
+          </div>
+        <div class="card card-i card-i2">
+          <div class="flipper" id="card-i2">
+            <div class="front" id="card-i">
+              <h6>J<br/>V<br/>N</h6>
+            </div>
+            <img class="back"  src="images/JVN-5.jpg">
+          </div>
+         </div>
+        <div class="card card-j card-j2">
+          <div class="flipper" id="card-j2">
+              <div class="front" id="card-j">
+                <h6>J<br/>V<br/>N</h6>
+              </div>
+            <img class="back"  src="images/JVN-5.jpg">
+          </div>
+        </div>
+      </section>
+      <section class="sidebar">
+        <h3 class="name-one"></h3>
+          <div class="matches-count">
+            <h4>MATCHES<br/>THIS ROUND</h4>
+            <h5>3</h5>
+          </div>
+        <h3>GAME WINS</h3>
+        <h4>ROUND 2<br/>231.7 SECONDS</h4>
+        <h4>ROUND 4<br/>98.2 SECONDS</h4>
+        <h4>ROUND 5<br/>106.34 SECONDS</h4>
+      </section>
+    </div>
   </body>
   <script src="main.js"></script>
 </html>
