@@ -18,7 +18,8 @@ main {
   align-items: center;
 }
 
-.play-btn {
+.play-btn,
+.welcome-btn {
   width: 600px;
   height: 40px;
 }
@@ -32,16 +33,19 @@ button {
   font-size: 15px;
 }
 
-section {
+.game-page {
   display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px;
 }
 
 .winner-msg {
   display: none;
 }
 
-.card {
-  display: none;
+.welcome-btn {
+  cursor: pointer;
 }
 
 .menu-icon {

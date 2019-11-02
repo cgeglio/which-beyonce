@@ -1,34 +1,33 @@
-var playBtn = document.querySelector(".play-btn");
+var playBtnMain = document.querySelector(".play-btn");
+var playBtnWelcome = document.querySelector(".welcome-btn");
 var welcomeMsg = document.querySelector(".welcome-msg")
 var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
+var sidebars = document.querySelector(".sidebar");
+var cardContainer = document.querySelector(".card");
+var main = document.querySelector("main");
+var gamePage = document.querySelector(".game-page");
 var nameOne = document.querySelector(".name-one");
 var nameTwo = document.querySelector(".name-two");
-// var inputArea = document.querySelector(".player-names");
-// playBtn.disabled = true;
 
-
-playBtn.addEventListener("click", showDirections);
+playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
-//
-// function checkInputs() {
-//   if (playerOne.value) {
-//     // playBtn.disabled = false;
-//     playBtn.id = "active";
-// } else
-//
-//   return;
-// }
+playBtnWelcome.addEventListener("click", showGame);
 
+
+function showGame() {
+  main.style.display = "none";
+  gamePage.style.display = "flex";
+}
 
 function checkInputs() {
   if (playerOne.value) {
-    playBtn.id = "active";
+    playBtnMain.id = "active";
   }
 };
 
 function showDirections() {
-  if (playBtn.id === "active") {
+  if (playBtnMain.id === "active") {
     document.querySelector(".player-names").style.display = "none";
     welcomeMsg.style.display = "block";
     nameOne.innerText = `${playerOne.value.toUpperCase()}`;
