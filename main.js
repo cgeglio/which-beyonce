@@ -42,8 +42,8 @@ function showDirections() {
     for (var i = 0; i < nameTwo.length; i++) {
     nameTwo[i].innerText = ` AND ${playerTwo.value.toUpperCase()}`;
   }
-} else {
-    document.querySelector(".error").style.display = "block";
-  }
 }
+  } else {
+      document.querySelector(".error").style.display = "block";
+    }
 };
