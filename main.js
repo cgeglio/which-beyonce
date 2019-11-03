@@ -28,10 +28,6 @@ cardContainer.addEventListener("click", pickCards);
 newGameBtn.addEventListener("click", startNewGame)
 
 function pickCards() {
-  // console.log(deck.cards);
-  // for (var i = 0; i < deck.cards.length; i++) {
-  //   console.log(event.target.parentNode.id);
-  //   if (event.target.parentNode.id === deck.cards[i].cardId) {
   if (deck.selectedCards.length < 2) {
       flipCard(event);
       selectCard(event);
@@ -59,7 +55,6 @@ function selectCard(event) {
   clickedCard = event.target.closest(".card");
   clickedNumber = event.target.closest(".flipper");
   // clickedCard.classList.add("disable-click");
-
   clickedCard = new Card (`${clickedNumber.id}`,`${clickedCard.id}`);
   deck.selectedCards.push(clickedCard);
   checkForMatch(event);
@@ -86,13 +81,7 @@ function removeCard() {
     deleted.parentNode.removeChild(deleted);
   }
     if (deck.matches === 5) {
-      endTime = new Date();
-      var timeDiff = endTime - startTime;
-      timeDiff /= 1000;
-      var time = Math.round(timeDiff);
-      var minutes = Math.floor(time / 60000);
-      var seconds = time - minutes * 60;
-      document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
+      findTime();
       gamePage.style.display = "none";
       winnerMsg.style.display = "grid";
       deck.matches = 0;
@@ -102,6 +91,17 @@ function removeCard() {
       cardId = 10;
     }
 };
+
+
+function findTime() {
+  endTime = new Date();
+  var timeDiff = endTime - startTime;
+  timeDiff /= 1000;
+  var time = Math.round(timeDiff);
+  var minutes = Math.floor(time / 60000);
+  var seconds = time - minutes * 60;
+  document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
+}
 
 
 function showGame() {

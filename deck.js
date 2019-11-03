@@ -18,10 +18,6 @@ class Deck {
 
   checkSelectedCards() {
     if (this.selectedCards[0].matchInfo === this.selectedCards[1].matchInfo) {
-      // for (var i = 0; i < this.selectedCards.length; i++) {
-      //   match(this.selectedCards[i]);
-      //   console.log(this.selectedCards[i]);
-      // }
        this.matches++;
        this.moveToMatched();
      } else {
@@ -34,4 +30,4 @@ class Deck {
     this.selectedCards.splice(0, 2);
   }
 
-}
+};
