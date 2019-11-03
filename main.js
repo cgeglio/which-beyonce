@@ -155,12 +155,12 @@ function addCards() {
   if (deck.cards.length === 10) {
     deck.shuffle();
     for (var i = 0; i < deck.cards.length; i++) {
-    addToDom(deck.cards[i]);
+    displayCards(deck.cards[i]);
     }
   }
 };
 
-function addToDom(card) {
+function displayCards(card) {
   cardContainer.innerHTML += `
   <div class="card" id="${card.cardId}">
     <div class="flipper flipper-${card.matchInfo}" id="${card.matchInfo}">
