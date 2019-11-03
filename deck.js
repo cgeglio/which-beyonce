@@ -4,7 +4,7 @@ class Deck {
     this.matchedCards = [];
     this.selectedCards = [];
     this.matches = 0;
-    this.card = new Card;
+    // var cardie = new Card;
   }
 
   shuffle() {
@@ -12,17 +12,17 @@ class Deck {
   }
 
   checkSelectedCards() {
-    console.log(this.selectedCards);
     if (this.selectedCards[0].matchInfo === this.selectedCards[1].matchInfo) {
-      for (var i = 0; i < this.selectedCards.length; i++) {
-      this.card.match(this.selectedCards[i]);
-      }
+      // for (var i = 0; i < this.selectedCards.length; i++) {
+      //   card.match(this.selectedCards[i]);
+      //   console.log(this.selectedCards[i]);
+      // }
        this.matches++;
        this.moveToMatched();
      } else {
        this.selectedCards.splice(0, 2);
-       console.log(this.selectedCards);
      }
+     console.log(this.selectedCards);
   }
 
   moveToMatched() {

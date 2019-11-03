@@ -7,8 +7,9 @@ class Card {
 }
 
 match(card) {
+  console.log(card);
   card.matched = true;
-  removeCard(card);
+  // removeCard();
   }
 
 
