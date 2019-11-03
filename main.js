@@ -18,7 +18,8 @@ var cardId = 10;
 var newGameBtn = document.querySelector(".new-game")
 var playerNames = document.querySelector(".player-names");
 var cards = document.querySelectorAll(".card");
-
+var startTime = 0;
+var endTime = 0;
 
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
@@ -85,6 +86,10 @@ function removeCard() {
     deleted.parentNode.removeChild(deleted);
   }
     if (deck.matches === 5) {
+      var endTime = new Date();
+      var timeDiff = endTime - startTime
+      var seconds = Math.round(timeDiff);
+      document.querySelector(".round-time").innerHTML = seconds;
       gamePage.style.display = "none";
       winnerMsg.style.display = "grid";
       deck.matches = 0;
@@ -111,7 +116,7 @@ function showGame() {
       cardNumber++;
       cardId++;
   }
-
+  var startTime = new Date();
 };
 
 function checkInputs() {
@@ -142,7 +147,7 @@ function addCards() {
   var card = new Card(cardNumber, cardId);
   deck.cards.push(card);
   if (deck.cards.length === 10) {
-    deck.shuffle();
+    // deck.shuffle();
     for (var i = 0; i < deck.cards.length; i++) {
     addToDom(deck.cards[i]);
     }
