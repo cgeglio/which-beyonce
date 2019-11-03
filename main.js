@@ -88,11 +88,8 @@ function removeCard() {
     if (deck.matches === 5) {
       endTime = new Date();
       var timeDiff = endTime - startTime;
-      // console.log(timeDiff);
       timeDiff /= 1000;
-      // console.log(timeDiff);
       var time = Math.round(timeDiff);
-      // console.log(time);
       var minutes = Math.floor(time / 60000);
       var seconds = time - minutes * 60;
       document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
@@ -153,7 +150,7 @@ function addCards() {
   var card = new Card(cardNumber, cardId);
   deck.cards.push(card);
   if (deck.cards.length === 10) {
-    // deck.shuffle();
+    deck.shuffle();
     for (var i = 0; i < deck.cards.length; i++) {
     addToDom(deck.cards[i]);
     }
