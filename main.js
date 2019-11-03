@@ -86,10 +86,16 @@ function removeCard() {
     deleted.parentNode.removeChild(deleted);
   }
     if (deck.matches === 5) {
-      var endTime = new Date();
-      var timeDiff = endTime - startTime
-      var seconds = Math.round(timeDiff);
-      document.querySelector(".round-time").innerHTML = seconds;
+      endTime = new Date();
+      var timeDiff = endTime - startTime;
+      // console.log(timeDiff);
+      timeDiff /= 1000;
+      // console.log(timeDiff);
+      var time = Math.round(timeDiff);
+      // console.log(time);
+      var minutes = Math.floor(time / 60000);
+      var seconds = time - minutes * 60;
+      document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
       gamePage.style.display = "none";
       winnerMsg.style.display = "grid";
       deck.matches = 0;
@@ -116,7 +122,7 @@ function showGame() {
       cardNumber++;
       cardId++;
   }
-  var startTime = new Date();
+  startTime = new Date();
 };
 
 function checkInputs() {
