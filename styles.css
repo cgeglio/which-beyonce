@@ -59,14 +59,16 @@ button {
   font-weight: normal;
 }
 
+.disable-click {
+  pointer-events: none;
+}
+
 h5 {
   font-size: 60px;
   margin: 10px;
 }
 
-.winner-msg {
-  display: none;
-}
+
 
 .welcome-btn {
   cursor: pointer;
@@ -108,6 +110,7 @@ h1 {
 
 }
 
+.winner-msg h1,
 .welcome-msg h1 {
   margin-top: 100px;
 }
@@ -134,7 +137,7 @@ p {
 
 
 input {
-  margin-top: 100px;
+  margin-top: 150px;
   width: 250px;
   height: 40px;
   border: 0;
@@ -194,6 +197,58 @@ h6 {
   margin: 0;
 }
 
+.winner-msg button {
+  width: 300px;
+  height: 40px;
+  margin-bottom: 30px;
+}
+
+.winner-msg h1 {
+  grid-area: congrats;
+  margin-bottom: 0px;
+}
+
+.winner-msg h2 {
+  margin-top: 20px;
+  font-weight: bold;
+  grid-area: time;
+}
+
+.rematch {
+  grid-area: button2;
+  margin-right: 35%;
+  margin-left: 10%;
+}
+
+.new-game {
+  grid-area: button1;
+  margin-left: 45%;
+  margin-right: 5%
+}
+
+.winner-msg {
+  display: none;
+  background-image: url("images/jvn-main.jpg");
+  background-position: center;
+  height: 100%;
+  text-align: center;
+  grid-template-areas:
+  "congrats congrats"
+  "time time"
+  "para para"
+  "button1 button2";
+
+  /* flex-direction: column;
+  align-items: center; */
+}
+
+.winner-msg p {
+  text-align: center;
+  grid-area: para;
+  width: 100%;
+  margin: 0;
+}
+
 .flip .flipper, .card.flip .flipper {
 	transform: rotateY(180deg);
 }
@@ -207,8 +262,20 @@ h6 {
 
 .card {
   perspective: 1000px;
-  margin: 50px;
+  margin: 40px;
+  display: block;
 }
+
+/* .remove {
+  display: none;
+} */
+/* .card-1,
+.card-2,
+.card-3,
+.card-4,
+.card-5 {
+  display: block;
+} */
 
 .flipper {
 	transition: 0.6s;
@@ -236,42 +303,22 @@ h6 {
 	transform: rotateY(180deg);
 }
 
-.card-a {
+.flipper-1 {
   transform: rotateZ(13deg);
 }
 
-.card-b {
+.flipper-2 {
   transform: rotateZ(-7deg);
 }
 
-.card-c {
-  transform: rotateZ(-18deg);
+.flipper-3 {
+  transform: rotateZ(18deg);
 }
 
-.card-d {
+.flipper-4 {
   transform: rotateZ(19deg);
 }
 
-.card-e {
+.flipper-5 {
   transform: rotateZ(13deg);
-}
-
-.card-f {
-  transform: rotateZ(-22deg);
-}
-
-.card-g {
-  transform: rotateZ(15deg);
-}
-
-.card-h {
-  transform: rotateZ(-27deg);
-}
-
-.card-i {
-  transform: rotateZ(5deg);
-}
-
-.card-j {
-  transform: rotateZ(-23deg);
 }
