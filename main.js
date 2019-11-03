@@ -24,15 +24,15 @@ var endTime = 0;
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
 playBtnWelcome.addEventListener("click", showGame);
-cardContainer.addEventListener("click", pickCards);
+cardContainer.addEventListener("click", flipCard);
 newGameBtn.addEventListener("click", startNewGame)
 
-function pickCards() {
-  if (deck.selectedCards.length < 2) {
-      flipCard(event);
-      selectCard(event);
-  }
-};
+// function pickCards() {
+  // if (deck.selectedCards.length < 2) {
+  //     flipCard(event);
+      // selectCard(event);
+//   }
+// };
 
 function startNewGame () {
   playerNames.style.display = "grid";
@@ -48,23 +48,89 @@ function startNewGame () {
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
+  if (deck.selectedCards.length < 2) {
+    if (clickedCard.classList.contains("flip")) {
+      deck.selectedCards.splice(0, 1);
+    } else {
+      selectCard(clickedCard);
+    }
+
+
+    // clickedNumber = event.target.closest(".flipper");
   clickedCard.classList.toggle("flip");
+
+
+  } else if (deck.selectedCards.length === 2) {
+    var cardIndex = -1;
+    clickedCard.classList.toggle("flip");
+    for(var i = 0; i < deck.selectedCards.length; i++)
+    {
+      if(deck.selectedCards[i].cardId == clickedCard.id)
+      {
+        cardIndex = i;
+      }
+    }
+
+    if(cardIndex != -1)
+    {
+      deck.selectedCards.splice(cardIndex)
+
+  }
+
+    // clickedCard.classList.contains("")
+
+  }
+
+
 };
 
-function selectCard(event) {
-  clickedCard = event.target.closest(".card");
-  clickedNumber = event.target.closest(".flipper");
-  // clickedCard.classList.add("disable-click");
-  clickedCard = new Card (`${clickedNumber.id}`,`${clickedCard.id}`);
-  deck.selectedCards.push(clickedCard);
-  checkForMatch(event);
+function selectCard(card) {
+  var cardId = parseInt(card.id);
+  // console.log(cardId);
+  // console.log(deck.cards);
+  if (deck.selectedCards.length === 0) {
+    for (var i = 0; i < deck.cards.length; i++) {
+      if (cardId === deck.cards[i].cardId) {
+        deck.selectedCards.push(deck.cards[i]);
+      }
+  }
+}
+// iterate through cards, if card matches clicked card id, move from cards to selected
+  // console.log(card.id);
+  // if (deck.selectedCards.length === 0) {
+    // card = new Card (`${card.id}`,`${cardNum.id}`);
+  //   console.log(card);
+  //   deck.selectedCards.push(card);
+  //   console.log(deck.selectedCards);
+  // }
+  else if (deck.selectedCards.length === 1) {
+      if (cardId !== deck.selectedCards[0].cardId) {
+        for (var i = 0; i < deck.cards.length; i++) {
+          if (cardId === deck.cards[i].cardId) {
+            deck.selectedCards.push(deck.cards[i]);
+  //       console.log(card.id);
+  //       console.log(deck.selectedCards);
+        // clickedCard = event.target.closest(".card");
+        // clickedCard.classList.add("disable-click");
+        // card2 = new Card (`${card.id}`,`${cardNum.id}`);
+      //   deck.selectedCards.push(card2);
+      //   console.log(deck.selectedCards);
+        deck.checkSelectedCards();
+      }
+    }
+    }
+  // else if (deck.selectedCards.length === 2) {
+  //    deck.checkSelectedCards();
+  }
+  checkForMatch();
+
 };
 
 
-function checkForMatch(event) {
-  if (deck.selectedCards.length === 2) {
-     deck.checkSelectedCards();
-   }
+function checkForMatch() {
+  // if (deck.selectedCards.length === 2) {
+  //    deck.checkSelectedCards();
+  //  }
   if (deck.selectedCards.length === 0) {
      card.match(deck.matchedCards);
      removeCard();
@@ -75,13 +141,33 @@ function checkForMatch(event) {
 
 
 function removeCard() {
-  var recentCards = deck.matchedCards.slice(-2);
-  for (var i = 0; i < recentCards.length; i++) {
-    var deleted = document.getElementById(recentCards[i].cardId);
+  console.log(deck.matchedCards);
+  if (deck.matchedCards.length > 0) {
+  // var recentCards = deck.matchedCards.slice(-2);
+  // console.log(recentCards);
+  // for (var i = 0; i < recentCards.length; i++) {
+  // var recentCards = deck.matchedCards.slice(-2);
+  // console.log(recentCards);
+  for (var i = 0; i < deck.matchedCards.length; i++) {
+    var deleted = document.getElementById(deck.matchedCards[i].cardId);
+
+    console.log(deleted);
     deleted.parentNode.removeChild(deleted);
+  }
+    deck.matchedCards = [];
     showWinner();
   }
-};
+  }
+
+// user clicks
+// if select .length<2
+  // timeout flip here
+  // if select === 2
+  //
+  // check match, if yes push to matched, select []
+  // if no, select []
+
+// };
 
 function showWinner() {
   if (deck.matches === 5) {
@@ -101,7 +187,7 @@ function findTime() {
   var timeDiff = endTime - startTime;
   timeDiff /= 1000;
   var time = Math.round(timeDiff);
-  var minutes = Math.floor(time / 60000);
+  var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
 }
@@ -153,7 +239,7 @@ function addCards() {
   var card = new Card(cardNumber, cardId);
   deck.cards.push(card);
   if (deck.cards.length === 10) {
-    deck.shuffle();
+    //deck.shuffle();
     for (var i = 0; i < deck.cards.length; i++) {
     displayCards(deck.cards[i]);
     }

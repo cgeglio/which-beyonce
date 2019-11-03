@@ -20,10 +20,11 @@ class Deck {
     if (this.selectedCards[0].matchInfo === this.selectedCards[1].matchInfo) {
        this.matches++;
        this.moveToMatched();
-     } else {
-       this.selectedCards.splice(0, 2);
-     }
+     // } else {
+     //   this.selectedCards.splice(0, 2);
+     // }
   }
+}
 
   moveToMatched() {
     this.matchedCards = this.matchedCards.concat(this.selectedCards);
