@@ -86,51 +86,27 @@ function flipCard(event) {
 
 function selectCard(card) {
   var cardId = parseInt(card.id);
-  // console.log(cardId);
-  // console.log(deck.cards);
   if (deck.selectedCards.length === 0) {
     for (var i = 0; i < deck.cards.length; i++) {
       if (cardId === deck.cards[i].cardId) {
         deck.selectedCards.push(deck.cards[i]);
       }
-  }
-}
-// iterate through cards, if card matches clicked card id, move from cards to selected
-  // console.log(card.id);
-  // if (deck.selectedCards.length === 0) {
-    // card = new Card (`${card.id}`,`${cardNum.id}`);
-  //   console.log(card);
-  //   deck.selectedCards.push(card);
-  //   console.log(deck.selectedCards);
-  // }
-  else if (deck.selectedCards.length === 1) {
+    }
+  } else if (deck.selectedCards.length === 1) {
       if (cardId !== deck.selectedCards[0].cardId) {
         for (var i = 0; i < deck.cards.length; i++) {
           if (cardId === deck.cards[i].cardId) {
             deck.selectedCards.push(deck.cards[i]);
-  //       console.log(card.id);
-  //       console.log(deck.selectedCards);
-        // clickedCard = event.target.closest(".card");
-        // clickedCard.classList.add("disable-click");
-        // card2 = new Card (`${card.id}`,`${cardNum.id}`);
-      //   deck.selectedCards.push(card2);
-      //   console.log(deck.selectedCards);
-        deck.checkSelectedCards();
+            deck.checkSelectedCards();
+            }
+          }
+        }
       }
-    }
-    }
-  // else if (deck.selectedCards.length === 2) {
-  //    deck.checkSelectedCards();
-  }
   checkForMatch();
-
 };
 
 
 function checkForMatch() {
-  // if (deck.selectedCards.length === 2) {
-  //    deck.checkSelectedCards();
-  //  }
   if (deck.selectedCards.length === 0) {
      card.match(deck.matchedCards);
      removeCard();
@@ -138,19 +114,11 @@ function checkForMatch() {
 };
 
 
-
-
 function removeCard() {
   console.log(deck.matchedCards);
   if (deck.matchedCards.length > 0) {
-  // var recentCards = deck.matchedCards.slice(-2);
-  // console.log(recentCards);
-  // for (var i = 0; i < recentCards.length; i++) {
-  // var recentCards = deck.matchedCards.slice(-2);
-  // console.log(recentCards);
   for (var i = 0; i < deck.matchedCards.length; i++) {
     var deleted = document.getElementById(deck.matchedCards[i].cardId);
-
     console.log(deleted);
     deleted.parentNode.removeChild(deleted);
   }
