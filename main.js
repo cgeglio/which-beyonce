@@ -79,19 +79,22 @@ function removeCard() {
   for (var i = 0; i < recentCards.length; i++) {
     var deleted = document.getElementById(recentCards[i].cardId);
     deleted.parentNode.removeChild(deleted);
+    showWinner();
   }
-    if (deck.matches === 5) {
-      findTime();
-      gamePage.style.display = "none";
-      winnerMsg.style.display = "grid";
-      deck.matches = 0;
-      deck.cards = [];
-      deck.matchedCards = [];
-      cardNumber = 1;
-      cardId = 10;
-    }
 };
 
+function showWinner() {
+  if (deck.matches === 5) {
+    findTime();
+    gamePage.style.display = "none";
+    winnerMsg.style.display = "grid";
+    deck.matches = 0;
+    deck.cards = [];
+    deck.matchedCards = [];
+    cardNumber = 1;
+    cardId = 10;
+  }
+}
 
 function findTime() {
   endTime = new Date();
