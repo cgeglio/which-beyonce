@@ -1,16 +1,12 @@
 class Card {
   constructor(matchInfo, cardId) {
-  this.matchInfo = matchInfo;
-  this.cardId = cardId;
-  this.matched = false;
-
-}
-
-match(card) {
-  console.log(card);
-  card.matched = true;
-  // removeCard();
+    this.matchInfo = matchInfo;
+    this.cardId = cardId;
+    this.matched = false;
   }
-
-
-}
+    match(cardArray) {
+      for (var i = 0; i < cardArray.length; i++) {
+      cardArray[i].matched = true;
+    }
+  }
+};

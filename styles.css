@@ -59,9 +59,9 @@ button {
   font-weight: normal;
 }
 
-.disable-click {
+/* .disable-click {
   pointer-events: none;
-}
+} */
 
 h5 {
   font-size: 60px;
