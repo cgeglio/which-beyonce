@@ -6,7 +6,8 @@ var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
 var sidebars = document.querySelector(".sidebar");
 var cardContainer = document.querySelector(".card-container");
-var deck = new Deck;
+var deck = document.getElementById("deck");
+deck = new Deck;
 var card = new Card (null, null);
 var main = document.querySelector("main");
 var gamePage = document.querySelector(".game-page");
@@ -57,8 +58,7 @@ function selectCard(event) {
   clickedCard = event.target.closest(".card");
   clickedNumber = event.target.closest(".flipper");
   // clickedCard.classList.add("disable-click");
-  console.log(clickedCard.id);
-  console.log(clickedNumber.id);
+
   clickedCard = new Card (`${clickedNumber.id}`,`${clickedCard.id}`);
   deck.selectedCards.push(clickedCard);
   checkForMatch(event);
@@ -111,6 +111,7 @@ function showGame() {
       cardNumber++;
       cardId++;
   }
+
 };
 
 function checkInputs() {
@@ -140,14 +141,22 @@ function showDirections() {
 function addCards() {
   var card = new Card(cardNumber, cardId);
   deck.cards.push(card);
-  console.log(deck.cards);
+  if (deck.cards.length === 10) {
+    deck.shuffle();
+    for (var i = 0; i < deck.cards.length; i++) {
+    addToDom(deck.cards[i]);
+    }
+  }
+};
+
+function addToDom(card) {
   cardContainer.innerHTML += `
   <div class="card" id="${card.cardId}">
-    <div class="flipper flipper-${cardNumber}" id="${cardNumber}">
+    <div class="flipper flipper-${card.matchInfo}" id="${card.matchInfo}">
       <div class="front">
         <h6>J<br/>V<br/>N</h6>
       </div>
-      <img class="back" src="images/JVN-${cardNumber}.jpg">
+      <img class="back" src="images/JVN-${card.matchInfo}.jpg">
     </div>
   </div>`;
 }
