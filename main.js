@@ -7,19 +7,23 @@ var playerTwo = document.querySelector(".input-two");
 var sidebars = document.querySelector(".sidebar");
 var cardContainer = document.querySelector(".card-container");
 var deck = new Deck;
+var card = new Card (null, null);
 var main = document.querySelector("main");
 var gamePage = document.querySelector(".game-page");
 var nameOne = document.querySelectorAll(".name-one");
 var nameTwo = document.querySelectorAll(".name-two");
 var cardNumber = 1;
 var cardId = 10;
-// var cards = document.querySelectorAll(".card");
+var newGameBtn = document.querySelector(".new-game")
+var playerNames = document.querySelector(".player-names");
+var cards = document.querySelectorAll(".card");
 
 
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
 playBtnWelcome.addEventListener("click", showGame);
 cardContainer.addEventListener("click", pickCards);
+newGameBtn.addEventListener("click", startNewGame)
 
 function pickCards() {
   // console.log(deck.cards);
@@ -30,58 +34,66 @@ function pickCards() {
       flipCard(event);
       selectCard(event);
   }
-}
+};
 
-// }
-//
-// }
+function startNewGame () {
+  playerNames.style.display = "grid";
+  winnerMsg.style.display = "none";
+  welcomeMsg.style.display = "none";
+  main.style.display = "flex";
+  playerNames.reset();
+  nameOne.innerText = "";
+  nameTwo.innerText = "";
+  playBtnMain.removeAttribute("active");
+};
 
 
 function flipCard(event) {
-  // if (deck.selectedCards.length < 2) {
-    clickedCard = event.target.closest(".card");
-    console.log(clickedCard);
-    clickedCard.classList.toggle("flip");
+  clickedCard = event.target.closest(".card");
+  clickedCard.classList.toggle("flip");
+};
 
-  // } else {
-  //   return;
-  };
+function selectCard(event) {
+  clickedCard = event.target.closest(".card");
+  clickedNumber = event.target.closest(".flipper");
+  // clickedCard.classList.add("disable-click");
+  console.log(clickedCard.id);
+  console.log(clickedNumber.id);
+  clickedCard = new Card (`${clickedNumber.id}`,`${clickedCard.id}`);
+  deck.selectedCards.push(clickedCard);
+  checkForMatch(event);
+};
 
-  function selectCard(event) {
-    clickedCard = event.target.closest(".card");
-    clickedNumber = event.target.closest(".flipper");
-    console.log(clickedNumber.id);
-    console.log(clickedCard.id);
-    clickedCard.classList.add("disable-click");
-    clickedCard = new Card (`${clickedNumber.id}`,`${clickedCard.id}`);
-    deck.selectedCards.push(clickedCard);
-    checkForMatch(event);
-  }
-// };
 
 function checkForMatch(event) {
-
   if (deck.selectedCards.length === 2) {
-    // for (var i = 0; i < deck.selectedCards.length; i++) {
-    //  document.getElementById(deck.selectedCards[i].cardId).remove("disable-click");
-     // console.log(this.selectedCards[i]);
      deck.checkSelectedCards();
+   }
+  if (deck.selectedCards.length === 0) {
+     card.match(deck.matchedCards);
      removeCard();
   }
-}
-// }
+};
+
 
 
 
 function removeCard() {
-    for (var i = 0; i < deck.matchedCards.length; i++) {
-    document.getElementById(deck.matchedCards[i].cardId).style.display = "none";
+  var recentCards = deck.matchedCards.slice(-2);
+  for (var i = 0; i < recentCards.length; i++) {
+    var deleted = document.getElementById(recentCards[i].cardId);
+    deleted.parentNode.removeChild(deleted);
+  }
     if (deck.matches === 5) {
       gamePage.style.display = "none";
       winnerMsg.style.display = "grid";
+      deck.matches = 0;
+      deck.cards = [];
+      deck.matchedCards = [];
+      cardNumber = 1;
+      cardId = 10;
     }
-  }
-}
+};
 
 
 function showGame() {
@@ -99,7 +111,7 @@ function showGame() {
       cardNumber++;
       cardId++;
   }
-}
+};
 
 function checkInputs() {
   if (playerOne.value) {
@@ -109,7 +121,7 @@ function checkInputs() {
 
 function showDirections() {
   if (playBtnMain.id === "active") {
-    document.querySelector(".player-names").style.display = "none";
+    playerNames.style.display = "none";
     welcomeMsg.style.display = "block";
     for (var i = 0; i < nameOne.length; i++) {
     nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
@@ -128,6 +140,7 @@ function showDirections() {
 function addCards() {
   var card = new Card(cardNumber, cardId);
   deck.cards.push(card);
+  console.log(deck.cards);
   cardContainer.innerHTML += `
   <div class="card" id="${card.cardId}">
     <div class="flipper flipper-${cardNumber}" id="${cardNumber}">
