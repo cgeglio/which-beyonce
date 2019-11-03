@@ -6,7 +6,8 @@ var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
 var sidebars = document.querySelector(".sidebar");
 var cardContainer = document.querySelector(".card-container");
-var deck = new Deck;
+var deck = document.getElementById("deck");
+deck = new Deck;
 var card = new Card (null, null);
 var main = document.querySelector("main");
 var gamePage = document.querySelector(".game-page");
@@ -17,7 +18,8 @@ var cardId = 10;
 var newGameBtn = document.querySelector(".new-game")
 var playerNames = document.querySelector(".player-names");
 var cards = document.querySelectorAll(".card");
-
+var startTime = 0;
+var endTime = 0;
 
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
@@ -57,8 +59,7 @@ function selectCard(event) {
   clickedCard = event.target.closest(".card");
   clickedNumber = event.target.closest(".flipper");
   // clickedCard.classList.add("disable-click");
-  console.log(clickedCard.id);
-  console.log(clickedNumber.id);
+
   clickedCard = new Card (`${clickedNumber.id}`,`${clickedCard.id}`);
   deck.selectedCards.push(clickedCard);
   checkForMatch(event);
@@ -85,6 +86,13 @@ function removeCard() {
     deleted.parentNode.removeChild(deleted);
   }
     if (deck.matches === 5) {
+      endTime = new Date();
+      var timeDiff = endTime - startTime;
+      timeDiff /= 1000;
+      var time = Math.round(timeDiff);
+      var minutes = Math.floor(time / 60000);
+      var seconds = time - minutes * 60;
+      document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
       gamePage.style.display = "none";
       winnerMsg.style.display = "grid";
       deck.matches = 0;
@@ -111,6 +119,7 @@ function showGame() {
       cardNumber++;
       cardId++;
   }
+  startTime = new Date();
 };
 
 function checkInputs() {
@@ -140,14 +149,22 @@ function showDirections() {
 function addCards() {
   var card = new Card(cardNumber, cardId);
   deck.cards.push(card);
-  console.log(deck.cards);
+  if (deck.cards.length === 10) {
+    deck.shuffle();
+    for (var i = 0; i < deck.cards.length; i++) {
+    addToDom(deck.cards[i]);
+    }
+  }
+};
+
+function addToDom(card) {
   cardContainer.innerHTML += `
   <div class="card" id="${card.cardId}">
-    <div class="flipper flipper-${cardNumber}" id="${cardNumber}">
+    <div class="flipper flipper-${card.matchInfo}" id="${card.matchInfo}">
       <div class="front">
         <h6>J<br/>V<br/>N</h6>
       </div>
-      <img class="back" src="images/JVN-${cardNumber}.jpg">
+      <img class="back" src="images/JVN-${card.matchInfo}.jpg">
     </div>
   </div>`;
 }

@@ -8,7 +8,12 @@ class Deck {
   }
 
   shuffle() {
-
+      for (var i = this.cards.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temporaryIndex = this.cards[i];
+          this.cards[i] = this.cards[j];
+          this.cards[j] = temporaryIndex;
+      }
   }
 
   checkSelectedCards() {
@@ -22,13 +27,11 @@ class Deck {
      } else {
        this.selectedCards.splice(0, 2);
      }
-     console.log(this.selectedCards);
   }
 
   moveToMatched() {
     this.matchedCards = this.matchedCards.concat(this.selectedCards);
     this.selectedCards.splice(0, 2);
-    console.log(this.matchedCards);
   }
 
 }
