@@ -231,12 +231,7 @@ function dropMenu () {
   menuOpen = !menuOpen;
   if (menuOpen) {
     menuDropdown.style.display= "flex";
+  } else {
+    menuDropdown.style.display= "none";
   }
-  //   filterMobile.style.display = "flex";
-  //   pageOpacity.style.display = "flex";
-  // } else {
-  //   sidebar.classList.remove("mobile-menu");
-  //   filterMobile.style.display = "none";
-  //   pageOpacity.style.display = "none";
-
 };
