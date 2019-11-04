@@ -23,6 +23,8 @@ var startTime = 0;
 var endTime = 0;
 var menuOpen = false;
 var menu = document.querySelector(".menu-icon");
+var names = [];
+var times = [];
 
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
@@ -145,8 +147,16 @@ function showWinner() {
   }
 }
 
-function updateBoard() {
+// var arrayOfObjects = localStorage.getItem("cardsInfo");
+//   var cardArray = JSON.parse(arrayOfObjects);
+//   for (var i = 0; i < cardArray.length; i++) {
+//     inputFromStorage(cardArray[i]);
+//   }
 
+function updateBoard() {
+  var nameSet = localStorage.getItem("name");
+  console.log(nameSet);
+  // var timeSet = localStorage.getItem("time");
 }
 
 function findTime() {
@@ -157,8 +167,8 @@ function findTime() {
   var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
   var userTime = `0${minutes}:${seconds}`;
-  var timeString = JSON.stringify(userTime);
-  localStorage.setItem("time", timeString);
+  times.push(userTime);
+  timeStorage();
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
 }
 
@@ -179,14 +189,26 @@ function showGame() {
       cardId++;
   }
   startTime = new Date();
+  names.push(playerOne.value);
+  // for (var i = 0; i < names.length; i++)
+  nameStorage();
 };
 
 function checkInputs() {
   if (playerOne.value) {
     playBtnMain.id = "active";
-    localStorage.setItem("name", playerOne.value);
   }
 };
+
+function nameStorage() {
+  var nameString = JSON.stringify(names);
+  localStorage.setItem("names", nameString);
+}
+
+function timeStorage() {
+  var timeString = JSON.stringify(times);
+  localStorage.setItem("times", timeString);
+}
 
 function showDirections() {
   if (playBtnMain.id === "active") {
