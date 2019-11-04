@@ -64,6 +64,23 @@ function flipCard(event) {
   }
 };
 
+// cardContainer.removeEventListener("click", flipCard);
+// clickedCard.addEventListener("click", flipCard);
+
+
+function disableCards() {
+  if (deck.selectedCards.length === 2) {
+    for (var i = 0; i < deck.cards.length; i++) {
+      if (deck.selectedCards[0].cardId === deck.cards[i].cardId) {
+        deck.cards.splice(i, 2);
+    }
+  }
+    for (var i = 0; i < deck.cards.length; i++) {
+      var disabled = document.getElementById(deck.cards[i].cardId);
+      disabled.classList.add("disabled");
+    }
+  }
+};
 
 function selectCard(card) {
   var cardId = parseInt(card.id);
@@ -78,6 +95,7 @@ function selectCard(card) {
         for (var i = 0; i < deck.cards.length; i++) {
           if (cardId === deck.cards[i].cardId) {
             deck.selectedCards.push(deck.cards[i]);
+            disableCards();
             deck.checkSelectedCards();
             }
           }

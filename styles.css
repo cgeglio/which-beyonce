@@ -222,6 +222,11 @@ h6 {
   margin-right: 5%
 }
 
+.disabled {
+  pointer-events: none;
+}
+
+
 .winner-msg {
   display: none;
   background-image: url("images/jvn-main.jpg");
