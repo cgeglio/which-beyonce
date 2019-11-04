@@ -43,11 +43,15 @@ function startNewGame () {
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
+  // limitFlips();
   if (deck.selectedCards.length < 2) {
     if (clickedCard.classList.contains("flip")) {
       deck.selectedCards.splice(0, 1);
+      // console.log(deck.selectedCards);
     } else {
       selectCard(clickedCard);
+      // limitFlips();
+      // console.log(deck.selectedCards);
     }
     clickedCard.classList.toggle("flip");
   } else if (deck.selectedCards.length === 2) {
@@ -64,23 +68,42 @@ function flipCard(event) {
   }
 };
 
-// cardContainer.removeEventListener("click", flipCard);
-// clickedCard.addEventListener("click", flipCard);
+//
+// add if to flip card event listener selected cards if contains click enable
+
+// function disableCards() {
+//   if (deck.selectedCards.length === 2) {
+//     cardContainer.removeEventListener("click", flipCard);
+//     for (var i = 0; i < deck.selectedCards.length; i++) {
+//        var clickCard = document.getElementById(deck.selectedCards[i].cardId);
+//        clickCard.addEventListener("click", flipCard);
+//      }
+//    }
+//  }
 
 
-function disableCards() {
-  if (deck.selectedCards.length === 2) {
-    for (var i = 0; i < deck.cards.length; i++) {
-      if (deck.selectedCards[0].cardId === deck.cards[i].cardId) {
-        deck.cards.splice(i, 2);
-    }
-  }
-    for (var i = 0; i < deck.cards.length; i++) {
-      var disabled = document.getElementById(deck.cards[i].cardId);
-      disabled.classList.add("disabled");
-    }
-  }
-};
+// function enableCards() {
+//   var allCards = document.querySelectorAll(".card");
+//   console.log(allCards);
+//   for (var i = 0; i < allCards.length; i++) {
+//   allCards[i].removeEventListener("click", flipCard);
+//   cardContainer.addEventListener("click", flipCard);
+//   }
+// }
+
+// function checkClicked() {
+//   for (var i = 0; i < deck.selectedCards.length; i++) {
+//    var clickCard = document.getElementById(deck.selectedCards[i].cardId);
+//    if (clickCard.classList.contains("flip")) {
+//      console.log("beep");
+//    } else {
+//      clickCard.removeEventListener("click", flipCard);
+//      enableCards();
+//    }
+//  }
+// }
+
+// add timeout while cards still selected and enable other cards after timeout
 
 function selectCard(card) {
   var cardId = parseInt(card.id);
@@ -95,16 +118,52 @@ function selectCard(card) {
         for (var i = 0; i < deck.cards.length; i++) {
           if (cardId === deck.cards[i].cardId) {
             deck.selectedCards.push(deck.cards[i]);
-            disableCards();
+            // disableCards();
+            // checkClicked();
+            cardContainer.removeEventListener("click", flipCard);
             deck.checkSelectedCards();
             }
           }
           }
+          checkForMatch();
         }
 
-  checkForMatch();
+
 };
 
+
+// look at all cards, if none of them contains flip,
+// all cards enabled
+// if one of them contains flip,
+// all cards enabled,
+// if two of them contain flip,
+// selected cards enabled,
+// run this process over again.
+
+// function limitFlips() {
+//   var flippedCards = [];
+//   var allCards = document.querySelectorAll(".card");
+//     console.log(allCards);
+//     for (var i = 0; i < allCards.length; i++) {
+//       if (allCards[i].classList.contains("flip")) {
+//         flippedCards.push(allCards[i]);
+//       }
+//     }
+//     console.log(flippedCards);
+
+  // if (flippedCards.length === 2){
+  //   cardContainer.removeEventListener("click", flipCard);
+  //   for (var i = 0; i < deck.selectedCards.length; i++) {
+  //      var clickCard = document.getElementById(deck.selectedCards[i].cardId);
+  //      console.log(clickCard);
+  //      clickedCard.addEventListener("click", flipCard);
+  // }
+  // console.log(allCards);
+  // for (var i = 0; i < allCards.length; i++) {
+  //
+//
+// }
+// }
 
 function checkForMatch() {
   if (deck.selectedCards.length === 0) {
@@ -113,8 +172,10 @@ function checkForMatch() {
      console.log(deck.matches);
      for (var i = 0; i < matchCount.length; i++) {
        matchCount[i].innerText = `${deck.matches}`;
+     }
+   } else {
+    setTimeout(function() { flipBack(); }, 2000);
   }
-}
 };
 
 
@@ -125,11 +186,23 @@ function removeCard() {
     console.log(deck.matchedCards);
     var deleted = document.getElementById(deck.matchedCards[i].cardId);
     fadeOut(deleted);
+    cardContainer.addEventListener("click", flipCard);
   }
     deck.matchedCards = [];
     setTimeout(function() { showWinner(); }, 5000);
-    }
   }
+};
+
+  function flipBack() {
+    for (var i = 0; i < deck.selectedCards.length; i++) {
+        var clickCard = document.getElementById(deck.selectedCards[i].cardId);
+        console.log(clickCard);
+        clickCard.classList.remove("flip");
+      }
+      cardContainer.addEventListener("click", flipCard);
+      console.log(deck.selectedCards);
+      deck.selectedCards = [];
+    }
 
 
   function fadeOut(card) {

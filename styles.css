@@ -222,7 +222,7 @@ h6 {
   margin-right: 5%
 }
 
-.disabled {
+.disable-click {
   pointer-events: none;
 }
 
