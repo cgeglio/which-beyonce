@@ -26,6 +26,8 @@ var menu = document.querySelector(".menu-icon");
 var names = [];
 var times = [];
 
+
+window.addEventListener("load", pullScores);
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
 playBtnWelcome.addEventListener("click", showGame);
@@ -153,11 +155,39 @@ function showWinner() {
 //     inputFromStorage(cardArray[i]);
 //   }
 
-function updateBoard() {
-  var nameSet = localStorage.getItem("name");
-  console.log(nameSet);
-  // var timeSet = localStorage.getItem("time");
+function pullScores() {
+  var nameSet = JSON.parse(localStorage.getItem("names"));
+  for (var i = 0; i < nameSet.length; i++) {
+    names.push(nameSet[i]);
+  }
+  //
+  // console.log(nameSet);
+  var timeSet = JSON.parse(localStorage.getItem("times"));
+  for (var i = 0; i < timeSet.length; i++) {
+    times.push(timeSet[i]);
 }
+  updateBoard();
+}
+
+function updateBoard() {
+
+  // times = [];
+  // for (var i = 0; i < timeSet.length; i++) {
+    // parseInt(timeSet[i]);
+    // console.log(timeSet[i]);
+    // times.push(timeSet[i])
+
+  // console.log(timeSet);
+  var lowestTime = Math.min.apply(Math, times);     // gives the highest score
+  var timeIndex = times.indexOf(lowestTime);       // gives the location of the highest score
+  var bestPlayer = names[timeIndex];
+  var minutes = Math.floor(lowestTime / 60);
+  var seconds = lowestTime - minutes * 60;
+  var userTime = `0${minutes}:${seconds}`;
+  var highScore = `${bestPlayer}, ${userTime}`;
+  document.querySelector(".first").innerText = highScore;
+}
+
 
 function findTime() {
   endTime = new Date();
@@ -166,8 +196,8 @@ function findTime() {
   var time = Math.round(timeDiff);
   var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
-  var userTime = `0${minutes}:${seconds}`;
-  times.push(userTime);
+  // var userTime = `0${minutes}:${seconds}`;
+  times.push(time);
   timeStorage();
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
 }
@@ -201,14 +231,19 @@ function checkInputs() {
 };
 
 function nameStorage() {
+  // var nameSet = JSON.parse(localStorage.getItem("names"));
+  // localStorage.getItem("names", nameString);
   var nameString = JSON.stringify(names);
   localStorage.setItem("names", nameString);
 }
 
 function timeStorage() {
+  // var timeSet = JSON.parse(localStorage.getItem("times"));
+  // for (var i = 0; i < times.length; i++) {
   var timeString = JSON.stringify(times);
   localStorage.setItem("times", timeString);
-}
+  }
+// }
 
 function showDirections() {
   if (playBtnMain.id === "active") {
