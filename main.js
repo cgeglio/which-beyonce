@@ -118,14 +118,39 @@ function removeCard() {
   console.log(deck.matchedCards);
   if (deck.matchedCards.length > 0) {
   for (var i = 0; i < deck.matchedCards.length; i++) {
+    console.log(deck.matchedCards);
     var deleted = document.getElementById(deck.matchedCards[i].cardId);
-    console.log(deleted);
-    deleted.parentNode.removeChild(deleted);
+    fadeOut(deleted);
+    // deleted.parentNode.removeChild(deleted);
+    // console.log(deleted);
+
   }
+
     deck.matchedCards = [];
     showWinner();
   }
   }
+
+
+  function fadeOut(card) {
+    // console.log(deck.matchedCards);
+    // for (var i = 0; i < deck.matchedCards.length; i++) {
+      // var deleted = document.getElementById(deck.matchedCards[i].cardId);
+      console.log(card);
+      card.style.transition = '2s';
+      card.style.opacity = 0;
+    }  // console.log(fadeTarget);
+      // var fadeEffect = setInterval(function () {
+      //     if (!fadeTarget.style.opacity) {
+      //         fadeTarget.style.opacity = 1;
+      //     }
+      //     if (fadeTarget.style.opacity > 0) {
+      //         fadeTarget.style.opacity -= 0.1;
+      //     } else {
+      //         clearInterval(fadeEffect);
+      //     }
+      // }, 200);
+
 
 // user clicks
 // if select .length<2

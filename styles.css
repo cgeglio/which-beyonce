@@ -264,6 +264,8 @@ h6 {
   perspective: 1000px;
   margin: 40px;
   display: block;
+  opacity: inherit;
+  transition: none;
 }
 
 /* .remove {
