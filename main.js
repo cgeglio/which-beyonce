@@ -64,7 +64,6 @@ function flipCard(event) {
   }
 };
 
-
 function selectCard(card) {
   var cardId = parseInt(card.id);
   if (deck.selectedCards.length === 0) {
@@ -78,40 +77,49 @@ function selectCard(card) {
         for (var i = 0; i < deck.cards.length; i++) {
           if (cardId === deck.cards[i].cardId) {
             deck.selectedCards.push(deck.cards[i]);
+            cardContainer.removeEventListener("click", flipCard);
             deck.checkSelectedCards();
             }
           }
-          }
         }
-
-  checkForMatch();
+        checkForMatch();
+      }
 };
-
 
 function checkForMatch() {
   if (deck.selectedCards.length === 0) {
      card.match(deck.matchedCards);
      removeCard();
-     console.log(deck.matches);
      for (var i = 0; i < matchCount.length; i++) {
        matchCount[i].innerText = `${deck.matches}`;
+     }
+   } else {
+    setTimeout(function() { flipBack(); }, 1000);
   }
-}
 };
 
 
 function removeCard() {
-  console.log(deck.matchedCards);
   if (deck.matchedCards.length > 0) {
   for (var i = 0; i < deck.matchedCards.length; i++) {
-    console.log(deck.matchedCards);
     var deleted = document.getElementById(deck.matchedCards[i].cardId);
     fadeOut(deleted);
+    // setTimeout(function() { deleteFromDom(deleted); }, 2000);
+    cardContainer.addEventListener("click", flipCard);
   }
     deck.matchedCards = [];
     setTimeout(function() { showWinner(); }, 5000);
-    }
   }
+};
+
+  function flipBack() {
+    for (var i = 0; i < deck.selectedCards.length; i++) {
+        var clickCard = document.getElementById(deck.selectedCards[i].cardId);
+        clickCard.classList.remove("flip");
+      }
+      cardContainer.addEventListener("click", flipCard);
+      deck.selectedCards = [];
+    }
 
 
   function fadeOut(card) {
@@ -119,20 +127,12 @@ function removeCard() {
       card.style.opacity = 0;
     }
 
-// user clicks
-// if select .length<2
-  // timeout flip here
-  // if select === 2
-  //
-  // check match, if yes push to matched, select []
-  // if no, select []
-
-// };
-
 function showWinner() {
   if (deck.matches === 5) {
     findTime();
-    // winnerMsg.classList.add("fade-in");
+    cardContainer.innerHTML = "";
+    winnerMsg.style.display = "grid";
+    winnerMsg.classList.add("fade-in");
     deck.matches = 0;
     deck.cards = [];
     deck.matchedCards = [];
@@ -140,7 +140,7 @@ function showWinner() {
     cardId = 10;
     deck.matchedCards = [];
     gamePage.style.display = "none";
-    winnerMsg.style.display = "grid";
+
 
   }
 }
