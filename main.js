@@ -43,15 +43,11 @@ function startNewGame () {
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
-  // limitFlips();
   if (deck.selectedCards.length < 2) {
     if (clickedCard.classList.contains("flip")) {
       deck.selectedCards.splice(0, 1);
-      // console.log(deck.selectedCards);
     } else {
       selectCard(clickedCard);
-      // limitFlips();
-      // console.log(deck.selectedCards);
     }
     clickedCard.classList.toggle("flip");
   } else if (deck.selectedCards.length === 2) {
@@ -68,43 +64,6 @@ function flipCard(event) {
   }
 };
 
-//
-// add if to flip card event listener selected cards if contains click enable
-
-// function disableCards() {
-//   if (deck.selectedCards.length === 2) {
-//     cardContainer.removeEventListener("click", flipCard);
-//     for (var i = 0; i < deck.selectedCards.length; i++) {
-//        var clickCard = document.getElementById(deck.selectedCards[i].cardId);
-//        clickCard.addEventListener("click", flipCard);
-//      }
-//    }
-//  }
-
-
-// function enableCards() {
-//   var allCards = document.querySelectorAll(".card");
-//   console.log(allCards);
-//   for (var i = 0; i < allCards.length; i++) {
-//   allCards[i].removeEventListener("click", flipCard);
-//   cardContainer.addEventListener("click", flipCard);
-//   }
-// }
-
-// function checkClicked() {
-//   for (var i = 0; i < deck.selectedCards.length; i++) {
-//    var clickCard = document.getElementById(deck.selectedCards[i].cardId);
-//    if (clickCard.classList.contains("flip")) {
-//      console.log("beep");
-//    } else {
-//      clickCard.removeEventListener("click", flipCard);
-//      enableCards();
-//    }
-//  }
-// }
-
-// add timeout while cards still selected and enable other cards after timeout
-
 function selectCard(card) {
   var cardId = parseInt(card.id);
   if (deck.selectedCards.length === 0) {
@@ -118,52 +77,14 @@ function selectCard(card) {
         for (var i = 0; i < deck.cards.length; i++) {
           if (cardId === deck.cards[i].cardId) {
             deck.selectedCards.push(deck.cards[i]);
-            // disableCards();
-            // checkClicked();
             cardContainer.removeEventListener("click", flipCard);
             deck.checkSelectedCards();
             }
           }
-          }
-          checkForMatch();
         }
-
-
+        checkForMatch();
+      }
 };
-
-
-// look at all cards, if none of them contains flip,
-// all cards enabled
-// if one of them contains flip,
-// all cards enabled,
-// if two of them contain flip,
-// selected cards enabled,
-// run this process over again.
-
-// function limitFlips() {
-//   var flippedCards = [];
-//   var allCards = document.querySelectorAll(".card");
-//     console.log(allCards);
-//     for (var i = 0; i < allCards.length; i++) {
-//       if (allCards[i].classList.contains("flip")) {
-//         flippedCards.push(allCards[i]);
-//       }
-//     }
-//     console.log(flippedCards);
-
-  // if (flippedCards.length === 2){
-  //   cardContainer.removeEventListener("click", flipCard);
-  //   for (var i = 0; i < deck.selectedCards.length; i++) {
-  //      var clickCard = document.getElementById(deck.selectedCards[i].cardId);
-  //      console.log(clickCard);
-  //      clickedCard.addEventListener("click", flipCard);
-  // }
-  // console.log(allCards);
-  // for (var i = 0; i < allCards.length; i++) {
-  //
-//
-// }
-// }
 
 function checkForMatch() {
   if (deck.selectedCards.length === 0) {
@@ -209,16 +130,6 @@ function removeCard() {
       card.style.transition = '2s';
       card.style.opacity = 0;
     }
-
-// user clicks
-// if select .length<2
-  // timeout flip here
-  // if select === 2
-  //
-  // check match, if yes push to matched, select []
-  // if no, select []
-
-// };
 
 function showWinner() {
   if (deck.matches === 5) {
