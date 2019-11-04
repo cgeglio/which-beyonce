@@ -127,7 +127,8 @@ function removeCard() {
   }
 
     deck.matchedCards = [];
-    showWinner();
+    setTimeout(function() { showWinner(); }, 4000);
+
   }
   }
 
