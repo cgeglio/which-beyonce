@@ -196,7 +196,7 @@ h6 {
 .winner-msg button {
   width: 300px;
   height: 40px;
-  margin-bottom: 30px;
+  margin: 20px;
 }
 
 .winner-msg h1 {
@@ -212,12 +212,14 @@ h6 {
 
 .rematch {
   grid-area: button2;
-  margin-right: 150px;
+  /* margin-right: 50%; */
 }
 
 .new-game {
   grid-area: button1;
-  margin-left: 330px;
+  position: relative;
+  left: 50%
+  /* margin-left: 45%; */
 }
 
 .disable-click {
