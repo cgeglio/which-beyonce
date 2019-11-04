@@ -24,6 +24,12 @@ main {
   height: 40px;
 }
 
+.welcome-msg h2 {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
 button {
   border: 0;
   background-color: #000000;
@@ -114,7 +120,7 @@ h1 {
 p {
   text-align: left;
   margin-top: 40px;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
   font-size: 18px;
   width: 600px;
 }
@@ -314,6 +320,36 @@ h6 {
   transform: rotateZ(13deg);
 }
 
+
+.drop-menu {
+  margin-top: 9px;
+  background-image: url("images/rainbow.jpg");
+  background-size: cover;
+  display: none;
+  flex-direction: column;
+  height: 300px;
+  position: absolute;
+  color: #000000;
+  width: 20%;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.drop-menu h1 {
+  font-size: 20px;
+}
+
+ol {
+  margin-left: 30px;
+}
+
+li {
+  font-size: 17px;
+  text-align: left;
+  text-indent: 10px;
+  font-weight: bold;
+  /* overflow: hidden; */
+}
 
 .fade-in {
   animation: fadeIn ease 2s;

@@ -21,13 +21,15 @@ var cards = document.querySelectorAll(".card");
 var matchCount = document.querySelectorAll(".matches-count");
 var startTime = 0;
 var endTime = 0;
+var menuOpen = false;
+var menu = document.querySelector(".menu-icon");
 
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
 playBtnWelcome.addEventListener("click", showGame);
 cardContainer.addEventListener("click", flipCard);
-newGameBtn.addEventListener("click", startNewGame)
-
+newGameBtn.addEventListener("click", startNewGame);
+menu.addEventListener("click", dropMenu);
 
 function startNewGame () {
   playerNames.style.display = "grid";
@@ -222,3 +224,19 @@ function displayCards(card) {
     </div>
   </div>`;
 }
+
+
+function dropMenu () {
+  var menuDropdown = document.querySelector(".drop-menu");
+  menuOpen = !menuOpen;
+  if (menuOpen) {
+    menuDropdown.style.display= "flex";
+  }
+  //   filterMobile.style.display = "flex";
+  //   pageOpacity.style.display = "flex";
+  // } else {
+  //   sidebar.classList.remove("mobile-menu");
+  //   filterMobile.style.display = "none";
+  //   pageOpacity.style.display = "none";
+
+};
