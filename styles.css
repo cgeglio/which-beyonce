@@ -39,6 +39,9 @@ button {
   justify-content: space-between;
   padding: 20px;
   background-color: #F5F7F6;
+  /* opacity: inherit;
+  transition: none; */
+
 }
 
 .sidebar {
@@ -48,7 +51,7 @@ button {
   text-align: center;
 }
 
-.matches-count {
+.matches-sidebar {
   margin-left: 5%;
   width: 85%;
   border-top: 1px solid #FFFFFF;
@@ -59,16 +62,10 @@ button {
   font-weight: normal;
 }
 
-/* .disable-click {
-  pointer-events: none;
-} */
-
 h5 {
   font-size: 60px;
   margin: 10px;
 }
-
-
 
 .welcome-btn {
   cursor: pointer;
@@ -80,7 +77,6 @@ h5 {
   float: left;
   margin: 0px;
   cursor: pointer;
-  /* align-self: flex-start; */
 }
 
 .welcome-msg {
@@ -237,9 +233,8 @@ h6 {
   "time time"
   "para para"
   "button1 button2";
-
-  /* flex-direction: column;
-  align-items: center; */
+  /* opacity: 0;
+  transition: none; */
 }
 
 .winner-msg p {
@@ -264,18 +259,9 @@ h6 {
   perspective: 1000px;
   margin: 40px;
   display: block;
+  opacity: inherit;
+  transition: none;
 }
-
-/* .remove {
-  display: none;
-} */
-/* .card-1,
-.card-2,
-.card-3,
-.card-4,
-.card-5 {
-  display: block;
-} */
 
 .flipper {
 	transition: 0.6s;
@@ -322,3 +308,33 @@ h6 {
 .flipper-5 {
   transform: rotateZ(13deg);
 }
+
+/*
+.fade-in {
+  animation: fadeIn ease 3s;
+  -webkit-animation: fadeIn ease 3s;
+}
+
+.fade-out {
+  animation: fadeOut ease 3s;
+  -webkit-animation: fadeOut ease 3s;
+}
+
+
+@keyframes fadeIn{
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@keyframes fadeOut{
+  100% {
+    opacity:0;
+  }
+  0% {
+    opacity:1;
+  }
+} */

@@ -18,25 +18,16 @@ var cardId = 10;
 var newGameBtn = document.querySelector(".new-game")
 var playerNames = document.querySelector(".player-names");
 var cards = document.querySelectorAll(".card");
+var matchCount = document.querySelectorAll(".matches-count");
 var startTime = 0;
 var endTime = 0;
 
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
 playBtnWelcome.addEventListener("click", showGame);
-cardContainer.addEventListener("click", pickCards);
+cardContainer.addEventListener("click", flipCard);
 newGameBtn.addEventListener("click", startNewGame)
 
-function pickCards() {
-  // console.log(deck.cards);
-  // for (var i = 0; i < deck.cards.length; i++) {
-  //   console.log(event.target.parentNode.id);
-  //   if (event.target.parentNode.id === deck.cards[i].cardId) {
-  if (deck.selectedCards.length < 2) {
-      flipCard(event);
-      selectCard(event);
-  }
-};
 
 function startNewGame () {
   playerNames.style.display = "grid";
@@ -52,56 +43,119 @@ function startNewGame () {
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
-  clickedCard.classList.toggle("flip");
+  if (deck.selectedCards.length < 2) {
+    if (clickedCard.classList.contains("flip")) {
+      deck.selectedCards.splice(0, 1);
+    } else {
+      selectCard(clickedCard);
+    }
+    clickedCard.classList.toggle("flip");
+  } else if (deck.selectedCards.length === 2) {
+    var cardIndex = -1;
+    clickedCard.classList.toggle("flip");
+    for (var i = 0; i < deck.selectedCards.length; i++) {
+      if (deck.selectedCards[i].cardId == clickedCard.id) {
+        cardIndex = i;
+      }
+    }
+    if (cardIndex != -1) {
+      deck.selectedCards.splice(cardIndex)
+    }
+  }
 };
 
-function selectCard(event) {
-  clickedCard = event.target.closest(".card");
-  clickedNumber = event.target.closest(".flipper");
-  // clickedCard.classList.add("disable-click");
 
-  clickedCard = new Card (`${clickedNumber.id}`,`${clickedCard.id}`);
-  deck.selectedCards.push(clickedCard);
-  checkForMatch(event);
+function selectCard(card) {
+  var cardId = parseInt(card.id);
+  if (deck.selectedCards.length === 0) {
+    for (var i = 0; i < deck.cards.length; i++) {
+      if (cardId === deck.cards[i].cardId) {
+        deck.selectedCards.push(deck.cards[i]);
+      }
+    }
+  } else if (deck.selectedCards.length === 1) {
+      if (cardId !== deck.selectedCards[0].cardId) {
+        for (var i = 0; i < deck.cards.length; i++) {
+          if (cardId === deck.cards[i].cardId) {
+            deck.selectedCards.push(deck.cards[i]);
+            deck.checkSelectedCards();
+            }
+          }
+          }
+        }
+
+  checkForMatch();
 };
 
 
-function checkForMatch(event) {
-  if (deck.selectedCards.length === 2) {
-     deck.checkSelectedCards();
-   }
+function checkForMatch() {
   if (deck.selectedCards.length === 0) {
      card.match(deck.matchedCards);
      removeCard();
+     console.log(deck.matches);
+     for (var i = 0; i < matchCount.length; i++) {
+       matchCount[i].innerText = `${deck.matches}`;
   }
+}
 };
-
-
 
 
 function removeCard() {
-  var recentCards = deck.matchedCards.slice(-2);
-  for (var i = 0; i < recentCards.length; i++) {
-    var deleted = document.getElementById(recentCards[i].cardId);
-    deleted.parentNode.removeChild(deleted);
+  console.log(deck.matchedCards);
+  if (deck.matchedCards.length > 0) {
+  for (var i = 0; i < deck.matchedCards.length; i++) {
+    console.log(deck.matchedCards);
+    var deleted = document.getElementById(deck.matchedCards[i].cardId);
+    fadeOut(deleted);
   }
-    if (deck.matches === 5) {
-      endTime = new Date();
-      var timeDiff = endTime - startTime;
-      timeDiff /= 1000;
-      var time = Math.round(timeDiff);
-      var minutes = Math.floor(time / 60000);
-      var seconds = time - minutes * 60;
-      document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
-      gamePage.style.display = "none";
-      winnerMsg.style.display = "grid";
-      deck.matches = 0;
-      deck.cards = [];
-      deck.matchedCards = [];
-      cardNumber = 1;
-      cardId = 10;
+    deck.matchedCards = [];
+    setTimeout(function() { showWinner(); }, 5000);
     }
-};
+  }
+
+
+  function fadeOut(card) {
+      card.style.transition = '2s';
+      card.style.opacity = 0;
+    }
+
+// user clicks
+// if select .length<2
+  // timeout flip here
+  // if select === 2
+  //
+  // check match, if yes push to matched, select []
+  // if no, select []
+
+// };
+
+function showWinner() {
+  if (deck.matches === 5) {
+    findTime();
+    // winnerMsg.classList.add("fade-in");
+    deck.matches = 0;
+    deck.cards = [];
+    deck.matchedCards = [];
+    cardNumber = 1;
+    cardId = 10;
+    deck.matchedCards = [];
+    gamePage.style.display = "none";
+    winnerMsg.style.display = "grid";
+
+  }
+}
+
+
+
+function findTime() {
+  endTime = new Date();
+  var timeDiff = endTime - startTime;
+  timeDiff /= 1000;
+  var time = Math.round(timeDiff);
+  var minutes = Math.floor(time / 60);
+  var seconds = time - minutes * 60;
+  document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
+}
 
 
 function showGame() {
@@ -152,12 +206,12 @@ function addCards() {
   if (deck.cards.length === 10) {
     deck.shuffle();
     for (var i = 0; i < deck.cards.length; i++) {
-    addToDom(deck.cards[i]);
+    displayCards(deck.cards[i]);
     }
   }
 };
 
-function addToDom(card) {
+function displayCards(card) {
   cardContainer.innerHTML += `
   <div class="card" id="${card.cardId}">
     <div class="flipper flipper-${card.matchInfo}" id="${card.matchInfo}">
