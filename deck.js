@@ -20,9 +20,6 @@ class Deck {
     if (this.selectedCards[0].matchInfo === this.selectedCards[1].matchInfo) {
        this.matches++;
        this.moveToMatched();
-     // } else {
-     //   this.selectedCards.splice(0, 2);
-     // }
   }
 }
 

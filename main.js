@@ -18,6 +18,7 @@ var cardId = 10;
 var newGameBtn = document.querySelector(".new-game")
 var playerNames = document.querySelector(".player-names");
 var cards = document.querySelectorAll(".card");
+var matchCount = document.querySelectorAll(".matches-count");
 var startTime = 0;
 var endTime = 0;
 
@@ -98,10 +99,14 @@ function selectCard(card) {
           if (cardId === deck.cards[i].cardId) {
             deck.selectedCards.push(deck.cards[i]);
             deck.checkSelectedCards();
+            // console.log(deck.matches);
+            // for (var i = 0; i < matchCount.length; i++) {
+            //   matchCount[i].innerText = `${deck.matches}`;
             }
           }
+          }
         }
-      }
+
   checkForMatch();
 };
 
@@ -110,7 +115,11 @@ function checkForMatch() {
   if (deck.selectedCards.length === 0) {
      card.match(deck.matchedCards);
      removeCard();
+     console.log(deck.matches);
+     for (var i = 0; i < matchCount.length; i++) {
+       matchCount[i].innerText = `${deck.matches}`;
   }
+}
 };
 
 
@@ -127,7 +136,7 @@ function removeCard() {
   }
 
     deck.matchedCards = [];
-    setTimeout(function() { showWinner(); }, 4000);
+    setTimeout(function() { showWinner(); }, 5000);
 
   }
   }
