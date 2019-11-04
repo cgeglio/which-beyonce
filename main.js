@@ -90,7 +90,6 @@ function checkForMatch() {
   if (deck.selectedCards.length === 0) {
      card.match(deck.matchedCards);
      removeCard();
-     console.log(deck.matches);
      for (var i = 0; i < matchCount.length; i++) {
        matchCount[i].innerText = `${deck.matches}`;
      }
@@ -101,10 +100,8 @@ function checkForMatch() {
 
 
 function removeCard() {
-  console.log(deck.matchedCards);
   if (deck.matchedCards.length > 0) {
   for (var i = 0; i < deck.matchedCards.length; i++) {
-    console.log(deck.matchedCards);
     var deleted = document.getElementById(deck.matchedCards[i].cardId);
     fadeOut(deleted);
     cardContainer.addEventListener("click", flipCard);
@@ -117,11 +114,9 @@ function removeCard() {
   function flipBack() {
     for (var i = 0; i < deck.selectedCards.length; i++) {
         var clickCard = document.getElementById(deck.selectedCards[i].cardId);
-        console.log(clickCard);
         clickCard.classList.remove("flip");
       }
       cardContainer.addEventListener("click", flipCard);
-      console.log(deck.selectedCards);
       deck.selectedCards = [];
     }
 
