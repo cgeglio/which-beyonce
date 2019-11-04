@@ -94,7 +94,7 @@ function checkForMatch() {
        matchCount[i].innerText = `${deck.matches}`;
      }
    } else {
-    setTimeout(function() { flipBack(); }, 2000);
+    setTimeout(function() { flipBack(); }, 1000);
   }
 };
 
@@ -104,6 +104,7 @@ function removeCard() {
   for (var i = 0; i < deck.matchedCards.length; i++) {
     var deleted = document.getElementById(deck.matchedCards[i].cardId);
     fadeOut(deleted);
+    // setTimeout(function() { deleteFromDom(deleted); }, 2000);
     cardContainer.addEventListener("click", flipCard);
   }
     deck.matchedCards = [];
@@ -129,7 +130,9 @@ function removeCard() {
 function showWinner() {
   if (deck.matches === 5) {
     findTime();
-    // winnerMsg.classList.add("fade-in");
+    cardContainer.innerHTML = "";
+    winnerMsg.style.display = "grid";
+    winnerMsg.classList.add("fade-in");
     deck.matches = 0;
     deck.cards = [];
     deck.matchedCards = [];
@@ -137,7 +140,7 @@ function showWinner() {
     cardId = 10;
     deck.matchedCards = [];
     gamePage.style.display = "none";
-    winnerMsg.style.display = "grid";
+
 
   }
 }

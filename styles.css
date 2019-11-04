@@ -212,14 +212,12 @@ h6 {
 
 .rematch {
   grid-area: button2;
-  margin-right: 35%;
-  margin-left: 10%;
+  margin-right: 150px;
 }
 
 .new-game {
   grid-area: button1;
-  margin-left: 45%;
-  margin-right: 5%
+  margin-left: 330px;
 }
 
 .disable-click {
@@ -314,15 +312,10 @@ h6 {
   transform: rotateZ(13deg);
 }
 
-/*
-.fade-in {
-  animation: fadeIn ease 3s;
-  -webkit-animation: fadeIn ease 3s;
-}
 
-.fade-out {
-  animation: fadeOut ease 3s;
-  -webkit-animation: fadeOut ease 3s;
+.fade-in {
+  animation: fadeIn ease 2s;
+  -webkit-animation: fadeIn ease 2s;
 }
 
 
@@ -334,12 +327,3 @@ h6 {
     opacity:1;
   }
 }
-
-@keyframes fadeOut{
-  100% {
-    opacity:0;
-  }
-  0% {
-    opacity:1;
-  }
-} */
