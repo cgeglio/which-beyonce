@@ -39,6 +39,9 @@ button {
   justify-content: space-between;
   padding: 20px;
   background-color: #F5F7F6;
+  /* opacity: inherit;
+  transition: none; */
+
 }
 
 .sidebar {
@@ -230,6 +233,8 @@ h6 {
   "time time"
   "para para"
   "button1 button2";
+  /* opacity: 0;
+  transition: none; */
 }
 
 .winner-msg p {
@@ -303,3 +308,33 @@ h6 {
 .flipper-5 {
   transform: rotateZ(13deg);
 }
+
+/*
+.fade-in {
+  animation: fadeIn ease 3s;
+  -webkit-animation: fadeIn ease 3s;
+}
+
+.fade-out {
+  animation: fadeOut ease 3s;
+  -webkit-animation: fadeOut ease 3s;
+}
+
+
+@keyframes fadeIn{
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@keyframes fadeOut{
+  100% {
+    opacity:0;
+  }
+  0% {
+    opacity:1;
+  }
+} */

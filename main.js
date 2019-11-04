@@ -132,15 +132,20 @@ function removeCard() {
 function showWinner() {
   if (deck.matches === 5) {
     findTime();
-    gamePage.style.display = "none";
-    winnerMsg.style.display = "grid";
+    // winnerMsg.classList.add("fade-in");
     deck.matches = 0;
     deck.cards = [];
     deck.matchedCards = [];
     cardNumber = 1;
     cardId = 10;
+    deck.matchedCards = [];
+    gamePage.style.display = "none";
+    winnerMsg.style.display = "grid";
+
   }
 }
+
+
 
 function findTime() {
   endTime = new Date();
