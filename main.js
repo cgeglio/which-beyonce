@@ -106,7 +106,6 @@ function removeCard() {
   for (var i = 0; i < deck.matchedCards.length; i++) {
     var deleted = document.getElementById(deck.matchedCards[i].cardId);
     fadeOut(deleted);
-    // setTimeout(function() { deleteFromDom(deleted); }, 2000);
     cardContainer.addEventListener("click", flipCard);
   }
     deck.matchedCards = [];
@@ -114,24 +113,25 @@ function removeCard() {
   }
 };
 
-  function flipBack() {
-    for (var i = 0; i < deck.selectedCards.length; i++) {
-        var clickCard = document.getElementById(deck.selectedCards[i].cardId);
-        clickCard.classList.remove("flip");
-      }
-      cardContainer.addEventListener("click", flipCard);
-      deck.selectedCards = [];
+function flipBack() {
+  for (var i = 0; i < deck.selectedCards.length; i++) {
+      var clickCard = document.getElementById(deck.selectedCards[i].cardId);
+      clickCard.classList.remove("flip");
     }
+    cardContainer.addEventListener("click", flipCard);
+    deck.selectedCards = [];
+  }
 
 
-  function fadeOut(card) {
-      card.style.transition = '2s';
-      card.style.opacity = 0;
-    }
+function fadeOut(card) {
+    card.style.transition = '2s';
+    card.style.opacity = 0;
+  }
 
 function showWinner() {
   if (deck.matches === 5) {
     findTime();
+    updateBoard();
     cardContainer.innerHTML = "";
     winnerMsg.style.display = "grid";
     winnerMsg.classList.add("fade-in");
@@ -142,12 +142,12 @@ function showWinner() {
     cardId = 10;
     deck.matchedCards = [];
     gamePage.style.display = "none";
-
-
   }
 }
 
+function updateBoard() {
 
+}
 
 function findTime() {
   endTime = new Date();
@@ -156,6 +156,9 @@ function findTime() {
   var time = Math.round(timeDiff);
   var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
+  var userTime = `0${minutes}:${seconds}`;
+  var timeString = JSON.stringify(userTime);
+  localStorage.setItem("time", timeString);
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
 }
 
@@ -181,6 +184,7 @@ function showGame() {
 function checkInputs() {
   if (playerOne.value) {
     playBtnMain.id = "active";
+    localStorage.setItem("name", playerOne.value);
   }
 };
 
