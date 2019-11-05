@@ -134,7 +134,6 @@ function showWinner() {
   if (deck.matches === 5) {
     names.push(playerOne.value);
     nameStorage();
-    // updateBoard();
     findTime();
     cardContainer.innerHTML = "";
     winnerMsg.style.display = "grid";
@@ -180,9 +179,7 @@ function updateBoard() {
       var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
       score++;
       newTimes.splice(timeIndex, 1);
-      console.log(newTimes);
       newNames.splice(timeIndex, 1);
-      console.log(newNames);
       document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
     }
   }
