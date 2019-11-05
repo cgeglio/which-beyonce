@@ -8,63 +8,44 @@ body {
   margin: 0;
 }
 
+header {
+  height: 80px;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+
 main {
+  align-items: center;
   background-image: url("images/jvn-main.jpg");
   background-position: center;
-  height: 100%;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.play-btn,
-.welcome-btn {
-  width: 600px;
-  height: 40px;
-}
-
-.welcome-msg h2 {
-  font-weight: bold;
-  font-size: 20px;
-  margin-bottom: 20px;
+  height: 100%;
+  text-align: center;
 }
 
 button {
-  border: 0;
   background-color: #000000;
+  border: 0;
   color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
   font-size: 15px;
+  font-weight: 700;
 }
 
-.game-page {
-  display: none;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: #F5F7F6;
-  /* opacity: inherit;
-  transition: none; */
-
+h1 {
+  font-size: 25px;
 }
 
-.sidebar {
-  width: 20%;
-  color: #FFFFFF;
-  background-color: #000000;
-  text-align: center;
+h2 {
+  font-size: 17px;
+  font-weight: normal;
+  margin-top: 5px;
 }
 
-.matches-sidebar {
-  margin-left: 5%;
-  width: 85%;
-  border-top: 1px solid #FFFFFF;
-  border-bottom: 1px solid #FFFFFF;
-}
-
-.sidebar h4 {
+h3,
+h4 {
   font-weight: normal;
 }
 
@@ -73,60 +54,75 @@ h5 {
   margin: 10px;
 }
 
-.welcome-btn {
-  cursor: pointer;
-}
-
-.menu-icon {
-  height: 80px;
-  width: 90px;
-  float: left;
-  margin: 0px;
-  cursor: pointer;
-}
-
-.welcome-msg {
-  display: none;
-}
-
-header {
-  height: 80px;
-  width: 100%;
-  text-align: center;
-  overflow: hidden;
-}
-
-#heading {
-  margin-top: 20px;
-  margin-right: 100px;
-}
-
-h2 {
-  margin-top: 5px;
-  font-weight: normal;
-  font-size: 17px;
-}
-
-h1 {
-  font-size: 25px;
-
-}
-
-.winner-msg h1,
-.welcome-msg h1 {
-  margin-top: 100px;
+h6 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+  padding-top: 12px;
 }
 
 p {
-  text-align: left;
+  font-size: 18px;
   margin-top: 40px;
   margin-bottom: 40px;
-  font-size: 18px;
+  text-align: left;
   width: 600px;
 }
 
+input {
+  background-color: #FFFFFF;
+  border: 0;
+  height: 40px;
+  margin-top: 150px;
+  text-indent: 10px;
+  width: 250px;
+}
+
+#active {
+  cursor: pointer;
+}
+
+/* header and dropdown menu */
+.menu-icon {
+  cursor: pointer;
+  float: left;
+  height: 80px;
+  margin: 0px;
+  width: 90px;
+}
+
+.heading {
+  margin-right: 100px;
+  margin-top: 20px;
+}
+
+.drop-menu {
+  align-items: center;
+  background-image: url("images/rainbow.jpg");
+  background-size: cover;
+  color: #000000;
+  display: none;
+  flex-direction: column;
+  height: 300px;
+  margin-top: 9px;
+  overflow: hidden;
+  position: absolute;
+  width: 250px;
+  z-index: 3;
+}
+
+.drop-menu h1 {
+  font-size: 20px;
+}
+
+.winner-list {
+  font-size: 17px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* main page */
 .player-names {
-  height: 400px;
   display: grid;
   grid-template-areas:
   "input1 input2"
@@ -134,27 +130,17 @@ p {
   "button button"
   "error error";
   grid-template-rows: 1fr 1fr 1fr 1fr;
+  height: 400px;
   text-align: left;
-}
-
-
-input {
-  margin-top: 150px;
-  width: 250px;
-  height: 40px;
-  border: 0;
-  background-color: #FFFFFF;
-  text-indent: 10px;
 }
 
 .input-one {
   grid-area: input1;
 }
 
-
 .input-two {
-  margin-left: 25%;
   grid-area: input2;
+  margin-left: 25%;
 }
 
 .player-one {
@@ -162,47 +148,92 @@ input {
 }
 
 .player-two {
-  margin-left: 25%;
   grid-area: player2;
+  margin-left: 25%;
 }
 
 .player-names button {
-  margin-top: 25px;
   grid-area: button;
+  margin-top: 25px;
 }
 
 .error {
-  margin-top: 10px;
   display: none;
   grid-area: error;
+  margin-top: 10px;
 }
 
-#active {
+.play-btn,
+.welcome-btn {
+  height: 40px;
+  width: 600px;
+}
+
+/* welcome/directions page */
+.welcome-btn {
   cursor: pointer;
 }
 
+.welcome-msg {
+  display: none;
+}
+
+.welcome-msg h1,
+.winner-msg h1 {
+  margin-top: 100px;
+}
+
+.welcome-msg h2 {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* play game page */
+.game-page {
+  background-color: #F5F7F6;
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+}
+
 .card-container {
-  width: 60%;
-  margin: 20px;
+  align-items: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-}
-
-
-h6 {
-  font-size: 30px;
-  font-weight: bold;
-  padding-top: 12px;
-  margin: 0;
-}
-
-.winner-msg button {
-  width: 300px;
-  height: 40px;
   margin: 20px;
+  width: 60%;
+}
+
+.sidebar {
+  background-color: #000000;
+  color: #FFFFFF;
+  text-align: center;
+  width: 20%;
+}
+
+.matches-sidebar {
+  border-bottom: 1px solid #FFFFFF;
+  border-top: 1px solid #FFFFFF;
+  margin-left: 5%;
+  width: 85%;
+}
+
+/* winner page */
+.winner-msg {
+  background-image: url("images/jvn-main.jpg");
+  background-position: center;
+  display: none;
+  grid-template-areas:
+  "congrats congrats"
+  "time time"
+  "para para"
+  "button1 button2";
+  height: 100%;
+  text-align: center;
 }
 
 .winner-msg h1 {
@@ -211,53 +242,35 @@ h6 {
 }
 
 .winner-msg h2 {
-  margin-top: 20px;
   font-weight: bold;
   grid-area: time;
+  margin-top: 20px;
+}
+
+.winner-msg p {
+  grid-area: para;
+  margin: 0px;
+  text-align: center;
+  width: 100%;
+}
+
+.winner-msg button {
+  height: 40px;
+  margin: 20px;
+  width: 300px;
+}
+
+.new-game {
+  grid-area: button1;
+  left: 50%;
+  position: relative;
 }
 
 .rematch {
   grid-area: button2;
 }
 
-.new-game {
-  grid-area: button1;
-  position: relative;
-  left: 50%
-}
-
-
-.winner-msg {
-  display: none;
-  background-image: url("images/jvn-main.jpg");
-  background-position: center;
-  height: 100%;
-  text-align: center;
-  grid-template-areas:
-  "congrats congrats"
-  "time time"
-  "para para"
-  "button1 button2";
-}
-
-.winner-msg p {
-  text-align: center;
-  grid-area: para;
-  width: 100%;
-  margin: 0;
-}
-
-.flip .flipper, .card.flip .flipper {
-	transform: rotateY(180deg);
-}
-
-.card,
-.front,
-.back {
-	height: 150px;
-  width: 110px;
-}
-
+/* card flipping */
 .card {
   perspective: 1000px;
   margin: 40px;
@@ -266,30 +279,42 @@ h6 {
   transition: none;
 }
 
-.flipper {
-	transition: 0.6s;
-	transform-style: preserve-3d;
-	position: relative;
-}
-
-.front,
 .back {
-	backface-visibility: hidden;
-  border: 2px solid #000000;
-	position: absolute;
-	top: 0;
-	left: 0;
+	transform: rotateY(180deg);
 }
 
 .front {
-	z-index: 2;
-	transform: rotateY(0deg);
   background-color: #FFFFFF;
   text-align: center;
+  transform: rotateY(0deg);
+  z-index: 2;
 }
 
-.back {
+.card,
+.back,
+.front {
+	height: 150px;
+  width: 110px;
+}
+
+.back,
+.front {
+	backface-visibility: hidden;
+  border: 2px solid #000000;
+  left: 0;
+	position: absolute;
+	top: 0;
+}
+
+.flip .flipper,
+.card.flip .flipper {
 	transform: rotateY(180deg);
+}
+
+.flipper {
+  position: relative;
+  transform-style: preserve-3d;
+	transition: 0.6s;
 }
 
 .flipper-1 {
@@ -305,44 +330,18 @@ h6 {
 }
 
 .flipper-4 {
-  transform: rotateZ(19deg);
+  transform: rotateZ(-10deg);
 }
 
 .flipper-5 {
   transform: rotateZ(13deg);
 }
 
-
-.drop-menu {
-  margin-top: 9px;
-  background-image: url("images/rainbow.jpg");
-  background-size: cover;
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  height: 300px;
-  position: absolute;
-  color: #000000;
-  width: 250px;
-  z-index: 3;
-  overflow: hidden;
-}
-
-.drop-menu h1 {
-  font-size: 20px;
-}
-
-.winner-list {
-  text-align: left;
-  font-size: 17px;
-  font-weight: bold;
-}
-
+/* fade in for winner page */
 .fade-in {
   animation: fadeIn ease 2s;
   -webkit-animation: fadeIn ease 2s;
 }
-
 
 @keyframes fadeIn{
   0% {
@@ -353,8 +352,8 @@ h6 {
   }
 }
 
-@media screen and (min-width: 1200px) {
-
+/* media queries */
+@media screen and (min-width: 1500px) {
   header,
   main,
   .winner-msg {
@@ -372,14 +371,12 @@ h6 {
 }
 
 @media screen and (max-width: 1020px) {
-
   main {
     background-repeat: no-repeat;
   }
 }
 
 @media screen and (max-width: 760px) {
-
   .new-game {
     left: 10%;
   }
