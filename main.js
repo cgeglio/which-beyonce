@@ -32,17 +32,70 @@ playBtnWelcome.addEventListener("click", showGame);
 playerOne.addEventListener("keyup", checkInputs);
 window.addEventListener("load", pullScores);
 
-function startNewGame () {
-  main.style.display = "flex";
-  playerNames.style.display = "grid";
-  welcomeMsg.style.display = "none";
-  winnerMsg.style.display = "none";
-  playerNames.reset();
-  nameOne.innerText = "";
-  nameTwo.innerText = "";
-  playBtnMain.removeAttribute("active");
-  pullScores();
+function checkInputs() {
+  if (playerOne.value) {
+    playBtnMain.id = "active";
+  }
 };
+
+function showDirections() {
+  if (playBtnMain.id === "active") {
+    playerNames.style.display = "none";
+    welcomeMsg.style.display = "block";
+    for (var i = 0; i < nameOne.length; i++) {
+    nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
+    }
+  if (playerTwo.value) {
+    for (var i = 0; i < nameTwo.length; i++) {
+    nameTwo[i].innerText = ` AND ${playerTwo.value.toUpperCase()}`;
+  }
+}
+  } else {
+      document.querySelector(".error").style.display = "block";
+    }
+};
+
+function showGame() {
+  main.style.display = "none";
+  gamePage.style.display = "flex";
+  for (var i=0; i < 5; i++) {
+      addCards();
+      cardNumber++;
+      cardId++;
+    }
+  cardNumber = 1;
+  cardId = 15;
+  for (var i=0; i < 5; i++) {
+      addCards();
+      cardNumber++;
+      cardId++;
+  }
+  startTime = new Date();
+};
+
+function addCards() {
+  var card = new Card(cardNumber, cardId);
+  deck.cards.push(card);
+  if (deck.cards.length === 10) {
+    deck.shuffle();
+    for (var i = 0; i < deck.cards.length; i++) {
+    displayCards(deck.cards[i]);
+    }
+  }
+};
+
+function displayCards(card) {
+  cardContainer.innerHTML += `
+  <div class="card" id="${card.cardId}">
+    <div class="flipper flipper-${card.matchInfo}" id="${card.matchInfo}">
+      <div class="front">
+        <h6>J<br/>V<br/>N</h6>
+      </div>
+      <img class="back" src="images/JVN-${card.matchInfo}.jpg">
+    </div>
+  </div>`;
+}
+
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
@@ -66,6 +119,8 @@ function flipCard(event) {
     }
   }
 };
+
+
 
 function selectCard(card) {
   var cardId = parseInt(card.id);
@@ -147,6 +202,42 @@ function showWinner() {
   }
 }
 
+function findTime() {
+  endTime = new Date();
+  var timeDiff = endTime - startTime;
+  timeDiff /= 1000;
+  var time = Math.round(timeDiff);
+  var minutes = Math.floor(time / 60);
+  var seconds = time - minutes * 60;
+  times.push(time);
+  timeStorage();
+  document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
+}
+
+function startNewGame () {
+  main.style.display = "flex";
+  playerNames.style.display = "grid";
+  welcomeMsg.style.display = "none";
+  winnerMsg.style.display = "none";
+  playerNames.reset();
+  nameOne.innerText = "";
+  nameTwo.innerText = "";
+  playBtnMain.removeAttribute("active");
+  pullScores();
+};
+
+function nameStorage() {
+  var nameString = JSON.stringify(names);
+  localStorage.setItem("names", nameString);
+}
+
+function timeStorage() {
+  var timeString = JSON.stringify(times);
+  localStorage.setItem("times", timeString);
+}
+
+
+
 
 function pullScores() {
   names = [];
@@ -184,94 +275,15 @@ function updateBoard() {
   }
 };
 
-function findTime() {
-  endTime = new Date();
-  var timeDiff = endTime - startTime;
-  timeDiff /= 1000;
-  var time = Math.round(timeDiff);
-  var minutes = Math.floor(time / 60);
-  var seconds = time - minutes * 60;
-  times.push(time);
-  timeStorage();
-  document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
-}
 
 
-function showGame() {
-  main.style.display = "none";
-  gamePage.style.display = "flex";
-  for (var i=0; i < 5; i++) {
-      addCards();
-      cardNumber++;
-      cardId++;
-    }
-  cardNumber = 1;
-  cardId = 15;
-  for (var i=0; i < 5; i++) {
-      addCards();
-      cardNumber++;
-      cardId++;
-  }
-  startTime = new Date();
-};
-
-function checkInputs() {
-  if (playerOne.value) {
-    playBtnMain.id = "active";
-  }
-};
-
-function nameStorage() {
-  var nameString = JSON.stringify(names);
-  localStorage.setItem("names", nameString);
-}
-
-function timeStorage() {
-  var timeString = JSON.stringify(times);
-  localStorage.setItem("times", timeString);
-}
 
 
-function showDirections() {
-  if (playBtnMain.id === "active") {
-    playerNames.style.display = "none";
-    welcomeMsg.style.display = "block";
-    for (var i = 0; i < nameOne.length; i++) {
-    nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
-    }
-  if (playerTwo.value) {
-    for (var i = 0; i < nameTwo.length; i++) {
-    nameTwo[i].innerText = ` AND ${playerTwo.value.toUpperCase()}`;
-  }
-}
-  } else {
-      document.querySelector(".error").style.display = "block";
-    }
-};
 
 
-function addCards() {
-  var card = new Card(cardNumber, cardId);
-  deck.cards.push(card);
-  if (deck.cards.length === 10) {
-    deck.shuffle();
-    for (var i = 0; i < deck.cards.length; i++) {
-    displayCards(deck.cards[i]);
-    }
-  }
-};
 
-function displayCards(card) {
-  cardContainer.innerHTML += `
-  <div class="card" id="${card.cardId}">
-    <div class="flipper flipper-${card.matchInfo}" id="${card.matchInfo}">
-      <div class="front">
-        <h6>J<br/>V<br/>N</h6>
-      </div>
-      <img class="back" src="images/JVN-${card.matchInfo}.jpg">
-    </div>
-  </div>`;
-}
+
+
 
 
 function dropMenu () {
