@@ -170,24 +170,41 @@ function pullScores() {
 }
 
 function updateBoard() {
-
+  var newTimes = [...times];
+  var newNames = [...names];
+  var score = 1;
   // times = [];
-  // for (var i = 0; i < timeSet.length; i++) {
+  if (newTimes.length > 4) {
+    for (var i = 0; i < 5; i++) {
+
     // parseInt(timeSet[i]);
     // console.log(timeSet[i]);
     // times.push(timeSet[i])
 
   // console.log(timeSet);
-  var lowestTime = Math.min.apply(Math, times);     // gives the highest score
-  var timeIndex = times.indexOf(lowestTime);       // gives the location of the highest score
-  var bestPlayer = names[timeIndex];
-  var minutes = Math.floor(lowestTime / 60);
-  var seconds = lowestTime - minutes * 60;
-  var userTime = `0${minutes}:${seconds}`;
-  var highScore = `${bestPlayer}, ${userTime}`;
-  document.querySelector(".first").innerText = highScore;
-}
+    var lowestTime = Math.min.apply(Math, newTimes);
+    var timeIndex = newTimes.indexOf(lowestTime);
+    var bestPlayer = newNames[timeIndex];
+    var minutes = Math.floor(lowestTime / 60);
+    var seconds = lowestTime - minutes * 60;
+    var userTime = `0${minutes}:${seconds}`;
+    var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
+    score++;
+    // var newTimes = [...newTimes];
+    newTimes.splice(timeIndex, 1);
+    newNames.splice(timeIndex, 1);
 
+
+
+  document.querySelector(".winner-list").innerHTML +=
+    `${highScore} <br />`;
+  // document.querySelector(".second").innerText = highScore2;
+  // document.querySelector(".third").innerText = highScore3;
+  // document.querySelector(".fourth").innerText = highScore4;
+  // document.querySelector(".fifth").innerText = highScore5;
+}
+}
+}
 
 function findTime() {
   endTime = new Date();
