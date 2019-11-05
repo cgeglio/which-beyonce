@@ -45,13 +45,11 @@ function showDirections() {
     for (var i = 0; i < nameOne.length; i++) {
       nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
     }
-
     if (playerTwo.value) {
       for (var i = 0; i < nameTwo.length; i++) {
         nameTwo[i].innerText = ` AND ${playerTwo.value.toUpperCase()}`;
       }
     }
-
   } else {
     document.querySelector(".error").style.display = "block";
   }
@@ -98,7 +96,6 @@ function displayCards(card) {
   </div>`;
 };
 
-
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
   if (deck.selectedCards.length < 2) {
@@ -121,8 +118,6 @@ function flipCard(event) {
     }
   }
 };
-
-
 
 function selectCard(card) {
   var cardId = parseInt(card.id);
@@ -190,17 +185,20 @@ function showWinner() {
     names.push(playerOne.value);
     nameStorage();
     findTime();
+    resetGame();
     cardContainer.innerHTML = "";
     winnerMsg.style.display = "grid";
     winnerMsg.classList.add("fade-in");
-    deck.matches = 0;
-    deck.cards = [];
-    deck.matchedCards = [];
-    cardNumber = 1;
-    cardId = 10;
-    deck.matchedCards = [];
     gamePage.style.display = "none";
   }
+};
+
+function resetGame() {
+  deck.matches = 0;
+  deck.cards = [];
+  deck.matchedCards = [];
+  cardNumber = 1;
+  cardId = 10;
 };
 
 function findTime() {
