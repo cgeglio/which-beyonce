@@ -12,6 +12,7 @@ var menu = document.querySelector(".menu-icon");
 var menuOpen = false;
 var names = [];
 var nameOne = document.querySelectorAll(".name-one");
+var nameTwoWelcome = document.getElementById("name-two");
 var nameTwo = document.querySelectorAll(".name-two");
 var newGameBtn = document.querySelector(".new-game");
 var playBtnMain = document.querySelector(".play-btn");
@@ -204,6 +205,10 @@ function findTime() {
 function showGame() {
   main.style.display = "none";
   gamePage.style.display = "flex";
+  if (playerTwo.value) {
+    document.querySelector(".right").style.display = "block";
+    gamePage.classList.remove("single-player");
+  }
   for (var i=0; i < 5; i++) {
       addCards();
       cardNumber++;
@@ -244,8 +249,9 @@ function showDirections() {
     nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
     }
   if (playerTwo.value) {
+    nameTwoWelcome.innerText =  ` AND ${playerTwo.value.toUpperCase()}`;
     for (var i = 0; i < nameTwo.length; i++) {
-    nameTwo[i].innerText = ` AND ${playerTwo.value.toUpperCase()}`;
+    nameTwo[i].innerText = `${playerTwo.value.toUpperCase()}`;
   }
 }
   } else {

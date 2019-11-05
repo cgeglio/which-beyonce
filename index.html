@@ -28,8 +28,8 @@
         <h2 class="error">Please enter at least one player name!</h2>
       </form>
       <div class="welcome-msg">
-        <h1>WELCOME <span class="name-one">PLAYER 1</span><span
-          class="name-two"></span>!</h1>
+        <h1>WELCOME <span class="name-one"></span><span
+          id="name-two"></span>!</h1>
         <p>The goal of the game is to find all 5 pairs of cards as quickly as
           possible. The player that finds the greatest numbers of pairs, wins.
           <br/>
@@ -50,7 +50,7 @@
         <button type="button" class="welcome-btn">PLAY GAME</button>
       </div>
     </main>
-    <div class="game-page">
+    <div class="game-page single-player">
       <section class="sidebar">
         <h3 class="name-one"></h3>
         <h4>#4 TOP PLAYER</h4>
@@ -64,8 +64,8 @@
       </section>
       <section class="card-container" id="deck">
       </section>
-      <section class="sidebar">
-        <h3 class="name-one"></h3>
+      <section class="sidebar right">
+        <h3 class="name-two"></h3>
           <div class="matches-sidebar">
             <h4>MATCHES<br/>THIS ROUND</h4>
             <h5 class="matches-count">0</h5>
