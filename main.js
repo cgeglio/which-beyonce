@@ -1,51 +1,49 @@
+var card = new Card (null, null);
+var cardContainer = document.querySelector(".card-container");
+var cardId = 10;
+var cardNumber = 1;
+var deck = document.getElementById("deck");
+deck = new Deck;
+var endTime = 0;
+var gamePage = document.querySelector(".game-page");
+var main = document.querySelector("main");
+var matchCount = document.querySelectorAll(".matches-count");
+var menu = document.querySelector(".menu-icon");
+var menuOpen = false;
+var names = [];
+var nameOne = document.querySelectorAll(".name-one");
+var nameTwo = document.querySelectorAll(".name-two");
+var newGameBtn = document.querySelector(".new-game");
 var playBtnMain = document.querySelector(".play-btn");
 var playBtnWelcome = document.querySelector(".welcome-btn");
-var welcomeMsg = document.querySelector(".welcome-msg")
-var winnerMsg = document.querySelector(".winner-msg")
+var playerNames = document.querySelector(".player-names");
 var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
 var sidebars = document.querySelector(".sidebar");
-var cardContainer = document.querySelector(".card-container");
-var deck = document.getElementById("deck");
-deck = new Deck;
-var card = new Card (null, null);
-var main = document.querySelector("main");
-var gamePage = document.querySelector(".game-page");
-var nameOne = document.querySelectorAll(".name-one");
-var nameTwo = document.querySelectorAll(".name-two");
-var cardNumber = 1;
-var cardId = 10;
-var newGameBtn = document.querySelector(".new-game")
-var playerNames = document.querySelector(".player-names");
-var cards = document.querySelectorAll(".card");
-var matchCount = document.querySelectorAll(".matches-count");
 var startTime = 0;
-var endTime = 0;
-var menuOpen = false;
-var menu = document.querySelector(".menu-icon");
-var names = [];
 var times = [];
+var welcomeMsg = document.querySelector(".welcome-msg");
+var winnerMsg = document.querySelector(".winner-msg");
 
-
-window.addEventListener("load", pullScores);
-playBtnMain.addEventListener("click", showDirections);
-playerOne.addEventListener("keyup", checkInputs);
-playBtnWelcome.addEventListener("click", showGame);
 cardContainer.addEventListener("click", flipCard);
-newGameBtn.addEventListener("click", startNewGame);
 menu.addEventListener("click", dropMenu);
+newGameBtn.addEventListener("click", startNewGame);
+playBtnMain.addEventListener("click", showDirections);
+playBtnWelcome.addEventListener("click", showGame);
+playerOne.addEventListener("keyup", checkInputs);
+window.addEventListener("load", pullScores);
 
 function startNewGame () {
-  playerNames.style.display = "grid";
-  winnerMsg.style.display = "none";
-  welcomeMsg.style.display = "none";
   main.style.display = "flex";
+  playerNames.style.display = "grid";
+  welcomeMsg.style.display = "none";
+  winnerMsg.style.display = "none";
   playerNames.reset();
   nameOne.innerText = "";
   nameTwo.innerText = "";
   playBtnMain.removeAttribute("active");
+  pullScores();
 };
-
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
@@ -136,7 +134,7 @@ function showWinner() {
   if (deck.matches === 5) {
     names.push(playerOne.value);
     nameStorage();
-    updateBoard();
+    // updateBoard();
     findTime();
     cardContainer.innerHTML = "";
     winnerMsg.style.display = "grid";
@@ -153,6 +151,9 @@ function showWinner() {
 
 
 function pullScores() {
+  names = [];
+  times = [];
+  document.querySelector(".winner-list").innerHTML = "";
   var nameSet = JSON.parse(localStorage.getItem("names"));
   for (var i = 0; i < nameSet.length; i++) {
     names.push(nameSet[i]);
@@ -179,7 +180,9 @@ function updateBoard() {
       var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
       score++;
       newTimes.splice(timeIndex, 1);
+      console.log(newTimes);
       newNames.splice(timeIndex, 1);
+      console.log(newNames);
       document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
     }
   }
