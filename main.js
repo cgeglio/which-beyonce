@@ -18,9 +18,11 @@ var playBtnWelcome = document.querySelector(".welcome-btn");
 var playerNames = document.querySelector(".player-names");
 var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
+var score = 1;
 var sidebars = document.querySelector(".sidebar");
 var startTime = 0;
 var times = [];
+var timeIndex = 0;
 var welcomeMsg = document.querySelector(".welcome-msg");
 var winnerMsg = document.querySelector(".winner-msg");
 
@@ -65,7 +67,7 @@ function showGame() {
   createCardIds();
   cardNumber = 1;
   cardId = 15;
-  createUniqueIds();
+  createCardIds();
   startTime = new Date();
 };
 
@@ -257,6 +259,7 @@ function timeStorage() {
 function pullScores() {
   names = [];
   times = [];
+  score = 1;
   document.querySelector(".winner-list").innerHTML = "";
   var nameSet = JSON.parse(localStorage.getItem("names"));
   for (var i = 0; i < nameSet.length; i++) {
@@ -273,22 +276,26 @@ function pullScores() {
 function updateBoard() {
   var newTimes = [...times];
   var newNames = [...names];
-  var score = 1;
   if (newTimes.length > 4) {
     for (var i = 0; i < 5; i++) {
-      var lowestTime = Math.min.apply(Math, newTimes);
-      var timeIndex = newTimes.indexOf(lowestTime);
-      var bestPlayer = newNames[timeIndex];
-      var minutes = Math.floor(lowestTime / 60);
-      var seconds = lowestTime - minutes * 60;
-      var userTime = `0${minutes}:${seconds}`;
-      var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
+      calculateBestScore(newTimes, newNames);
       score++;
       newTimes.splice(timeIndex, 1);
       newNames.splice(timeIndex, 1);
-      document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
     }
   }
+};
+
+
+function calculateBestScore(timeArray, nameArray) {
+  var lowestTime = Math.min.apply(Math, timeArray);
+  timeIndex = timeArray.indexOf(lowestTime);
+  var bestPlayer = nameArray[timeIndex];
+  var minutes = Math.floor(lowestTime / 60);
+  var seconds = lowestTime - minutes * 60;
+  var userTime = `0${minutes}:${seconds}`;
+  var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
+  document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
 };
 
 
