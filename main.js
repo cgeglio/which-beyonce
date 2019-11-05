@@ -1,4 +1,4 @@
-var card = new Card (null, null);
+var card = new Card(null, null);
 var cardContainer = document.querySelector(".card-container");
 var cardId = 10;
 var cardNumber = 1;
@@ -17,12 +17,14 @@ var nameTwo = document.querySelectorAll(".name-two");
 var newGameBtn = document.querySelector(".new-game");
 var playBtnMain = document.querySelector(".play-btn");
 var playBtnWelcome = document.querySelector(".welcome-btn");
+player = new Player(null);
 var playerNames = document.querySelector(".player-names");
 var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
-var sidebars = document.querySelector(".sidebar");
+// var sidebars = document.querySelector(".sidebar");
 var startTime = 0;
 var times = [];
+var turn = true;
 var welcomeMsg = document.querySelector(".welcome-msg");
 var winnerMsg = document.querySelector(".winner-msg");
 
@@ -34,8 +36,9 @@ playBtnWelcome.addEventListener("click", showGame);
 playerOne.addEventListener("keyup", checkInputs);
 window.addEventListener("load", pullScores);
 
-function startNewGame () {
+function startNewGame() {
   main.style.display = "flex";
+  // gamePage.style.display = "none";
   playerNames.style.display = "grid";
   welcomeMsg.style.display = "none";
   winnerMsg.style.display = "none";
@@ -44,6 +47,10 @@ function startNewGame () {
   nameTwo.innerText = "";
   playBtnMain.removeAttribute("active");
   pullScores();
+};
+
+function indicateTurn() {
+  document.querySelector(".turn-player").innerText = `${playerOne.value}, it's your turn honey!`;
 };
 
 function flipCard(event) {
@@ -181,9 +188,7 @@ function updateBoard() {
       var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
       score++;
       newTimes.splice(timeIndex, 1);
-      console.log(newTimes);
       newNames.splice(timeIndex, 1);
-      console.log(newNames);
       document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
     }
   }
@@ -207,7 +212,7 @@ function showGame() {
   gamePage.style.display = "flex";
   if (playerTwo.value) {
     document.querySelector(".right").style.display = "block";
-    gamePage.classList.remove("single-player");
+    document.querySelector(".turn-indicator").style.display = "flex";
   }
   for (var i=0; i < 5; i++) {
       addCards();
@@ -227,6 +232,10 @@ function showGame() {
 function checkInputs() {
   if (playerOne.value) {
     playBtnMain.id = "active";
+    var firstPlayer = new Player(playerOne.value);
+  }
+  if (playerOne.value && playerTwo.value) {
+    var secondPlayer = new Player(playerTwo.value);
   }
 };
 
@@ -246,6 +255,8 @@ function showDirections() {
     playerNames.style.display = "none";
     welcomeMsg.style.display = "block";
     for (var i = 0; i < nameOne.length; i++) {
+      console.log(playerOne.value);
+      console.log(nameOne[i]);
     nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
     }
   if (playerTwo.value) {

@@ -205,7 +205,6 @@ input {
   flex-wrap: wrap;
   justify-content: center;
   margin: 20px;
-  width: 60%;
 }
 
 .sidebar {
@@ -226,8 +225,16 @@ input {
   display: none;
 }
 
-.single-player {
-  padding-right: 15%;
+.turn-indicator {
+  align-items: center;
+  align-self: flex-start;
+  background-color: #EB2B7A;
+  color: #FFFFFF;
+  display: none;
+  font-size: 18px;
+  height: 60px;
+  justify-content: center;
+  width: 100%;
 }
 
 /* winner page */
