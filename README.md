@@ -3,7 +3,9 @@
 For this project, we were asked to create a concentration game consisting of 10 cards and up to 2 players.
 Each player takes turns flipping over two cards at a time. If they match, that player “scores”. If the two cards don’t match, they must be flipped back over. The goal is the get the greatest amount of matches.
 
-The comp example was Beyoncé but I chose to use Jonathan Van Ness for my project. I used a combination of HTML, CSS, and JavaScript to complet this project.
+The comp example was Beyoncé but I chose to use Jonathan Van Ness for my project. I used a combination of HTML, CSS, and JavaScript to complete this project.
+
+![Landing Page](images/landing-jvn.png)
 
 # Iteration 0 - Single Player Layout & UI
 
@@ -14,6 +16,7 @@ The comp example was Beyoncé but I chose to use Jonathan Van Ness for my projec
 - Once the user clicks “Play Game” on the directions screen, they should see ten cards, face down.
 - User should be able to click on any card. Once each card is clicked on, the other side of it should be displayed. For now, don’t worry about “scrambling” cards up.
 
+![Directions](images/directions-jvn.png)
 
 # Iteration 1 - Single Player Matches
 
@@ -24,6 +27,7 @@ The comp example was Beyoncé but I chose to use Jonathan Van Ness for my projec
 - User continues to click until they find all matches
 - Once all matches are found, the user should see a congratulatory message including their name.
 
+![Game](images/game-jvn.png)
 
 # Iteration 2 - A little more interesting, and a better UI
 
@@ -32,6 +36,7 @@ The comp example was Beyoncé but I chose to use Jonathan Van Ness for my projec
 - Instead of having to manually re-click a card to turn it back face-down, the program should automatically flip both cards over, after the user has had ___ seconds from the time both cards are revealed to view them. This is a great opportunity to do some user testing and see what the right amount of time is!
 - Anytime a card flips over, there should be a smooth transition.
 
+![Winner Page](images/winner-jvn.png)
 
 # Iteration 3 - Implement Storage
 
@@ -47,3 +52,14 @@ The comp example was Beyoncé but I chose to use Jonathan Van Ness for my projec
 - When the game is over, the winner’s name and (total) time took playing appears on the page. The visual indicator of whose turn it is no longer indicates it is either players turn.
 - When the game is over, the users can click “Play Again” to start the game over from scratch.
 - The winner board should provide the same data - top 5 winner names and time took.
+
+
+# Comp:
+
+![Landing Page](images/landing.png)
+
+![Directions](images/directions.png)
+
+![Game](images/game.png)
+
+![Winner Page](images/winner.png)
