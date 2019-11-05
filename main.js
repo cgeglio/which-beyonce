@@ -21,13 +21,19 @@ var cards = document.querySelectorAll(".card");
 var matchCount = document.querySelectorAll(".matches-count");
 var startTime = 0;
 var endTime = 0;
+var menuOpen = false;
+var menu = document.querySelector(".menu-icon");
+var names = [];
+var times = [];
 
+
+window.addEventListener("load", pullScores);
 playBtnMain.addEventListener("click", showDirections);
 playerOne.addEventListener("keyup", checkInputs);
 playBtnWelcome.addEventListener("click", showGame);
 cardContainer.addEventListener("click", flipCard);
-newGameBtn.addEventListener("click", startNewGame)
-
+newGameBtn.addEventListener("click", startNewGame);
+menu.addEventListener("click", dropMenu);
 
 function startNewGame () {
   playerNames.style.display = "grid";
@@ -104,7 +110,6 @@ function removeCard() {
   for (var i = 0; i < deck.matchedCards.length; i++) {
     var deleted = document.getElementById(deck.matchedCards[i].cardId);
     fadeOut(deleted);
-    // setTimeout(function() { deleteFromDom(deleted); }, 2000);
     cardContainer.addEventListener("click", flipCard);
   }
     deck.matchedCards = [];
@@ -112,23 +117,26 @@ function removeCard() {
   }
 };
 
-  function flipBack() {
-    for (var i = 0; i < deck.selectedCards.length; i++) {
-        var clickCard = document.getElementById(deck.selectedCards[i].cardId);
-        clickCard.classList.remove("flip");
-      }
-      cardContainer.addEventListener("click", flipCard);
-      deck.selectedCards = [];
+function flipBack() {
+  for (var i = 0; i < deck.selectedCards.length; i++) {
+      var clickCard = document.getElementById(deck.selectedCards[i].cardId);
+      clickCard.classList.remove("flip");
     }
+    cardContainer.addEventListener("click", flipCard);
+    deck.selectedCards = [];
+  }
 
 
-  function fadeOut(card) {
-      card.style.transition = '2s';
-      card.style.opacity = 0;
-    }
+function fadeOut(card) {
+    card.style.transition = '2s';
+    card.style.opacity = 0;
+  }
 
 function showWinner() {
   if (deck.matches === 5) {
+    names.push(playerOne.value);
+    nameStorage();
+    updateBoard();
     findTime();
     cardContainer.innerHTML = "";
     winnerMsg.style.display = "grid";
@@ -140,12 +148,42 @@ function showWinner() {
     cardId = 10;
     deck.matchedCards = [];
     gamePage.style.display = "none";
-
-
   }
 }
 
 
+function pullScores() {
+  var nameSet = JSON.parse(localStorage.getItem("names"));
+  for (var i = 0; i < nameSet.length; i++) {
+    names.push(nameSet[i]);
+  }
+  var timeSet = JSON.parse(localStorage.getItem("times"));
+  for (var i = 0; i < timeSet.length; i++) {
+    times.push(timeSet[i]);
+}
+  updateBoard();
+}
+
+function updateBoard() {
+  var newTimes = [...times];
+  var newNames = [...names];
+  var score = 1;
+  if (newTimes.length > 4) {
+    for (var i = 0; i < 5; i++) {
+      var lowestTime = Math.min.apply(Math, newTimes);
+      var timeIndex = newTimes.indexOf(lowestTime);
+      var bestPlayer = newNames[timeIndex];
+      var minutes = Math.floor(lowestTime / 60);
+      var seconds = lowestTime - minutes * 60;
+      var userTime = `0${minutes}:${seconds}`;
+      var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
+      score++;
+      newTimes.splice(timeIndex, 1);
+      newNames.splice(timeIndex, 1);
+      document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
+    }
+  }
+};
 
 function findTime() {
   endTime = new Date();
@@ -154,6 +192,8 @@ function findTime() {
   var time = Math.round(timeDiff);
   var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
+  times.push(time);
+  timeStorage();
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
 }
 
@@ -181,6 +221,17 @@ function checkInputs() {
     playBtnMain.id = "active";
   }
 };
+
+function nameStorage() {
+  var nameString = JSON.stringify(names);
+  localStorage.setItem("names", nameString);
+}
+
+function timeStorage() {
+  var timeString = JSON.stringify(times);
+  localStorage.setItem("times", timeString);
+}
+
 
 function showDirections() {
   if (playBtnMain.id === "active") {
@@ -222,3 +273,14 @@ function displayCards(card) {
     </div>
   </div>`;
 }
+
+
+function dropMenu () {
+  var menuDropdown = document.querySelector(".drop-menu");
+  menuOpen = !menuOpen;
+  if (menuOpen) {
+    menuDropdown.style.display= "flex";
+  } else {
+    menuDropdown.style.display= "none";
+  }
+};
