@@ -160,7 +160,7 @@ function checkForMatch() {
      for (var i = 0; i < matchCount.length; i++) {
        matchCount[i].innerText = `${deck.matches}`;
      }
-   } else {
+  } else {
     setTimeout(function() { flipBack(); }, 1000);
   }
 };
