@@ -43,39 +43,46 @@ function showDirections() {
     playerNames.style.display = "none";
     welcomeMsg.style.display = "block";
     for (var i = 0; i < nameOne.length; i++) {
-    nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
+      nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
     }
-  if (playerTwo.value) {
-    for (var i = 0; i < nameTwo.length; i++) {
-    nameTwo[i].innerText = ` AND ${playerTwo.value.toUpperCase()}`;
-  }
-}
+
+    if (playerTwo.value) {
+      for (var i = 0; i < nameTwo.length; i++) {
+        nameTwo[i].innerText = ` AND ${playerTwo.value.toUpperCase()}`;
+      }
+    }
+
   } else {
-      document.querySelector(".error").style.display = "block";
-    }
+    document.querySelector(".error").style.display = "block";
+  }
 };
 
 function showGame() {
   main.style.display = "none";
   gamePage.style.display = "flex";
+
   for (var i=0; i < 5; i++) {
       addCards();
       cardNumber++;
       cardId++;
     }
+
   cardNumber = 1;
   cardId = 15;
+
   for (var i=0; i < 5; i++) {
       addCards();
       cardNumber++;
       cardId++;
   }
+
   startTime = new Date();
 };
 
 function addCards() {
   var card = new Card(cardNumber, cardId);
   deck.cards.push(card);
+
   if (deck.cards.length === 10) {
     deck.shuffle();
     for (var i = 0; i < deck.cards.length; i++) {
@@ -99,6 +106,7 @@ function displayCards(card) {
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
+
   if (deck.selectedCards.length < 2) {
     if (clickedCard.classList.contains("flip")) {
       deck.selectedCards.splice(0, 1);
@@ -115,7 +123,7 @@ function flipCard(event) {
       }
     }
     if (cardIndex != -1) {
-      deck.selectedCards.splice(cardIndex)
+      deck.selectedCards.splice(cardIndex);
     }
   }
 };
@@ -124,6 +132,7 @@ function flipCard(event) {
 
 function selectCard(card) {
   var cardId = parseInt(card.id);
+
   if (deck.selectedCards.length === 0) {
     for (var i = 0; i < deck.cards.length; i++) {
       if (cardId === deck.cards[i].cardId) {
@@ -137,11 +146,11 @@ function selectCard(card) {
             deck.selectedCards.push(deck.cards[i]);
             cardContainer.removeEventListener("click", flipCard);
             deck.checkSelectedCards();
-            }
           }
         }
-        checkForMatch();
       }
+    checkForMatch();
+  }
 };
 
 function checkForMatch() {
@@ -159,11 +168,11 @@ function checkForMatch() {
 
 function removeCard() {
   if (deck.matchedCards.length > 0) {
-  for (var i = 0; i < deck.matchedCards.length; i++) {
-    var deleted = document.getElementById(deck.matchedCards[i].cardId);
-    fadeOut(deleted);
-    cardContainer.addEventListener("click", flipCard);
-  }
+    for (var i = 0; i < deck.matchedCards.length; i++) {
+      var deleted = document.getElementById(deck.matchedCards[i].cardId);
+      fadeOut(deleted);
+      cardContainer.addEventListener("click", flipCard);
+    }
     deck.matchedCards = [];
     setTimeout(function() { showWinner(); }, 5000);
   }
@@ -171,18 +180,17 @@ function removeCard() {
 
 function flipBack() {
   for (var i = 0; i < deck.selectedCards.length; i++) {
-      var clickCard = document.getElementById(deck.selectedCards[i].cardId);
-      clickCard.classList.remove("flip");
-    }
+    var clickCard = document.getElementById(deck.selectedCards[i].cardId);
+    clickCard.classList.remove("flip");
+  }
     cardContainer.addEventListener("click", flipCard);
     deck.selectedCards = [];
-  }
-
+};
 
 function fadeOut(card) {
-    card.style.transition = '2s';
-    card.style.opacity = 0;
-  }
+  card.style.transition = '2s';
+  card.style.opacity = 0;
+;}
 
 function showWinner() {
   if (deck.matches === 5) {
@@ -236,9 +244,6 @@ function timeStorage() {
   localStorage.setItem("times", timeString);
 }
 
-
-
-
 function pullScores() {
   names = [];
   times = [];
@@ -250,9 +255,9 @@ function pullScores() {
   var timeSet = JSON.parse(localStorage.getItem("times"));
   for (var i = 0; i < timeSet.length; i++) {
     times.push(timeSet[i]);
-}
+  }
   updateBoard();
-}
+};
 
 function updateBoard() {
   var newTimes = [...times];
@@ -275,18 +280,7 @@ function updateBoard() {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-function dropMenu () {
+function dropMenu() {
   var menuDropdown = document.querySelector(".drop-menu");
   menuOpen = !menuOpen;
   if (menuOpen) {
