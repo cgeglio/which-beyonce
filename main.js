@@ -134,8 +134,10 @@ function fadeOut(card) {
 
 function showWinner() {
   if (deck.matches === 5) {
-    findTime();
+    names.push(playerOne.value);
+    nameStorage();
     updateBoard();
+    findTime();
     cardContainer.innerHTML = "";
     winnerMsg.style.display = "grid";
     winnerMsg.classList.add("fade-in");
@@ -149,19 +151,12 @@ function showWinner() {
   }
 }
 
-// var arrayOfObjects = localStorage.getItem("cardsInfo");
-//   var cardArray = JSON.parse(arrayOfObjects);
-//   for (var i = 0; i < cardArray.length; i++) {
-//     inputFromStorage(cardArray[i]);
-//   }
 
 function pullScores() {
   var nameSet = JSON.parse(localStorage.getItem("names"));
   for (var i = 0; i < nameSet.length; i++) {
     names.push(nameSet[i]);
   }
-  //
-  // console.log(nameSet);
   var timeSet = JSON.parse(localStorage.getItem("times"));
   for (var i = 0; i < timeSet.length; i++) {
     times.push(timeSet[i]);
@@ -173,38 +168,22 @@ function updateBoard() {
   var newTimes = [...times];
   var newNames = [...names];
   var score = 1;
-  // times = [];
   if (newTimes.length > 4) {
     for (var i = 0; i < 5; i++) {
-
-    // parseInt(timeSet[i]);
-    // console.log(timeSet[i]);
-    // times.push(timeSet[i])
-
-  // console.log(timeSet);
-    var lowestTime = Math.min.apply(Math, newTimes);
-    var timeIndex = newTimes.indexOf(lowestTime);
-    var bestPlayer = newNames[timeIndex];
-    var minutes = Math.floor(lowestTime / 60);
-    var seconds = lowestTime - minutes * 60;
-    var userTime = `0${minutes}:${seconds}`;
-    var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
-    score++;
-    // var newTimes = [...newTimes];
-    newTimes.splice(timeIndex, 1);
-    newNames.splice(timeIndex, 1);
-
-
-
-  document.querySelector(".winner-list").innerHTML +=
-    `${highScore} <br />`;
-  // document.querySelector(".second").innerText = highScore2;
-  // document.querySelector(".third").innerText = highScore3;
-  // document.querySelector(".fourth").innerText = highScore4;
-  // document.querySelector(".fifth").innerText = highScore5;
-}
-}
-}
+      var lowestTime = Math.min.apply(Math, newTimes);
+      var timeIndex = newTimes.indexOf(lowestTime);
+      var bestPlayer = newNames[timeIndex];
+      var minutes = Math.floor(lowestTime / 60);
+      var seconds = lowestTime - minutes * 60;
+      var userTime = `0${minutes}:${seconds}`;
+      var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
+      score++;
+      newTimes.splice(timeIndex, 1);
+      newNames.splice(timeIndex, 1);
+      document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
+    }
+  }
+};
 
 function findTime() {
   endTime = new Date();
@@ -213,7 +192,6 @@ function findTime() {
   var time = Math.round(timeDiff);
   var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
-  // var userTime = `0${minutes}:${seconds}`;
   times.push(time);
   timeStorage();
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
@@ -236,9 +214,6 @@ function showGame() {
       cardId++;
   }
   startTime = new Date();
-  names.push(playerOne.value);
-  // for (var i = 0; i < names.length; i++)
-  nameStorage();
 };
 
 function checkInputs() {
@@ -248,19 +223,15 @@ function checkInputs() {
 };
 
 function nameStorage() {
-  // var nameSet = JSON.parse(localStorage.getItem("names"));
-  // localStorage.getItem("names", nameString);
   var nameString = JSON.stringify(names);
   localStorage.setItem("names", nameString);
 }
 
 function timeStorage() {
-  // var timeSet = JSON.parse(localStorage.getItem("times"));
-  // for (var i = 0; i < times.length; i++) {
   var timeString = JSON.stringify(times);
   localStorage.setItem("times", timeString);
-  }
-// }
+}
+
 
 function showDirections() {
   if (playBtnMain.id === "active") {

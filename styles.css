@@ -218,19 +218,13 @@ h6 {
 
 .rematch {
   grid-area: button2;
-  /* margin-right: 50%; */
 }
 
 .new-game {
   grid-area: button1;
   position: relative;
   left: 50%
-  /* margin-left: 45%; */
 }
-
-/* .disable-click {
-  pointer-events: none;
-} */
 
 
 .winner-msg {
@@ -244,8 +238,6 @@ h6 {
   "time time"
   "para para"
   "button1 button2";
-  /* opacity: 0;
-  transition: none; */
 }
 
 .winner-msg p {
