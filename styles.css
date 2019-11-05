@@ -8,6 +8,13 @@ body {
   margin: 0;
 }
 
+header {
+  height: 80px;
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+
 main {
   align-items: center;
   background-image: url("images/jvn-main.jpg");
@@ -16,18 +23,6 @@ main {
   flex-direction: column;
   height: 100%;
   text-align: center;
-}
-
-.play-btn,
-.welcome-btn {
-  height: 40px;
-  width: 600px;
-}
-
-.welcome-msg h2 {
-  font-weight: bold;
-  font-size: 20px;
-  margin-bottom: 20px;
 }
 
 button {
@@ -39,63 +34,8 @@ button {
   font-weight: 700;
 }
 
-.game-page {
-  background-color: #F5F7F6;
-  display: none;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 20px;
-}
-
-.sidebar {
-  background-color: #000000;
-  color: #FFFFFF;
-  text-align: center;
-  width: 20%;
-}
-
-.matches-sidebar {
-  border-bottom: 1px solid #FFFFFF;
-  border-top: 1px solid #FFFFFF;
-  margin-left: 5%;
-  width: 85%;
-}
-
-.sidebar h4 {
-  font-weight: normal;
-}
-
-h5 {
-  font-size: 60px;
-  margin: 10px;
-}
-
-.welcome-btn {
-  cursor: pointer;
-}
-
-.menu-icon {
-  cursor: pointer;
-  float: left;
-  height: 80px;
-  margin: 0px;
-  width: 90px;
-}
-
-.welcome-msg {
-  display: none;
-}
-
-header {
-  height: 80px;
-  overflow: hidden;
-  text-align: center;
-  width: 100%;
-}
-
-.heading {
-  margin-right: 100px;
-  margin-top: 20px;
+h1 {
+  font-size: 25px;
 }
 
 h2 {
@@ -104,14 +44,21 @@ h2 {
   margin-top: 5px;
 }
 
-h1 {
-  font-size: 25px;
+h3,
+h4 {
+  font-weight: normal;
 }
 
+h5 {
+  font-size: 60px;
+  margin: 10px;
+}
 
-.welcome-msg h1,
-.winner-msg h1 {
-  margin-top: 100px;
+h6 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+  padding-top: 12px;
 }
 
 p {
@@ -122,6 +69,59 @@ p {
   width: 600px;
 }
 
+input {
+  background-color: #FFFFFF;
+  border: 0;
+  height: 40px;
+  margin-top: 150px;
+  text-indent: 10px;
+  width: 250px;
+}
+
+#active {
+  cursor: pointer;
+}
+
+/* header and dropdown menu */
+.menu-icon {
+  cursor: pointer;
+  float: left;
+  height: 80px;
+  margin: 0px;
+  width: 90px;
+}
+
+.heading {
+  margin-right: 100px;
+  margin-top: 20px;
+}
+
+.drop-menu {
+  align-items: center;
+  background-image: url("images/rainbow.jpg");
+  background-size: cover;
+  color: #000000;
+  display: none;
+  flex-direction: column;
+  height: 300px;
+  margin-top: 9px;
+  overflow: hidden;
+  position: absolute;
+  width: 250px;
+  z-index: 3;
+}
+
+.drop-menu h1 {
+  font-size: 20px;
+}
+
+.winner-list {
+  font-size: 17px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* main page */
 .player-names {
   display: grid;
   grid-template-areas:
@@ -132,15 +132,6 @@ p {
   grid-template-rows: 1fr 1fr 1fr 1fr;
   height: 400px;
   text-align: left;
-}
-
-input {
-  background-color: #FFFFFF;
-  border: 0;
-  height: 40px;
-  margin-top: 150px;
-  text-indent: 10px;
-  width: 250px;
 }
 
 .input-one {
@@ -172,8 +163,39 @@ input {
   margin-top: 10px;
 }
 
-#active {
+.play-btn,
+.welcome-btn {
+  height: 40px;
+  width: 600px;
+}
+
+/* welcome/directions page */
+.welcome-btn {
   cursor: pointer;
+}
+
+.welcome-msg {
+  display: none;
+}
+
+.welcome-msg h1,
+.winner-msg h1 {
+  margin-top: 100px;
+}
+
+.welcome-msg h2 {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* play game page */
+.game-page {
+  background-color: #F5F7F6;
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 .card-container {
@@ -186,40 +208,21 @@ input {
   width: 60%;
 }
 
-h6 {
-  font-size: 30px;
-  font-weight: bold;
-  margin: 0;
-  padding-top: 12px;
+.sidebar {
+  background-color: #000000;
+  color: #FFFFFF;
+  text-align: center;
+  width: 20%;
 }
 
-.winner-msg button {
-  height: 40px;
-  margin: 20px;
-  width: 300px;
+.matches-sidebar {
+  border-bottom: 1px solid #FFFFFF;
+  border-top: 1px solid #FFFFFF;
+  margin-left: 5%;
+  width: 85%;
 }
 
-.winner-msg h1 {
-  grid-area: congrats;
-  margin-bottom: 0px;
-}
-
-.winner-msg h2 {
-  font-weight: bold;
-  grid-area: time;
-  margin-top: 20px;
-}
-
-.rematch {
-  grid-area: button2;
-}
-
-.new-game {
-  grid-area: button1;
-  left: 50%;
-  position: relative;
-}
-
+/* winner page */
 .winner-msg {
   background-image: url("images/jvn-main.jpg");
   background-position: center;
@@ -233,6 +236,17 @@ h6 {
   text-align: center;
 }
 
+.winner-msg h1 {
+  grid-area: congrats;
+  margin-bottom: 0px;
+}
+
+.winner-msg h2 {
+  font-weight: bold;
+  grid-area: time;
+  margin-top: 20px;
+}
+
 .winner-msg p {
   grid-area: para;
   margin: 0px;
@@ -240,18 +254,23 @@ h6 {
   width: 100%;
 }
 
-.flip .flipper,
-.card.flip .flipper {
-	transform: rotateY(180deg);
+.winner-msg button {
+  height: 40px;
+  margin: 20px;
+  width: 300px;
 }
 
-.back,
-.card,
-.front {
-	height: 150px;
-  width: 110px;
+.new-game {
+  grid-area: button1;
+  left: 50%;
+  position: relative;
 }
 
+.rematch {
+  grid-area: button2;
+}
+
+/* card flipping */
 .card {
   perspective: 1000px;
   margin: 40px;
@@ -260,10 +279,22 @@ h6 {
   transition: none;
 }
 
-.flipper {
-  position: relative;
-  transform-style: preserve-3d;
-	transition: 0.6s;
+.back {
+	transform: rotateY(180deg);
+}
+
+.front {
+  background-color: #FFFFFF;
+  text-align: center;
+  transform: rotateY(0deg);
+  z-index: 2;
+}
+
+.card,
+.back,
+.front {
+	height: 150px;
+  width: 110px;
 }
 
 .back,
@@ -275,15 +306,15 @@ h6 {
 	top: 0;
 }
 
-.front {
-  background-color: #FFFFFF;
-  text-align: center;
-  transform: rotateY(0deg);
-  z-index: 2;
+.flip .flipper,
+.card.flip .flipper {
+	transform: rotateY(180deg);
 }
 
-.back {
-	transform: rotateY(180deg);
+.flipper {
+  position: relative;
+  transform-style: preserve-3d;
+	transition: 0.6s;
 }
 
 .flipper-1 {
@@ -299,39 +330,14 @@ h6 {
 }
 
 .flipper-4 {
-  transform: rotateZ(19deg);
+  transform: rotateZ(-15deg);
 }
 
 .flipper-5 {
   transform: rotateZ(13deg);
 }
 
-
-.drop-menu {
-  align-items: center;
-  background-image: url("images/rainbow.jpg");
-  background-size: cover;
-  color: #000000;
-  display: none;
-  flex-direction: column;
-  height: 300px;
-  margin-top: 9px;
-  overflow: hidden;
-  position: absolute;
-  width: 250px;
-  z-index: 3;
-}
-
-.drop-menu h1 {
-  font-size: 20px;
-}
-
-.winner-list {
-  font-size: 17px;
-  font-weight: bold;
-  text-align: left;
-}
-
+/* fade in for winner page */
 .fade-in {
   animation: fadeIn ease 2s;
   -webkit-animation: fadeIn ease 2s;
@@ -346,6 +352,7 @@ h6 {
   }
 }
 
+/* media queries */
 @media screen and (min-width: 1200px) {
   header,
   main,
