@@ -352,3 +352,35 @@ h6 {
     opacity:1;
   }
 }
+
+@media screen and (min-width: 1200px) {
+
+  header,
+  main,
+  .winner-msg {
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+
+  .sidebar {
+    width: 10%;
+  }
+
+  .game-page {
+    margin-left: 10%
+  }
+}
+
+@media screen and (max-width: 1020px) {
+
+  main {
+    background-repeat: no-repeat;
+  }
+}
+
+@media screen and (max-width: 760px) {
+
+  .new-game {
+    left: 10%;
+  }
+}
