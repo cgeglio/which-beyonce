@@ -60,29 +60,24 @@ function showDirections() {
 function showGame() {
   main.style.display = "none";
   gamePage.style.display = "flex";
-
   for (var i=0; i < 5; i++) {
       addCards();
       cardNumber++;
       cardId++;
     }
-
   cardNumber = 1;
   cardId = 15;
-
   for (var i=0; i < 5; i++) {
       addCards();
       cardNumber++;
       cardId++;
   }
-
   startTime = new Date();
 };
 
 function addCards() {
   var card = new Card(cardNumber, cardId);
   deck.cards.push(card);
-
   if (deck.cards.length === 10) {
     deck.shuffle();
     for (var i = 0; i < deck.cards.length; i++) {
@@ -101,12 +96,11 @@ function displayCards(card) {
       <img class="back" src="images/JVN-${card.matchInfo}.jpg">
     </div>
   </div>`;
-}
+};
 
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
-
   if (deck.selectedCards.length < 2) {
     if (clickedCard.classList.contains("flip")) {
       deck.selectedCards.splice(0, 1);
@@ -132,7 +126,6 @@ function flipCard(event) {
 
 function selectCard(card) {
   var cardId = parseInt(card.id);
-
   if (deck.selectedCards.length === 0) {
     for (var i = 0; i < deck.cards.length; i++) {
       if (cardId === deck.cards[i].cardId) {
@@ -188,9 +181,9 @@ function flipBack() {
 };
 
 function fadeOut(card) {
-  card.style.transition = '2s';
+  card.style.transition = "2s";
   card.style.opacity = 0;
-;}
+};
 
 function showWinner() {
   if (deck.matches === 5) {
@@ -208,7 +201,7 @@ function showWinner() {
     deck.matchedCards = [];
     gamePage.style.display = "none";
   }
-}
+};
 
 function findTime() {
   endTime = new Date();
