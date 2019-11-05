@@ -330,7 +330,7 @@ input {
 }
 
 .flipper-4 {
-  transform: rotateZ(-15deg);
+  transform: rotateZ(-10deg);
 }
 
 .flipper-5 {
@@ -353,7 +353,7 @@ input {
 }
 
 /* media queries */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1500px) {
   header,
   main,
   .winner-msg {
