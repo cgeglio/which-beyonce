@@ -1,3 +1,4 @@
+
 var card = new Card(null, null);
 var cardContainer = document.querySelector(".card-container");
 var cardId = 10;
@@ -15,6 +16,7 @@ var nameOne = document.querySelectorAll(".name-one");
 var nameTwoWelcome = document.getElementById("name-two");
 var nameTwo = document.querySelectorAll(".name-two");
 var newGameBtn = document.querySelector(".new-game");
+var pastGames = document.querySelectorAll(".past-games");
 var playBtnMain = document.querySelector(".play-btn");
 var playBtnWelcome = document.querySelector(".welcome-btn");
 player = new Player(null);
@@ -62,6 +64,11 @@ function restartGame() {
   winnerMsg.classList.remove("fade-in");
   document.querySelector(".left-count").innerText = "0";
   document.querySelector(".right-count").innerText = "0";
+  playerInfo[0].round++;
+  playerInfo[1].round++;
+  for (var i = 0; i <pastGames.length; i++) {
+    pastGames[i].style.display = "block";
+  }
 }
 
 function showWinner() {
@@ -71,6 +78,11 @@ function showWinner() {
     nameStorage();
     // updateBoard();
     findTime();
+    if (playerInfo[0].matchCount > playerInfo[1].matchCount ) {
+      document.querySelector(".winner").innerText = `${playerInfo[0].name.toUpperCase()}`;
+    } else {
+      document.querySelector(".winner").innerText = `${playerInfo[1].name.toUpperCase()}`;
+    }
     cardContainer.innerHTML = "";
     winnerMsg.style.display = "grid";
     winnerMsg.classList.add("fade-in");
@@ -87,22 +99,14 @@ function showWinner() {
 }
 
 function indicateTurn() {
-  console.log(playerInfo);
   for (var i = 0; i < playerInfo.length; i++) {
-    console.log(playerInfo[i].turn)
     playerInfo[i].turn = !playerInfo[i].turn;
   }
-  // for (var i = 0; i < playerInfo.length; i++) {
     if (playerInfo[0].turn) {
-      console.log(playerInfo[0]);
       turnIndicator.innerText = `${playerOne.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
     } else {
-      console.log(playerInfo[1]);
       turnIndicator.innerText = `${playerTwo.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
     }
-  // }
-
-  console.log(playerInfo);
 };
 
 function flipCard(event) {
@@ -159,7 +163,6 @@ function checkForMatch() {
        matchCount[i].innerText = `${deck.matches}`;
       }
     } else {
-  console.log(playerInfo);
     for (var i = 0; i < playerInfo.length; i++) {
        if (playerInfo[0].turn) {
          player.findMatch(playerInfo[0]);
@@ -170,13 +173,12 @@ function checkForMatch() {
        }
      }
     }
-    console.log(playerInfo);
    } else {
     setTimeout(function() { flipBack(); }, 1000);
 
   }
   if (deck.matches < 5) {
-    setTimeout(function() { indicateTurn(); }, 1500);
+    setTimeout(function() { indicateTurn(); }, 1000);
   }
 };
 
@@ -274,9 +276,17 @@ function findTime() {
   var time = Math.round(timeDiff);
   var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
+  var userTime = `0${minutes}:${seconds}`;
   times.push(time);
   timeStorage();
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
+  if (playerInfo[0].matchCount > playerInfo[1].matchCount ) {
+    console.log(playerInfo[0].name);
+    console.log(playerInfo);
+    document.querySelector(".round-info-left").innerHTML += `<br/>ROUND ${playerInfo[0].round}<br/>${userTime}<br/>`;
+  } else {
+    document.querySelector(".round-info-right").innerHTML += `<br/>ROUND ${playerInfo[1].round}<br/>${userTime}<br/>`;
+  }
 }
 
 

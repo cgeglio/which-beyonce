@@ -221,6 +221,10 @@ input {
   width: 85%;
 }
 
+.past-games {
+  display: none;
+}
+
 .right {
   display: none;
 }
