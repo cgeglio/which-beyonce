@@ -144,7 +144,8 @@ input {
 }
 
 .name-one,
-.name-two {
+.name-two,
+#name-two {
   text-transform: uppercase;
 }
 

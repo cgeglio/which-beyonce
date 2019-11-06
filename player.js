@@ -9,6 +9,4 @@ class Player {
   findMatch(player) {
     player.matchCount += 0.5;
   }
-
-
-}
+};

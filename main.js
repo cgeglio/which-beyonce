@@ -1,12 +1,10 @@
 // page setup
-
 var card = new Card(null, null);
 var cardContainer = document.querySelector(".card-container");
 var gamePage = document.querySelector(".game-page");
 var main = document.querySelector("main");
 var menu = document.querySelector(".menu-icon");
 var menuOpen = false;
-// var sidebars = document.querySelector(".sidebar");
 var welcomeMsg = document.querySelector(".welcome-msg");
 var winnerMsg = document.querySelector(".winner-msg");
 
@@ -38,10 +36,15 @@ var times = [];
 var timeSet = [];
 
 // scoring
+var leftCounter = document.querySelector(".left-count");
 var matchCount = document.querySelectorAll(".matches-count");
-var score = 1
+var rightCounter = document.querySelector(".right-count");
+var roundInfoLeft = document.querySelector(".round-info-left");
+var roundInfoRight = document.querySelector(".round-info-right");
+var score = 1;
 var startTime = 0;
 var timeIndex = 0;
+var winner = document.querySelector(".winner");
 
 // buttons
 var newGameBtn = document.querySelector(".new-game");
@@ -58,29 +61,35 @@ playerOne.addEventListener("keyup", checkInputs);
 rematchBtn.addEventListener("click", restartGame);
 window.addEventListener("load", pullScores);
 
+
 function restartGame() {
-  pullScores();
-  showGame();
-  winnerMsg.style.display = "none";
-  winnerMsg.classList.remove("fade-in");
-  document.querySelector(".left-count").innerText = "0";
-  document.querySelector(".right-count").innerText = "0";
-  playerInfo[0].round++;
-  playerInfo[1].round++;
-  for (var i = 0; i <pastGames.length; i++) {
-    pastGames[i].style.display = "block";
+  if (playerInfo.length > 1) {
+    pullScores();
+    showGame();
+    winnerMsg.style.display = "none";
+    winnerMsg.classList.remove("fade-in");
+    leftCounter.innerText = "0";
+    rightCounter.innerText = "0";
+    playerInfo[0].round++;
+    playerInfo[1].round++;
+    for (var i = 0; i <pastGames.length; i++) {
+      pastGames[i].style.display = "block";
+    }
+  } else {
+    startNewGame();
   }
-}
+};
+
 
 function indicateTurn() {
   for (var i = 0; i < playerInfo.length; i++) {
     playerInfo[i].turn = !playerInfo[i].turn;
   }
-    if (playerInfo[0].turn) {
-      turnIndicator.innerText = `${playerOne.value}, IT'S YOUR TURN HONEY!`;
-    } else {
-      turnIndicator.innerText = `${playerTwo.value}, IT'S YOUR TURN HONEY!`;
-    }
+  if (playerInfo[0].turn) {
+    turnIndicator.innerText = `${playerOne.value}, IT'S YOUR TURN HONEY!`;
+  } else {
+    turnIndicator.innerText = `${playerTwo.value}, IT'S YOUR TURN HONEY!`;
+  }
 };
 
 
@@ -95,28 +104,24 @@ function showDirections() {
   if (playBtnMain.id === "active") {
     var firstPlayer = new Player(playerOne.value);
     playerInfo.push(firstPlayer);
-    // firstPlayer.turn = true;
     playerNames.style.display = "none";
     welcomeMsg.style.display = "block";
     for (var i = 0; i < nameOne.length; i++) {
-    nameOne[i].innerText = `${playerOne.value}`;
+      nameOne[i].innerText = `${playerOne.value}`;
     }
-
-  if (playerTwo.value) {
-    var secondPlayer = new Player(playerTwo.value);
-    playerInfo.push(secondPlayer);
-    nameTwoWelcome.innerText =  ` AND ${playerTwo.value}`;
-    for (var i = 0; i < nameTwo.length; i++) {
-    nameTwo[i].innerText = `${playerTwo.value}`;
- }
+    if (playerTwo.value) {
+      var secondPlayer = new Player(playerTwo.value);
+      playerInfo.push(secondPlayer);
+      nameTwoWelcome.innerText =  ` AND ${playerTwo.value}`;
+      for (var i = 0; i < nameTwo.length; i++) {
+        nameTwo[i].innerText = `${playerTwo.value}`;
+      }
     }
   } else {
     document.querySelector(".error").style.display = "block";
   }
 };
 
-
-    
 
 function showGame() {
   main.style.display = "none";
@@ -167,7 +172,6 @@ function displayCards(card) {
       </div>
     </div>`;
 };
-
 
 
 function flipCard(event) {
@@ -245,17 +249,15 @@ function checkForMatch() {
     for (var i = 0; i < playerInfo.length; i++) {
        if (playerInfo[0].turn) {
          player.findMatch(playerInfo[0]);
-         document.querySelector(".left-count").innerText = `${playerInfo[0].matchCount}`;
+         leftCounter.innerText = `${playerInfo[0].matchCount}`;
        } else {
          player.findMatch(playerInfo[1]);
-         document.querySelector(".right-count").innerText = `${playerInfo[1].matchCount}`;
+         rightCounter.innerText = `${playerInfo[1].matchCount}`;
        }
      }
-
-    }
-   } else {
+   }
+  } else {
     setTimeout(function() { flipBack(); }, 1000);
-
   }
   if (deck.matches < 5) {
     setTimeout(function() { indicateTurn(); }, 1000);
@@ -291,42 +293,41 @@ function fadeOut(card) {
   card.style.opacity = 0;
 };
 
-  
+
 function resetGame() {
   deck.matches = 0;
   deck.cards = [];
   deck.matchedCards = [];
   cardNumber = 1;
   cardId = 10;
-}
-  
+};
+
+
 function showWinner() {
   if (deck.matches === 5) {
     names.push(playerOne.value);
     names.push(playerTwo.value);
     setNameStorage();
-    // updateBoard();
     findTime();
     resetGame();
-    if (playerInfo[0].matchCount > playerInfo[1].matchCount ) {
-      document.querySelector(".winner").innerText = `${playerInfo[0].name}`;
+    if (playerInfo.length > 1) {
+      if (playerInfo[0].matchCount > playerInfo[1].matchCount ) {
+        winner.innerText = `${playerInfo[0].name}`;
+      } else {
+        winner.innerText = `${playerInfo[1].name}`;
+      }
+      playerInfo[0].matchCount = 0;
+      playerInfo[1].matchCount = 0;
     } else {
-      document.querySelector(".winner").innerText = `${playerInfo[1].name}`;
+      winner.innerText = `${playerOne.value}`;
     }
     cardContainer.innerHTML = "";
     winnerMsg.style.display = "grid";
     winnerMsg.classList.add("fade-in");
-//     deck.matches = 0;
-//     deck.cards = [];
-    playerInfo[0].matchCount = 0;
-    playerInfo[1].matchCount = 0;
-//     cardNumber = 1;
-//     cardId = 10;
-//     deck.matchedCards = [];
     gamePage.style.display = "none";
     turnIndicator.parentNode.style.display = "none";
   }
-}
+};
 
 
 function findTime() {
@@ -340,14 +341,14 @@ function findTime() {
   times.push(time);
   setTimeStorage();
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
-  if (playerInfo[0].matchCount > playerInfo[1].matchCount ) {
-    console.log(playerInfo[0].name);
-    console.log(playerInfo);
-    document.querySelector(".round-info-left").innerHTML += `<br/>ROUND ${playerInfo[0].round}<br/>${userTime}<br/>`;
-  } else {
-    document.querySelector(".round-info-right").innerHTML += `<br/>ROUND ${playerInfo[1].round}<br/>${userTime}<br/>`;
+  if (playerInfo.length > 1) {
+    if (playerInfo[0].matchCount > playerInfo[1].matchCount ) {
+      roundInfoLeft.innerHTML += `<br/>ROUND ${playerInfo[0].round}<br/>${userTime}<br/>`;
+    } else {
+      roundInfoRight.innerHTML += `<br/>ROUND ${playerInfo[1].round}<br/>${userTime}<br/>`;
+    }
   }
-}
+};
 
 
 function startNewGame () {
@@ -359,6 +360,10 @@ function startNewGame () {
   playerNames.reset();
   nameOne.innerText = "";
   nameTwo.innerText = "";
+  leftCounter.innerText = "0";
+  rightCounter.innerText = "0";
+  roundInfoLeft.innerHTML = "";
+  roundInfoRight.innerHTML = "";
   playBtnMain.removeAttribute("active");
   pullScores();
 };
@@ -367,20 +372,18 @@ function startNewGame () {
 function setNameStorage() {
   var nameString = JSON.stringify(names);
   localStorage.setItem("names", nameString);
-}
+};
 
 
 function setTimeStorage() {
   var timeString = JSON.stringify(times);
   localStorage.setItem("times", timeString);
-}
-
+};
 
 
 function pullScores() {
   names = [];
   times = [];
-//   score = 1;
   document.querySelector(".winner-list").innerHTML = "";
   var nameSet = JSON.parse(localStorage.getItem("names"));
   for (var i = 0; i < nameSet.length; i++) {
@@ -389,10 +392,9 @@ function pullScores() {
   var timeSet = JSON.parse(localStorage.getItem("times"));
   for (var i = 0; i < timeSet.length; i++) {
     times.push(timeSet[i]);
-}
+  }
   updateBoard();
 };
-
 
 
 function updateBoard() {
@@ -424,7 +426,7 @@ function displayBestScore(winner, min, sec) {
   var userTime = `0${min}:${sec}`;
   var highScore = `${score}.  ${winner},  ${userTime}`;
   document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
-}
+};
 
 
 function toggleMenu() {
