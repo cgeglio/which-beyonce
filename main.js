@@ -53,14 +53,22 @@ function startNewGame() {
 };
 
 function indicateTurn() {
-  if (playerInfo[0].turn) {
-    turnIndicator.innerText = `${playerOne.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
-  } else {
-    turnIndicator.innerText = `${playerTwo.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
-  }
+  console.log(playerInfo);
   for (var i = 0; i < playerInfo.length; i++) {
+    console.log(playerInfo[i].turn)
     playerInfo[i].turn = !playerInfo[i].turn;
   }
+  // for (var i = 0; i < playerInfo.length; i++) {
+    if (playerInfo[0].turn) {
+      console.log(playerInfo[0]);
+      turnIndicator.innerText = `${playerOne.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
+    } else {
+      console.log(playerInfo[1]);
+      turnIndicator.innerText = `${playerTwo.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
+    }
+  // }
+
+  console.log(playerInfo);
 };
 
 function flipCard(event) {
@@ -112,13 +120,28 @@ function checkForMatch() {
   if (deck.selectedCards.length === 0) {
      card.match(deck.matchedCards);
      removeCard();
+  if (playerInfo.length === 1) {
      for (var i = 0; i < matchCount.length; i++) {
        matchCount[i].innerText = `${deck.matches}`;
+      }
+    } else {
+  console.log(playerInfo);
+    for (var i = 0; i < playerInfo.length; i++) {
+       if (playerInfo[0].turn) {
+         player.findMatch(playerInfo[0]);
+         document.querySelector(".left-count").innerText = `${playerInfo[0].matchCount}`;
+       } else {
+         player.findMatch(playerInfo[1]);
+         document.querySelector(".right-count").innerText = `${playerInfo[1].matchCount}`;
+       }
      }
+    }
+    console.log(playerInfo);
    } else {
     setTimeout(function() { flipBack(); }, 1000);
-    setTimeout(function() { indicateTurn(); }, 1500);
+
   }
+  setTimeout(function() { indicateTurn(); }, 1500);
 };
 
 
@@ -160,11 +183,13 @@ function showWinner() {
     winnerMsg.classList.add("fade-in");
     deck.matches = 0;
     deck.cards = [];
-    deck.matchedCards = [];
+    playerInfo[0].matchCount = 0;
+    playerInfo[1].matchCount = 0;
     cardNumber = 1;
     cardId = 10;
     deck.matchedCards = [];
     gamePage.style.display = "none";
+    turnIndicator.parentNode.style.display = "none";
   }
 }
 
@@ -223,8 +248,9 @@ function showGame() {
   gamePage.style.display = "flex";
   if (playerTwo.value) {
     document.querySelector(".right").style.display = "block";
-    document.querySelector(".turn-indicator").style.display = "flex";
-    indicateTurn();
+    playerInfo[0].turn = true;
+    turnIndicator.parentNode.style.display = "flex";
+    turnIndicator.innerText = `${playerOne.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
   }
   for (var i=0; i < 5; i++) {
       addCards();
@@ -262,7 +288,7 @@ function showDirections() {
   if (playBtnMain.id === "active") {
     var firstPlayer = new Player(playerOne.value);
     playerInfo.push(firstPlayer);
-    firstPlayer.turn = true;
+    // firstPlayer.turn = true;
     playerNames.style.display = "none";
     welcomeMsg.style.display = "block";
     for (var i = 0; i < nameOne.length; i++) {
@@ -272,7 +298,6 @@ function showDirections() {
   if (playerTwo.value) {
     var secondPlayer = new Player(playerTwo.value);
     playerInfo.push(secondPlayer);
-    console.log(playerInfo);
     nameTwoWelcome.innerText =  ` AND ${playerTwo.value.toUpperCase()}`;
     for (var i = 0; i < nameTwo.length; i++) {
     nameTwo[i].innerText = `${playerTwo.value.toUpperCase()}`;
