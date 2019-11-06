@@ -79,9 +79,9 @@ function showWinner() {
     // updateBoard();
     findTime();
     if (playerInfo[0].matchCount > playerInfo[1].matchCount ) {
-      document.querySelector(".winner").innerText = `${playerInfo[0].name.toUpperCase()}`;
+      document.querySelector(".winner").innerText = `${playerInfo[0].name}`;
     } else {
-      document.querySelector(".winner").innerText = `${playerInfo[1].name.toUpperCase()}`;
+      document.querySelector(".winner").innerText = `${playerInfo[1].name}`;
     }
     cardContainer.innerHTML = "";
     winnerMsg.style.display = "grid";
@@ -103,9 +103,9 @@ function indicateTurn() {
     playerInfo[i].turn = !playerInfo[i].turn;
   }
     if (playerInfo[0].turn) {
-      turnIndicator.innerText = `${playerOne.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
+      turnIndicator.innerText = `${playerOne.value}, IT'S YOUR TURN HONEY!`;
     } else {
-      turnIndicator.innerText = `${playerTwo.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
+      turnIndicator.innerText = `${playerTwo.value}, IT'S YOUR TURN HONEY!`;
     }
 };
 
@@ -297,7 +297,7 @@ function showGame() {
     document.querySelector(".right").style.display = "block";
     playerInfo[0].turn = true;
     turnIndicator.parentNode.style.display = "flex";
-    turnIndicator.innerText = `${playerOne.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
+    turnIndicator.innerText = `${playerOne.value}, IT'S YOUR TURN HONEY!`;
   }
   for (var i=0; i < 5; i++) {
       addCards();
