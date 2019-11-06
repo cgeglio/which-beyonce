@@ -1,34 +1,46 @@
-var card = new Card (null, null);
+// page setup
 var cardContainer = document.querySelector(".card-container");
-var cardId = 10;
-var cardNumber = 1;
-var deck = new Deck;
-var endTime = 0;
 var gamePage = document.querySelector(".game-page");
 var main = document.querySelector("main");
-var matchCount = document.querySelectorAll(".matches-count");
 var menu = document.querySelector(".menu-icon");
 var menuOpen = false;
-var names = [];
-var nameOne = document.querySelectorAll(".name-one");
-var nameTwo = document.querySelectorAll(".name-two");
-var newGameBtn = document.querySelector(".new-game");
-var playBtnMain = document.querySelector(".play-btn");
-var playBtnWelcome = document.querySelector(".welcome-btn");
-var playerNames = document.querySelector(".player-names");
-var playerOne = document.querySelector(".input-one");
-var playerTwo = document.querySelector(".input-two");
-var score = 1;
 var sidebars = document.querySelector(".sidebar");
-var startTime = 0;
-var times = [];
-var timeIndex = 0;
 var welcomeMsg = document.querySelector(".welcome-msg");
 var winnerMsg = document.querySelector(".winner-msg");
 
+// player info
+var nameOne = document.querySelectorAll(".name-one");
+var nameTwo = document.querySelectorAll(".name-two");
+var playerNames = document.querySelector(".player-names");
+var playerOne = document.querySelector(".input-one");
+var playerTwo = document.querySelector(".input-two");
+
+// card setup
+var card = new Card (null, null);
+var cardId = 10;
+var cardNumber = 1;
+var deck = new Deck;
+
+// storage
+var names = [];
+var nameSet = [];
+var times = [];
+var timeSet = [];
+
+// scoring
+var matchCount = document.querySelectorAll(".matches-count");
+var score = 1
+var startTime = 0;
+var timeIndex = 0;
+
+// buttons
+var newGameBtn = document.querySelector(".new-game");
+var playBtnMain = document.querySelector(".play-btn");
+var playBtnWelcome = document.querySelector(".welcome-btn");
+
 
 cardContainer.addEventListener("click", flipCard);
-menu.addEventListener("click", dropMenu);
+menu.addEventListener("click", toggleMenu);
 newGameBtn.addEventListener("click", startNewGame);
 playBtnMain.addEventListener("click", showDirections);
 playBtnWelcome.addEventListener("click", showGame);
@@ -48,11 +60,11 @@ function showDirections() {
     playerNames.style.display = "none";
     welcomeMsg.style.display = "block";
     for (var i = 0; i < nameOne.length; i++) {
-      nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
+      nameOne[i].innerText = `${playerOne.value}`;
     }
     if (playerTwo.value) {
       for (var i = 0; i < nameTwo.length; i++) {
-        nameTwo[i].innerText = ` AND ${playerTwo.value.toUpperCase()}`;
+        nameTwo[i].innerText = ` AND ${playerTwo.value}`;
       }
     }
   } else {
@@ -87,7 +99,7 @@ function addCards() {
   if (deck.cards.length === 10) {
     deck.shuffle();
     for (var i = 0; i < deck.cards.length; i++) {
-    displayCards(deck.cards[i]);
+      displayCards(deck.cards[i]);
     }
   }
 };
@@ -95,37 +107,47 @@ function addCards() {
 
 function displayCards(card) {
   cardContainer.innerHTML += `
-  <div class="card" id="${card.cardId}">
-    <div class="flipper flipper-${card.matchInfo}" id="${card.matchInfo}">
-      <div class="front">
-        <h6>J<br/>V<br/>N</h6>
+    <div class="card" id="${card.cardId}">
+      <div class="flipper flipper-${card.matchInfo}" id="${card.matchInfo}">
+        <div class="front">
+          <h6>J<br/>V<br/>N</h6>
+        </div>
+        <img class="back" src="images/JVN-${card.matchInfo}.jpg">
       </div>
-      <img class="back" src="images/JVN-${card.matchInfo}.jpg">
-    </div>
-  </div>`;
+    </div>`;
 };
 
 
 function flipCard(event) {
   clickedCard = event.target.closest(".card");
   if (deck.selectedCards.length < 2) {
-    if (clickedCard.classList.contains("flip")) {
-      deck.selectedCards.splice(0, 1);
-    } else {
-      selectCard(clickedCard);
-    }
-    clickedCard.classList.toggle("flip");
+    checkIfFlipped(clickedCard);
   } else if (deck.selectedCards.length === 2) {
-    var cardIndex = -1;
-    clickedCard.classList.toggle("flip");
-    for (var i = 0; i < deck.selectedCards.length; i++) {
-      if (deck.selectedCards[i].cardId == clickedCard.id) {
-        cardIndex = i;
-      }
+    deselect(clickedCard);
+  }
+};
+
+
+function checkIfFlipped(card) {
+  if (card.classList.contains("flip")) {
+    deck.selectedCards.splice(0, 1);
+  } else {
+    selectCard(card);
+  }
+  card.classList.toggle("flip");
+};
+
+
+function deselect(card) {
+  var cardIndex = -1;
+  card.classList.toggle("flip");
+  for (var i = 0; i < deck.selectedCards.length; i++) {
+    if (deck.selectedCards[i].cardId == card.id) {
+      cardIndex = i;
     }
-    if (cardIndex != -1) {
-      deck.selectedCards.splice(cardIndex);
-    }
+  }
+  if (cardIndex != -1) {
+    deck.selectedCards.splice(cardIndex);
   }
 };
 
@@ -139,17 +161,23 @@ function selectCard(card) {
       }
     }
   } else if (deck.selectedCards.length === 1) {
-      if (cardId !== deck.selectedCards[0].cardId) {
-        for (var i = 0; i < deck.cards.length; i++) {
-          if (cardId === deck.cards[i].cardId) {
-            deck.selectedCards.push(deck.cards[i]);
-            cardContainer.removeEventListener("click", flipCard);
-            deck.checkSelectedCards();
-          }
-        }
-      }
-    checkForMatch();
+    selectSecondCard(card);
   }
+};
+
+
+function selectSecondCard(card) {
+  var cardId = parseInt(card.id);
+  if (cardId !== deck.selectedCards[0].cardId) {
+    for (var i = 0; i < deck.cards.length; i++) {
+      if (cardId === deck.cards[i].cardId) {
+        deck.selectedCards.push(deck.cards[i]);
+        cardContainer.removeEventListener("click", flipCard);
+        deck.checkSelectedCards();
+      }
+    }
+  }
+  checkForMatch();
 };
 
 
@@ -184,8 +212,8 @@ function flipBack() {
     var clickCard = document.getElementById(deck.selectedCards[i].cardId);
     clickCard.classList.remove("flip");
   }
-    cardContainer.addEventListener("click", flipCard);
-    deck.selectedCards = [];
+  cardContainer.addEventListener("click", flipCard);
+  deck.selectedCards = [];
 };
 
 
@@ -198,7 +226,7 @@ function fadeOut(card) {
 function showWinner() {
   if (deck.matches === 5) {
     names.push(playerOne.value);
-    nameStorage();
+    setNameStorage();
     findTime();
     resetGame();
     cardContainer.innerHTML = "";
@@ -219,14 +247,14 @@ function resetGame() {
 
 
 function findTime() {
-  endTime = new Date();
+  var endTime = new Date();
   var timeDiff = endTime - startTime;
   timeDiff /= 1000;
   var time = Math.round(timeDiff);
   var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
   times.push(time);
-  timeStorage();
+  setTimeStorage();
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
 }
 
@@ -244,13 +272,13 @@ function startNewGame () {
 };
 
 
-function nameStorage() {
+function setNameStorage() {
   var nameString = JSON.stringify(names);
   localStorage.setItem("names", nameString);
 }
 
 
-function timeStorage() {
+function setTimeStorage() {
   var timeString = JSON.stringify(times);
   localStorage.setItem("times", timeString);
 }
@@ -261,11 +289,11 @@ function pullScores() {
   times = [];
   score = 1;
   document.querySelector(".winner-list").innerHTML = "";
-  var nameSet = JSON.parse(localStorage.getItem("names"));
+  nameSet = JSON.parse(localStorage.getItem("names"));
   for (var i = 0; i < nameSet.length; i++) {
     names.push(nameSet[i]);
   }
-  var timeSet = JSON.parse(localStorage.getItem("times"));
+  timeSet = JSON.parse(localStorage.getItem("times"));
   for (var i = 0; i < timeSet.length; i++) {
     times.push(timeSet[i]);
   }
@@ -293,13 +321,18 @@ function calculateBestScore(timeArray, nameArray) {
   var bestPlayer = nameArray[timeIndex];
   var minutes = Math.floor(lowestTime / 60);
   var seconds = lowestTime - minutes * 60;
-  var userTime = `0${minutes}:${seconds}`;
-  var highScore = `${score}.  ${bestPlayer},  ${userTime}`;
-  document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
+  displayBestScore(bestPlayer, minutes, seconds);
 };
 
 
-function dropMenu() {
+function displayBestScore(winner, min, sec) {
+  var userTime = `0${min}:${sec}`;
+  var highScore = `${score}.  ${winner},  ${userTime}`;
+  document.querySelector(".winner-list").innerHTML += `${highScore} <br />`;
+}
+
+
+function toggleMenu() {
   var menuDropdown = document.querySelector(".drop-menu");
   menuOpen = !menuOpen;
   if (menuOpen) {
