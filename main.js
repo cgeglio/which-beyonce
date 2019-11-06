@@ -23,6 +23,7 @@ var playerNames = document.querySelector(".player-names");
 var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
 // var sidebars = document.querySelector(".sidebar");
+var rematchBtn = document.querySelector(".rematch");
 var startTime = 0;
 var times = [];
 var turn = true;
@@ -37,6 +38,7 @@ newGameBtn.addEventListener("click", startNewGame);
 playBtnMain.addEventListener("click", showDirections);
 playBtnWelcome.addEventListener("click", showGame);
 playerOne.addEventListener("keyup", checkInputs);
+rematchBtn.addEventListener("click", restartGame);
 window.addEventListener("load", pullScores);
 
 function startNewGame() {
@@ -45,12 +47,44 @@ function startNewGame() {
   playerNames.style.display = "grid";
   welcomeMsg.style.display = "none";
   winnerMsg.style.display = "none";
+  winnerMsg.classList.remove("fade-in");
   playerNames.reset();
   nameOne.innerText = "";
   nameTwo.innerText = "";
   playBtnMain.removeAttribute("active");
   pullScores();
 };
+
+function restartGame() {
+  pullScores();
+  showGame();
+  winnerMsg.style.display = "none";
+  winnerMsg.classList.remove("fade-in");
+  document.querySelector(".left-count").innerText = "0";
+  document.querySelector(".right-count").innerText = "0";
+}
+
+function showWinner() {
+  if (deck.matches === 5) {
+    names.push(playerOne.value);
+    names.push(playerTwo.value);
+    nameStorage();
+    // updateBoard();
+    findTime();
+    cardContainer.innerHTML = "";
+    winnerMsg.style.display = "grid";
+    winnerMsg.classList.add("fade-in");
+    deck.matches = 0;
+    deck.cards = [];
+    playerInfo[0].matchCount = 0;
+    playerInfo[1].matchCount = 0;
+    cardNumber = 1;
+    cardId = 10;
+    deck.matchedCards = [];
+    gamePage.style.display = "none";
+    turnIndicator.parentNode.style.display = "none";
+  }
+}
 
 function indicateTurn() {
   console.log(playerInfo);
@@ -141,7 +175,9 @@ function checkForMatch() {
     setTimeout(function() { flipBack(); }, 1000);
 
   }
-  setTimeout(function() { indicateTurn(); }, 1500);
+  if (deck.matches < 5) {
+    setTimeout(function() { indicateTurn(); }, 1500);
+  }
 };
 
 
@@ -172,26 +208,27 @@ function fadeOut(card) {
     card.style.opacity = 0;
   }
 
-function showWinner() {
-  if (deck.matches === 5) {
-    names.push(playerOne.value);
-    nameStorage();
-    // updateBoard();
-    findTime();
-    cardContainer.innerHTML = "";
-    winnerMsg.style.display = "grid";
-    winnerMsg.classList.add("fade-in");
-    deck.matches = 0;
-    deck.cards = [];
-    playerInfo[0].matchCount = 0;
-    playerInfo[1].matchCount = 0;
-    cardNumber = 1;
-    cardId = 10;
-    deck.matchedCards = [];
-    gamePage.style.display = "none";
-    turnIndicator.parentNode.style.display = "none";
-  }
-}
+// function showWinner() {
+//   if (deck.matches === 5) {
+//     names.push(playerOne.value);
+//     names.push(playerTwo.value);
+//     nameStorage();
+//     // updateBoard();
+//     findTime();
+//     cardContainer.innerHTML = "";
+//     winnerMsg.style.display = "grid";
+//     winnerMsg.classList.add("fade-in");
+//     deck.matches = 0;
+//     deck.cards = [];
+//     playerInfo[0].matchCount = 0;
+//     playerInfo[1].matchCount = 0;
+//     cardNumber = 1;
+//     cardId = 10;
+//     deck.matchedCards = [];
+//     gamePage.style.display = "none";
+//     turnIndicator.parentNode.style.display = "none";
+//   }
+// }
 
 
 function pullScores() {
