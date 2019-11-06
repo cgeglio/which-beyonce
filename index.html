@@ -28,8 +28,8 @@
         <h2 class="error">Please enter at least one player name!</h2>
       </form>
       <div class="welcome-msg">
-        <h1>WELCOME <span class="name-one">PLAYER 1</span><span
-          class="name-two"></span>!</h1>
+        <h1>WELCOME <span class="name-one"></span><span
+          id="name-two"></span>!</h1>
         <p>The goal of the game is to find all 5 pairs of cards as quickly as
           possible. The player that finds the greatest numbers of pairs, wins.
           <br/>
@@ -50,40 +50,41 @@
         <button type="button" class="welcome-btn">PLAY GAME</button>
       </div>
     </main>
+    <div class="turn-indicator">
+      <h3 class="turn-player">Player, it's your turn honey!</h3>
+    </div>
     <div class="game-page">
       <section class="sidebar">
         <h3 class="name-one"></h3>
         <h4>#4 TOP PLAYER</h4>
           <div class="matches-sidebar">
             <h4>MATCHES<br/>THIS ROUND</h4>
-            <h5 class="matches-count">0</h5>
+            <h5 class="matches-count left-count">0</h5>
           </div>
-        <h3>GAME WINS</h3>
-        <h4>ROUND 1<br/>125.75 SECONDS</h4>
-        <h4>ROUND 4<br/>63.98 SECONDS</h4>
+        <h3 class="past-games">GAME WINS</h3>
+        <h4 class="round-info-left"></h4>
       </section>
       <section class="card-container">
       </section>
-      <section class="sidebar">
-        <h3 class="name-one"></h3>
+      <section class="sidebar right">
+        <h3 class="name-two"></h3>
           <div class="matches-sidebar">
             <h4>MATCHES<br/>THIS ROUND</h4>
-            <h5 class="matches-count">0</h5>
+            <h5 class="matches-count right-count">0</h5>
           </div>
-        <h3>GAME WINS</h3>
-        <h4>ROUND 2<br/>231.7 SECONDS</h4>
-        <h4>ROUND 4<br/>98.2 SECONDS</h4>
-        <h4>ROUND 5<br/>106.34 SECONDS</h4>
+        <h3 class="past-games">GAME WINS</h3>
+        <h4 class="round-info-right"></h4>
       </section>
     </div>
     <div class="winner-msg">
-      <h1>CONGRATULATIONS! <span class="name-one"></span> WINS!</h1>
+      <h1>CONGRATULATIONS! <span class="winner"></span> WINS!</h1>
       <h2>It took you<span class="round-time"></span> seconds.</h2>
       <p>Click below to keep playing!</p>
       <button type="button" class="new-game">NEW GAME</button>
       <button type="button" class="rematch">REMATCH</button>
     </div>
   </body>
+  <script src="player.js"></script>
   <script src="card.js"></script>
   <script src="deck.js"></script>
   <script src="main.js"></script>

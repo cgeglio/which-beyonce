@@ -1,19 +1,29 @@
 // page setup
+
+var card = new Card(null, null);
 var cardContainer = document.querySelector(".card-container");
 var gamePage = document.querySelector(".game-page");
 var main = document.querySelector("main");
 var menu = document.querySelector(".menu-icon");
 var menuOpen = false;
-var sidebars = document.querySelector(".sidebar");
+// var sidebars = document.querySelector(".sidebar");
 var welcomeMsg = document.querySelector(".welcome-msg");
 var winnerMsg = document.querySelector(".winner-msg");
 
 // player info
 var nameOne = document.querySelectorAll(".name-one");
+var nameTwoWelcome = document.getElementById("name-two");
 var nameTwo = document.querySelectorAll(".name-two");
 var playerNames = document.querySelector(".player-names");
 var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
+
+// two player
+var pastGames = document.querySelectorAll(".past-games");
+var player = new Player(null);
+var playerInfo = [];
+var rematchBtn = document.querySelector(".rematch");
+var turnIndicator = document.querySelector(".turn-player");
 
 // card setup
 var card = new Card (null, null);
@@ -45,7 +55,33 @@ newGameBtn.addEventListener("click", startNewGame);
 playBtnMain.addEventListener("click", showDirections);
 playBtnWelcome.addEventListener("click", showGame);
 playerOne.addEventListener("keyup", checkInputs);
+rematchBtn.addEventListener("click", restartGame);
 window.addEventListener("load", pullScores);
+
+function restartGame() {
+  pullScores();
+  showGame();
+  winnerMsg.style.display = "none";
+  winnerMsg.classList.remove("fade-in");
+  document.querySelector(".left-count").innerText = "0";
+  document.querySelector(".right-count").innerText = "0";
+  playerInfo[0].round++;
+  playerInfo[1].round++;
+  for (var i = 0; i <pastGames.length; i++) {
+    pastGames[i].style.display = "block";
+  }
+}
+
+function indicateTurn() {
+  for (var i = 0; i < playerInfo.length; i++) {
+    playerInfo[i].turn = !playerInfo[i].turn;
+  }
+    if (playerInfo[0].turn) {
+      turnIndicator.innerText = `${playerOne.value}, IT'S YOUR TURN HONEY!`;
+    } else {
+      turnIndicator.innerText = `${playerTwo.value}, IT'S YOUR TURN HONEY!`;
+    }
+};
 
 
 function checkInputs() {
@@ -57,21 +93,30 @@ function checkInputs() {
 
 function showDirections() {
   if (playBtnMain.id === "active") {
+    var firstPlayer = new Player(playerOne.value);
+    playerInfo.push(firstPlayer);
+    // firstPlayer.turn = true;
     playerNames.style.display = "none";
     welcomeMsg.style.display = "block";
     for (var i = 0; i < nameOne.length; i++) {
-      nameOne[i].innerText = `${playerOne.value}`;
+    nameOne[i].innerText = `${playerOne.value}`;
     }
-    if (playerTwo.value) {
-      for (var i = 0; i < nameTwo.length; i++) {
-        nameTwo[i].innerText = ` AND ${playerTwo.value}`;
-      }
+
+  if (playerTwo.value) {
+    var secondPlayer = new Player(playerTwo.value);
+    playerInfo.push(secondPlayer);
+    nameTwoWelcome.innerText =  ` AND ${playerTwo.value}`;
+    for (var i = 0; i < nameTwo.length; i++) {
+    nameTwo[i].innerText = `${playerTwo.value}`;
+ }
     }
   } else {
     document.querySelector(".error").style.display = "block";
   }
 };
 
+
+    
 
 function showGame() {
   main.style.display = "none";
@@ -81,6 +126,12 @@ function showGame() {
   cardId = 15;
   createCardIds();
   startTime = new Date();
+  if (playerTwo.value) {
+    document.querySelector(".right").style.display = "block";
+    playerInfo[0].turn = true;
+    turnIndicator.parentNode.style.display = "flex";
+    turnIndicator.innerText = `${playerOne.value}, IT'S YOUR TURN HONEY!`;
+  }
 };
 
 
@@ -116,6 +167,7 @@ function displayCards(card) {
       </div>
     </div>`;
 };
+
 
 
 function flipCard(event) {
@@ -185,11 +237,28 @@ function checkForMatch() {
   if (deck.selectedCards.length === 0) {
      card.match(deck.matchedCards);
      removeCard();
+  if (playerInfo.length === 1) {
      for (var i = 0; i < matchCount.length; i++) {
        matchCount[i].innerText = `${deck.matches}`;
+      }
+    } else {
+    for (var i = 0; i < playerInfo.length; i++) {
+       if (playerInfo[0].turn) {
+         player.findMatch(playerInfo[0]);
+         document.querySelector(".left-count").innerText = `${playerInfo[0].matchCount}`;
+       } else {
+         player.findMatch(playerInfo[1]);
+         document.querySelector(".right-count").innerText = `${playerInfo[1].matchCount}`;
+       }
      }
-  } else {
+
+    }
+   } else {
     setTimeout(function() { flipBack(); }, 1000);
+
+  }
+  if (deck.matches < 5) {
+    setTimeout(function() { indicateTurn(); }, 1000);
   }
 };
 
@@ -222,28 +291,42 @@ function fadeOut(card) {
   card.style.opacity = 0;
 };
 
-
-function showWinner() {
-  if (deck.matches === 5) {
-    names.push(playerOne.value);
-    setNameStorage();
-    findTime();
-    resetGame();
-    cardContainer.innerHTML = "";
-    winnerMsg.style.display = "grid";
-    winnerMsg.classList.add("fade-in");
-    gamePage.style.display = "none";
-  }
-};
-
-
+  
 function resetGame() {
   deck.matches = 0;
   deck.cards = [];
   deck.matchedCards = [];
   cardNumber = 1;
   cardId = 10;
-};
+}
+  
+function showWinner() {
+  if (deck.matches === 5) {
+    names.push(playerOne.value);
+    names.push(playerTwo.value);
+    setNameStorage();
+    // updateBoard();
+    findTime();
+    resetGame();
+    if (playerInfo[0].matchCount > playerInfo[1].matchCount ) {
+      document.querySelector(".winner").innerText = `${playerInfo[0].name}`;
+    } else {
+      document.querySelector(".winner").innerText = `${playerInfo[1].name}`;
+    }
+    cardContainer.innerHTML = "";
+    winnerMsg.style.display = "grid";
+    winnerMsg.classList.add("fade-in");
+//     deck.matches = 0;
+//     deck.cards = [];
+    playerInfo[0].matchCount = 0;
+    playerInfo[1].matchCount = 0;
+//     cardNumber = 1;
+//     cardId = 10;
+//     deck.matchedCards = [];
+    gamePage.style.display = "none";
+    turnIndicator.parentNode.style.display = "none";
+  }
+}
 
 
 function findTime() {
@@ -253,9 +336,17 @@ function findTime() {
   var time = Math.round(timeDiff);
   var minutes = Math.floor(time / 60);
   var seconds = time - minutes * 60;
+  var userTime = `0${minutes}:${seconds}`;
   times.push(time);
   setTimeStorage();
   document.querySelector(".round-time").innerHTML = ` ${minutes} minutes and ${seconds}`;
+  if (playerInfo[0].matchCount > playerInfo[1].matchCount ) {
+    console.log(playerInfo[0].name);
+    console.log(playerInfo);
+    document.querySelector(".round-info-left").innerHTML += `<br/>ROUND ${playerInfo[0].round}<br/>${userTime}<br/>`;
+  } else {
+    document.querySelector(".round-info-right").innerHTML += `<br/>ROUND ${playerInfo[1].round}<br/>${userTime}<br/>`;
+  }
 }
 
 
@@ -264,6 +355,7 @@ function startNewGame () {
   playerNames.style.display = "grid";
   welcomeMsg.style.display = "none";
   winnerMsg.style.display = "none";
+  winnerMsg.classList.remove("fade-in");
   playerNames.reset();
   nameOne.innerText = "";
   nameTwo.innerText = "";
@@ -284,26 +376,29 @@ function setTimeStorage() {
 }
 
 
+
 function pullScores() {
   names = [];
   times = [];
-  score = 1;
+//   score = 1;
   document.querySelector(".winner-list").innerHTML = "";
-  nameSet = JSON.parse(localStorage.getItem("names"));
+  var nameSet = JSON.parse(localStorage.getItem("names"));
   for (var i = 0; i < nameSet.length; i++) {
     names.push(nameSet[i]);
   }
-  timeSet = JSON.parse(localStorage.getItem("times"));
+  var timeSet = JSON.parse(localStorage.getItem("times"));
   for (var i = 0; i < timeSet.length; i++) {
     times.push(timeSet[i]);
-  }
+}
   updateBoard();
 };
+
 
 
 function updateBoard() {
   var newTimes = [...times];
   var newNames = [...names];
+  var score = 1;
   if (newTimes.length > 4) {
     for (var i = 0; i < 5; i++) {
       calculateBestScore(newTimes, newNames);
