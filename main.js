@@ -18,6 +18,7 @@ var newGameBtn = document.querySelector(".new-game");
 var playBtnMain = document.querySelector(".play-btn");
 var playBtnWelcome = document.querySelector(".welcome-btn");
 player = new Player(null);
+var playerInfo = [];
 var playerNames = document.querySelector(".player-names");
 var playerOne = document.querySelector(".input-one");
 var playerTwo = document.querySelector(".input-two");
@@ -25,8 +26,10 @@ var playerTwo = document.querySelector(".input-two");
 var startTime = 0;
 var times = [];
 var turn = true;
+var turnIndicator = document.querySelector(".turn-player");
 var welcomeMsg = document.querySelector(".welcome-msg");
 var winnerMsg = document.querySelector(".winner-msg");
+
 
 cardContainer.addEventListener("click", flipCard);
 menu.addEventListener("click", dropMenu);
@@ -50,7 +53,14 @@ function startNewGame() {
 };
 
 function indicateTurn() {
-  document.querySelector(".turn-player").innerText = `${playerOne.value}, it's your turn honey!`;
+  if (playerInfo[0].turn) {
+    turnIndicator.innerText = `${playerOne.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
+  } else {
+    turnIndicator.innerText = `${playerTwo.value.toUpperCase()}, IT'S YOUR TURN HONEY!`;
+  }
+  for (var i = 0; i < playerInfo.length; i++) {
+    playerInfo[i].turn = !playerInfo[i].turn;
+  }
 };
 
 function flipCard(event) {
@@ -107,6 +117,7 @@ function checkForMatch() {
      }
    } else {
     setTimeout(function() { flipBack(); }, 1000);
+    setTimeout(function() { indicateTurn(); }, 1500);
   }
 };
 
@@ -213,6 +224,7 @@ function showGame() {
   if (playerTwo.value) {
     document.querySelector(".right").style.display = "block";
     document.querySelector(".turn-indicator").style.display = "flex";
+    indicateTurn();
   }
   for (var i=0; i < 5; i++) {
       addCards();
@@ -232,10 +244,6 @@ function showGame() {
 function checkInputs() {
   if (playerOne.value) {
     playBtnMain.id = "active";
-    var firstPlayer = new Player(playerOne.value);
-  }
-  if (playerOne.value && playerTwo.value) {
-    var secondPlayer = new Player(playerTwo.value);
   }
 };
 
@@ -252,14 +260,19 @@ function timeStorage() {
 
 function showDirections() {
   if (playBtnMain.id === "active") {
+    var firstPlayer = new Player(playerOne.value);
+    playerInfo.push(firstPlayer);
+    firstPlayer.turn = true;
     playerNames.style.display = "none";
     welcomeMsg.style.display = "block";
     for (var i = 0; i < nameOne.length; i++) {
-      console.log(playerOne.value);
-      console.log(nameOne[i]);
     nameOne[i].innerText = `${playerOne.value.toUpperCase()}`;
     }
+
   if (playerTwo.value) {
+    var secondPlayer = new Player(playerTwo.value);
+    playerInfo.push(secondPlayer);
+    console.log(playerInfo);
     nameTwoWelcome.innerText =  ` AND ${playerTwo.value.toUpperCase()}`;
     for (var i = 0; i < nameTwo.length; i++) {
     nameTwo[i].innerText = `${playerTwo.value.toUpperCase()}`;
