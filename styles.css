@@ -143,6 +143,11 @@ input {
   margin-left: 25%;
 }
 
+.name-one,
+.name-two {
+  text-transform: uppercase;
+}
+
 .player-one {
   grid-area: player1;
 }
